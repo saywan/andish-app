@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'role_id', 'fullname', 'mobile',  'email', 'codemeli', 'job', 'phone', 'brithday', 'accountno', 'cardnumber', 'namecard', 'sheba', 'password', 'status', 'datereg', 'two_auth', 'two_auth_action', 'email_verified', 'email_verification_token', 'mobile_encode','confirmation_mobile_code','lock_num','time_lock', 'number_send', 'email_subscription','address'
     ];
 
     /**
@@ -36,4 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function roles(){
+
+        return $this->belongsTo('App\Models\roles');
+    }
+    public  function getIsAdminAttribute(){
+        return $this->roles()->where('id',1)->exists();
+    }
+
 }

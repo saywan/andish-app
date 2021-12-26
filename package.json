@@ -22,5 +22,10 @@
         "sass-loader": "^8.0.0",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "vue-loading-overlay": "^3.4.2",
+        "vuejs-loading-plugin": "^1.0.51",
+        "vuelidate": "^0.7.5"
     }
 }
