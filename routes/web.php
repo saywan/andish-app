@@ -18,6 +18,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/contactUs', 'HomeController@contactUs')->name('contactUs');
+Route::get('/aboutUs', 'HomeController@aboutUs')->name('aboutUs');
 
 
 
@@ -110,6 +111,20 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['admin']
     Route::get('GroupProduct/edit/{id}', 'FactorController@edit')->name('EditGroupProduct');
     Route::post('UpdateProductGroup', 'FactorController@update')->name('UpdateProductGroup');
     Route::post('DeleteFactor', 'FactorController@destroy')->name('DeleteFactor');
+
+
+    //Setting Part
+    Route::get('Setting', 'SettingController@index')->name('Setting');
+    Route::get('MangePage', 'SettingController@MangePage')->name('MangePage');
+    Route::post('updateAboutPage', 'SettingController@updateAboutPage')->name('updateAboutPage');
+    Route::post('updateContactPage', 'SettingController@updateContactPage')->name('updateContactPage');
+
+    Route::get('CreateGroupProduct', 'SettingController@create')->name('CreateGroupProduct');
+    Route::post('storeGroupProduct', 'SettingController@store')->name('storeGroupProduct');
+    Route::get('GroupProduct/edit/{id}', 'SettingController@edit')->name('EditGroupProduct');
+    Route::post('UpdateProductGroup', 'SettingController@update')->name('UpdateProductGroup');
+    Route::post('DeleteGroupProduct', 'SettingController@destroy')->name('DeleteGroupProduct');
+
 
 
 });

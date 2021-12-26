@@ -59,12 +59,19 @@
                             <i class="ti ti-shopping-cart menu-icon"></i>
                         </a><!--end nav-link-->
                     </li>
+                    <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Uikit"
+                        data-bs-trigger="hover">
+                        <a href="#MetricaUikit" id="uikit-tab" class="nav-link">
+                            <i class="ti ti-settings menu-icon"></i>
+                        </a>
+                    </li>
                     <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="خروج    "
                         data-bs-trigger="hover">
                         <a href="#MetricaLogout" id="logout-tab" class="nav-link">
                             <i class="ti ti-power menu-icon"></i>
                         </a>
                     </li>
+
 
                    {{-- <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Uikit"
                         data-bs-trigger="hover">

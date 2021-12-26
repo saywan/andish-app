@@ -57134,6 +57134,151 @@ var app = new Vue({
         _this151.allerros = error.response.data.errors;
       });
     },
+    updateAboutPage: function updateAboutPage() {
+      var _this152 = this;
+
+      // var desc = $('#basic-conf').val();
+      var titlePageAbout = $('#titlePageAbout').val();
+      var keywordPage = $('#keywordPage').val();
+      var desc = tinyMCE.get('basic-conf').getContent();
+
+      if (titlePageAbout == '') {
+        iziToast.error({
+          title: 'عنوان صفحه ',
+          message: 'لطفا عنوان صفحه را وارد کنید',
+          position: 'topLeft'
+        });
+        return false;
+      } else if (keywordPage == 0) {
+        iziToast.error({
+          title: 'کلمات کلیدی صفحه',
+          message: 'لطفا کلمات کلیدی صفحه را وارد کنید',
+          position: 'topLeft'
+        });
+        return false;
+      } else if (desc == 0) {
+        iziToast.error({
+          title: 'توضیحات صفحه',
+          message: 'لطفا توضیحات صفحه را وارد کنید',
+          position: 'topLeft'
+        });
+        return false;
+      }
+      /*else if(OrderStatus == 0 )
+      {
+          iziToast.error({
+              title: 'وضعیت سفارش',
+              message: 'وضعیت سفارش را انتخاب کنید',
+              position: 'topLeft'
+          });
+      }*/
+
+
+      var dataform = new FormData();
+      dataform.append('titlePageAbout', titlePageAbout);
+      dataform.append('keywordPage', keywordPage);
+      dataform.append('desc', desc);
+      axios.post('/portal/updateAboutPage', dataform, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          //window.location.assign('/User/Confirm');
+          iziToast.success({
+            title: 'ویرایش صفحه درباره ما',
+            message: 'محتوا صفحه درباره ما با موفقیت ویرایش شد',
+            position: 'topLeft'
+          });
+          setTimeout(function () {
+            window.location.assign('MangePage');
+          }, 3000);
+        } else {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: 'مجددا تلاش کنید',
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        }
+      })["catch"](function (error) {
+        _this152.allerros = error.response.data.errors;
+      });
+    },
+    updateContactPage: function updateContactPage() {
+      var _this153 = this;
+
+      // var desc = $('#basic-conf').val();
+      var titlePageContact = $('#titlePageContact').val();
+      var keywordContactPage = $('#keywordContactPage').val();
+      var telephone_one_shop = $('#telephone_one_shop').val();
+      var telephone_two_shop = $('#telephone_two_shop').val();
+      var telephone_third_shop = $('#telephone_third_shop').val();
+      var emails_site = $('#emails_site').val();
+      var addressCompany = tinyMCE.get('addressCompany').getContent();
+
+      if (titlePageContact == '') {
+        iziToast.error({
+          title: 'عنوان صفحه ',
+          message: 'لطفا عنوان صفحه را وارد کنید',
+          position: 'topLeft'
+        });
+        return false;
+      } else if (keywordContactPage == 0) {
+        iziToast.error({
+          title: 'کلمات کلیدی صفحه',
+          message: 'لطفا کلمات کلیدی صفحه را وارد کنید',
+          position: 'topLeft'
+        });
+        return false;
+      } else if (addressCompany == 0) {
+        iziToast.error({
+          title: 'آدرس شرکت ',
+          message: 'لطفا آدرس شرکت را وارد کنید',
+          position: 'topLeft'
+        });
+        return false;
+      }
+
+      var dataform = new FormData();
+      dataform.append('titlePageContact', titlePageContact);
+      dataform.append('keywordContactPage', keywordContactPage);
+      dataform.append('telephone_one_shop', telephone_one_shop);
+      dataform.append('telephone_two_shop', telephone_two_shop);
+      dataform.append('telephone_third_shop', telephone_third_shop);
+      dataform.append('emails_site', emails_site);
+      dataform.append('addressCompany', addressCompany);
+      axios.post('/portal/updateContactPage', dataform, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          //window.location.assign('/User/Confirm');
+          iziToast.success({
+            title: 'ویرایش صفحه تماس با ما',
+            message: 'اطلاعات تماس با موفقیت به روز رسانی شد',
+            position: 'topLeft'
+          });
+          setTimeout(function () {
+            window.location.assign('MangePage');
+          }, 3000);
+        } else {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: 'مجددا تلاش کنید',
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        }
+      })["catch"](function (error) {
+        _this153.allerros = error.response.data.errors;
+      });
+    },
     DeleteCartItem: function DeleteCartItem(cartId) {
       Swal.fire({
         title: 'آیا قصد حذف کالا از سبد خرید  مورد نظر را دارید ؟',
@@ -57143,7 +57288,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this152 = this;
+        var _this154 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/DeleteCartItem', {
@@ -57173,7 +57318,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this152.error = 1;
+            _this154.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -57194,7 +57339,7 @@ var app = new Vue({
       denyButtonText: "\u062E\u06CC\u0631",
       cancelButtonText: "\u0644\u063A\u0648"
     }).then(function (result) {
-      var _this153 = this;
+      var _this155 = this;
 
       if (result.isConfirmed) {
         axios.post('/portal/ChangeStatusOrder', {
@@ -57220,7 +57365,7 @@ var app = new Vue({
             }, 2000);
           }
         }, function (response) {
-          _this153.error = 1;
+          _this155.error = 1;
           console.log("error");
         });
       } else if (result.isDenied) {
@@ -57240,7 +57385,7 @@ var app = new Vue({
       denyButtonText: "\u062E\u06CC\u0631",
       cancelButtonText: "\u0644\u063A\u0648"
     }).then(function (result) {
-      var _this154 = this;
+      var _this156 = this;
 
       if (result.isConfirmed) {
         axios.post('/portal/DeleteFactor', {
@@ -57265,7 +57410,7 @@ var app = new Vue({
             }, 2000);
           }
         }, function (response) {
-          _this154.error = 1;
+          _this156.error = 1;
           console.log("error");
         });
       } else if (result.isDenied) {
@@ -57277,7 +57422,7 @@ var app = new Vue({
       }
     });
   }), _defineProperty(_methods, "OrderProduct", function OrderProduct(PID) {
-    var _this155 = this;
+    var _this157 = this;
 
     var userId = $('select[name="userId"]').find(":selected").val();
     var qtyProduct = $("#qtyProduct".concat(PID)).val(); //  var qtyProduct = $('#qtyProduct').attr('value');
@@ -57371,10 +57516,10 @@ var app = new Vue({
         });
       }
     })["catch"](function (error) {
-      _this155.allerros = error.response.data.errors;
+      _this157.allerros = error.response.data.errors;
     });
   }), _defineProperty(_methods, "VerifySMSCode", function VerifySMSCode() {
-    var _this156 = this;
+    var _this158 = this;
 
     //alert($("#mobile_code").val());
     if (this.verify_code == '') {
@@ -57398,12 +57543,12 @@ var app = new Vue({
         swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
           button: "باشه"
         });
-        _this156.error = 1;
+        _this158.error = 1;
         console.log("error");
       });
     }
   }), _defineProperty(_methods, "ForgotPassword", function ForgotPassword() {
-    var _this157 = this;
+    var _this159 = this;
 
     if (this.mobile_forgot == '') {
       swal("خطا", "شماره موبایل خود را وارد کنید", "info", {
@@ -57429,12 +57574,12 @@ var app = new Vue({
         swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
           button: "باشه"
         });
-        _this157.error = 1;
+        _this159.error = 1;
         console.log("error");
       });
     }
   }), _defineProperty(_methods, "UpdatePasswordNew", function UpdatePasswordNew() {
-    var _this158 = this;
+    var _this160 = this;
 
     if (this.code_temp == '') {
       swal("خطا", "رمز عبور موقت را وارد کنید", "info", {
@@ -57465,12 +57610,12 @@ var app = new Vue({
         swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
           button: "باشه"
         });
-        _this158.error = 1;
+        _this160.error = 1;
         console.log("error");
       });
     }
   }), _defineProperty(_methods, "EditRequest", function EditRequest(Id) {
-    var _this159 = this;
+    var _this161 = this;
 
     var Posselected = $("#Posselected").val();
     var estateSelected = $("#estateSelected").val();
@@ -57536,19 +57681,19 @@ var app = new Vue({
           toastr.info('مشتری گرامی قبلا درخواست شما ثبت شده در حال بررسی هستیم');
         }
       }, function (response) {
-        _this159.error = 1;
+        _this161.error = 1;
         console.log("error");
       });
     }
   }), _defineProperty(_methods, "onImageChange", function onImageChange(e) {
-    var _this160 = this;
+    var _this162 = this;
 
     var files = e.target.files;
     Array.from(files).forEach(function (file) {
-      return _this160.addImage(file);
+      return _this162.addImage(file);
     });
   }), _defineProperty(_methods, "addImage", function addImage(file) {
-    var _this161 = this;
+    var _this163 = this;
 
     if (!file.type.match('image.*')) {
       console.log("".concat(file.name, " is not an image"));
@@ -57560,12 +57705,12 @@ var app = new Vue({
         reader = new FileReader();
 
     reader.onload = function (e) {
-      return _this161.images.push(e.target.result);
+      return _this163.images.push(e.target.result);
     };
 
     reader.readAsDataURL(file);
   }), _defineProperty(_methods, "CalculateRent", function CalculateRent() {
-    var _this162 = this;
+    var _this164 = this;
 
     var RentPrice = $("#RentPrice").val();
     var rahanPrice = $("#rahanPrice").val();
@@ -57585,11 +57730,11 @@ var app = new Vue({
       swal(" خطا ", "خطا مجددا سعی کنید", "error", {
         button: "باشه"
       });
-      _this162.error = 1;
+      _this164.error = 1;
       console.log("error");
     });
   }), _defineProperty(_methods, "CalculateSale", function CalculateSale() {
-    var _this163 = this;
+    var _this165 = this;
 
     var number_under = $("#number_under").val();
     axios.post('CalculateSale', {
@@ -57613,7 +57758,7 @@ var app = new Vue({
       swal(" خطا ", "خطا مجددا سعی کنید", "error", {
         button: "باشه"
       });
-      _this163.error = 1;
+      _this165.error = 1;
       console.log("error");
     });
   }), _defineProperty(_methods, "commaSeparateNumber", function commaSeparateNumber(val) {
@@ -57623,7 +57768,7 @@ var app = new Vue({
 
     return val;
   }), _defineProperty(_methods, "UpdateinfoSite", function UpdateinfoSite() {
-    var _this164 = this;
+    var _this166 = this;
 
     var email = $('input[name="email_site"]').val();
     var phone_Sellerone = $('input[name="phone_Sellerone"]').val();
@@ -57651,11 +57796,11 @@ var app = new Vue({
       swal(" خطا ", "خطا مجددا سعی کنید", "error", {
         button: "باشه"
       });
-      _this164.error = 1;
+      _this166.error = 1;
       console.log("error");
     });
   }), _defineProperty(_methods, "AddReport", function AddReport() {
-    var _this165 = this;
+    var _this167 = this;
 
     var descreport = $('textarea[name="descreport"]').val();
     var descresultreport = $('textarea[name="descresultreport"]').val();
@@ -57692,11 +57837,11 @@ var app = new Vue({
       swal(" خطا ", "خطا مجددا سعی کنید", "error", {
         button: "باشه"
       });
-      _this165.error = 1;
+      _this167.error = 1;
       console.log("error");
     });
   }), _defineProperty(_methods, "SendVisitSMS", function SendVisitSMS(Id) {
-    var _this166 = this;
+    var _this168 = this;
 
     axios.post('/admin/SendVisitSMS', {
       Id: Id
@@ -57722,11 +57867,11 @@ var app = new Vue({
       swal(" خطا ", "خطا مجددا سعی کنید", "error", {
         button: "باشه"
       });
-      _this166.error = 1;
+      _this168.error = 1;
       console.log("error");
     });
   }), _defineProperty(_methods, "AddReportOperator", function AddReportOperator() {
-    var _this167 = this;
+    var _this169 = this;
 
     var descreport = $('textarea[name="descreport"]').val();
     var descresultreport = $('textarea[name="descresultreport"]').val();
@@ -57759,11 +57904,11 @@ var app = new Vue({
       swal(" خطا ", "خطا مجددا سعی کنید", "error", {
         button: "باشه"
       });
-      _this167.error = 1;
+      _this169.error = 1;
       console.log("error");
     });
   }), _defineProperty(_methods, "AddFavorite", function AddFavorite(estateId) {
-    var _this168 = this;
+    var _this170 = this;
 
     axios.post('/AddFavoriteEstate', {
       estateId: estateId
@@ -57784,11 +57929,11 @@ var app = new Vue({
       swal(" خطا ", "خطا مجددا سعی کنید", "error", {
         button: "باشه"
       });
-      _this168.error = 1;
+      _this170.error = 1;
       console.log("error");
     });
   }), _defineProperty(_methods, "PublishTextAbout", function PublishTextAbout() {
-    var _this169 = this;
+    var _this171 = this;
 
     var titleAbout = CKEDITOR.instances['editor-demo3'].getData();
     var planAbout = CKEDITOR.instances['editor-demo2'].getData();
@@ -57812,7 +57957,7 @@ var app = new Vue({
       swal(" خطا ", "خطا مجددا سعی کنید", "error", {
         button: "باشه"
       });
-      _this169.error = 1;
+      _this171.error = 1;
       console.log("error");
     });
   }), _defineProperty(_methods, "regionSelectedSearch", function regionSelectedSearch(id) {

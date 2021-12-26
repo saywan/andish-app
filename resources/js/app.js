@@ -9206,6 +9206,199 @@ const app = new Vue({
 
 
         },
+        updateAboutPage: function () {
+
+
+           // var desc = $('#basic-conf').val();
+
+            var titlePageAbout = $('#titlePageAbout').val();
+            var keywordPage = $('#keywordPage').val();
+            var desc=  tinyMCE.get('basic-conf').getContent();
+
+            if (titlePageAbout == '') {
+
+                iziToast.error({
+                    title: 'عنوان صفحه ',
+                    message: 'لطفا عنوان صفحه را وارد کنید',
+                    position: 'topLeft'
+                });
+                return false;
+            }else if(keywordPage == 0 )
+            {
+                iziToast.error({
+                    title: 'کلمات کلیدی صفحه',
+                    message: 'لطفا کلمات کلیدی صفحه را وارد کنید',
+                    position: 'topLeft'
+                });
+                return false;
+
+            }else if(desc == 0 )
+            {
+                iziToast.error({
+                    title: 'توضیحات صفحه',
+                    message: 'لطفا توضیحات صفحه را وارد کنید',
+                    position: 'topLeft'
+                });
+                return false;
+
+            }
+            /*else if(OrderStatus == 0 )
+            {
+                iziToast.error({
+                    title: 'وضعیت سفارش',
+                    message: 'وضعیت سفارش را انتخاب کنید',
+                    position: 'topLeft'
+                });
+            }*/
+
+
+            let dataform = new FormData();
+            dataform.append('titlePageAbout', titlePageAbout);
+            dataform.append('keywordPage', keywordPage);
+            dataform.append('desc', desc);
+
+
+            axios.post('/portal/updateAboutPage',
+                dataform,
+                {
+                    headers: {
+
+                        'Content-Type': 'multipart/form-data'
+                    }
+
+                }).then(response => {
+
+
+                if (response.data.status == 200) {
+
+                    //window.location.assign('/User/Confirm');
+                    iziToast.success({
+                        title: 'ویرایش صفحه درباره ما',
+                        message: 'محتوا صفحه درباره ما با موفقیت ویرایش شد',
+                        position: 'topLeft'
+                    });
+                    setTimeout(function () {
+                        window.location.assign('MangePage');
+                    }, 3000);
+                } else {
+
+                    Swal.fire({
+                        type: "warning",
+                        title: 'خطا ',
+                        text: 'مجددا تلاش کنید',
+                        position: "top-left",
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                }
+
+
+            }).catch((error) => {
+
+
+                this.allerros = error.response.data.errors;
+
+            });
+
+
+        },
+        updateContactPage: function () {
+
+
+            // var desc = $('#basic-conf').val();
+
+            var titlePageContact = $('#titlePageContact').val();
+            var keywordContactPage = $('#keywordContactPage').val();
+            var telephone_one_shop = $('#telephone_one_shop').val();
+            var telephone_two_shop = $('#telephone_two_shop').val();
+            var telephone_third_shop = $('#telephone_third_shop').val();
+            var emails_site = $('#emails_site').val();
+            var addressCompany=  tinyMCE.get('addressCompany').getContent();
+
+            if (titlePageContact == '') {
+
+                iziToast.error({
+                    title: 'عنوان صفحه ',
+                    message: 'لطفا عنوان صفحه را وارد کنید',
+                    position: 'topLeft'
+                });
+                return false;
+            }else if(keywordContactPage == 0 )
+            {
+                iziToast.error({
+                    title: 'کلمات کلیدی صفحه',
+                    message: 'لطفا کلمات کلیدی صفحه را وارد کنید',
+                    position: 'topLeft'
+                });
+                return false;
+
+            }
+            else if(addressCompany == 0 )
+            {
+                iziToast.error({
+                    title: 'آدرس شرکت ',
+                    message: 'لطفا آدرس شرکت را وارد کنید',
+                    position: 'topLeft'
+                });
+                return false;
+
+            }
+
+
+
+            let dataform = new FormData();
+            dataform.append('titlePageContact', titlePageContact);
+            dataform.append('keywordContactPage', keywordContactPage);
+            dataform.append('telephone_one_shop', telephone_one_shop);
+            dataform.append('telephone_two_shop', telephone_two_shop);
+            dataform.append('telephone_third_shop', telephone_third_shop);
+            dataform.append('emails_site', emails_site);
+            dataform.append('addressCompany', addressCompany);
+
+
+            axios.post('/portal/updateContactPage',
+                dataform,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+
+                }).then(response => {
+
+
+                if (response.data.status == 200) {
+
+                    //window.location.assign('/User/Confirm');
+                    iziToast.success({
+                        title: 'ویرایش صفحه تماس با ما',
+                        message: 'اطلاعات تماس با موفقیت به روز رسانی شد',
+                        position: 'topLeft'
+                    });
+                    setTimeout(function () {
+                        window.location.assign('MangePage');
+                    }, 3000);
+                } else {
+
+                    Swal.fire({
+                        type: "warning",
+                        title: 'خطا ',
+                        text: 'مجددا تلاش کنید',
+                        position: "top-left",
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                }
+
+
+            }).catch((error) => {
+
+
+                this.allerros = error.response.data.errors;
+
+            });
+
+
+        },
         DeleteCartItem(cartId) {
 
 
