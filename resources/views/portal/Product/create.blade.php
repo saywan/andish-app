@@ -5,7 +5,7 @@
 
 @section('main')
 
-    <div class="page-content-tab" id="app">
+    <div class="page-content-tab" >
 
         <div class="container-fluid">
             <!-- Page-Title -->
@@ -22,7 +22,7 @@
             <!-- end page title end breadcrumb -->
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card" id="app">
 
                         <div class="col-md-8 alert alert-info" v-for="list in allerros">
                             @{{ list }}
@@ -124,8 +124,50 @@
 
 
                                             </div>
-                                        </div>
+                                            <div class="col-md-6">
 
+                                                <label for="email"   class="col-lg-7 col-form-label text-end">
+                                                   بارگذاری تصویر کالا
+                                                </label>
+
+                                                <div class="input-group mb-3">
+                                                    <input type="file" class="form-control" id="inputGroupFile02"   v-on:change="onImageChangeFile">
+                                                    <label class="input-group-text" for="inputGroupFile02" >انتخاب تصویر کالا</label>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3 row">
+
+                                            <div class="col-md-6">
+                                                <label for="txtFirstNameBilling"
+                                                       class="col-lg-7 col-form-label text-end">
+                                                     توضیحات کالا
+                                                </label>
+                                                <textarea id="basic-conf" name="address" rows="4" dir="rtl" class="form-control">
+
+                                                        </textarea>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="txtFirstNameBilling"
+                                                       class="col-lg-7 col-form-label text-end">
+                                                  وضعیت نمایش کالا در فروشگاه
+                                                </label>
+
+                                                <div class="form-check form-switch">
+                                                    <div class="form-check form-switch form-switch-success font-30">
+                                                        <input id="statususer"   class="form-check-input" type="checkbox" id="customSwitchSuccess"  data-on="active" data-off="inactive"  >
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
                                         <div class="text-center">
                                             <button type="button" id="step4Finish" class="btn btn-danger float-end"
                                                     @click="NewProduct()">
@@ -210,6 +252,8 @@
 
 @section('scripts')
     <script src="{{asset("panel/pages/form-wizard.js")}}"></script>
+    <script src="{{asset("panel/plugins/tinymce/tinymce.min.js")}}"></script>
+    <script src="{{asset("panel/pages/form-editor.init.js")}}"></script>
 @endsection
 
 

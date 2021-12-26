@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Products extends Model
 {
     public $table = 'product';
-    public $fillable = [
-        'userId', 'title','groupId','price',
-        'count', 'unit', 'weight', 'datereg','is_running_out'
-    ];
+
+    protected $guarded = [];
+
     public $timestamps = true;
 
     public function category()
@@ -18,7 +17,7 @@ class Products extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public  function ProductWeight()
+    public function ProductWeight()
     {
         return $this->belongsTo(ProductWeight::class);
     }
@@ -35,7 +34,7 @@ class Products extends Model
 
     public function ProductGroup()
     {
-        return $this->belongsTo(ProductGroup::class,'group_id');
+        return $this->belongsTo(ProductGroup::class, 'group_id');
     }
 
     public function scopeWithProdFilters($query)

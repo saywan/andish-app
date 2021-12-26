@@ -6299,6 +6299,112 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.loading-screen[data-v-7ab65994] {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  height: 100vh;\r\n  width: 100vw;\r\n  position: fixed;\r\n  top: 0;\r\n  left: 0;\r\n  z-index: 300;\r\n  flex-direction: column;\r\n  -webkit-user-select: none;\r\n     -moz-user-select: none;\r\n      -ms-user-select: none;\r\n          user-select: none;\n}\n.loading-circle[data-v-7ab65994] {\r\n  width: 50px;\r\n  height: 50px;\r\n  border-radius: 100%;\r\n  border: 2px solid transparent;\r\n  border-left-color: #ababab;\r\n  -webkit-animation: circleanimation-data-v-7ab65994 .45s linear infinite;\r\n          animation: circleanimation-data-v-7ab65994 .45s linear infinite\n}\n.loading-text[data-v-7ab65994] {\r\n  margin-top: 15px;\r\n  color: #808080;\r\n  font-size: 12px;\r\n  text-align: center;\n}\n@-webkit-keyframes circleanimation-data-v-7ab65994 {\nfrom {\r\n    transform: rotateZ(0deg);\n}\nto {\r\n    transform: rotateZ(360deg);\n}\n}\n@keyframes circleanimation-data-v-7ab65994 {\nfrom {\r\n    transform: rotateZ(0deg);\n}\nto {\r\n    transform: rotateZ(360deg);\n}\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/jquery/dist/jquery.js":
 /*!********************************************!*\
   !*** ./node_modules/jquery/dist/jquery.js ***!
@@ -37428,6 +37534,545 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../css-loader??ref--6-1!../vue-loader/lib/loaders/stylePostLoader.js!../postcss-loader/src??ref--6-2!../vue-loader/lib??vue-loader-options!./Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/addStyles.js":
+/*!****************************************************!*\
+  !*** ./node_modules/style-loader/lib/addStyles.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
+  return document.querySelector(target);
+};
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(target, parent) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target, parent);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
+		}
+		return memo[target]
+	};
+})();
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(/*! ./urls */ "./node_modules/style-loader/lib/urls.js");
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+        if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertAt.before, target);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
+	}
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function getNonce() {
+	if (false) {}
+
+	return __webpack_require__.nc;
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = typeof options.transform === 'function'
+		 ? options.transform(obj.css) 
+		 : options.transform.default(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/urls.js":
+/*!***********************************************!*\
+  !*** ./node_modules/style-loader/lib/urls.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/timers-browserify/main.js":
 /*!************************************************!*\
   !*** ./node_modules/timers-browserify/main.js ***!
@@ -37500,6 +38145,97 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (this && this.clearImmediate);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/index.js?!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data() {
+    return {
+      text: 'Loading',
+      dark: false,
+      classes: null,
+      loading: false,
+      background: null,
+      customLoader: null
+    }
+  },
+  computed:{
+    bc(){
+      return this.background || (this.dark ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)')
+    }
+  },
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=template&id=7ab65994&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=template&id=7ab65994&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.loading,
+          expression: "loading",
+        },
+      ],
+      staticClass: "loading-screen",
+      class: _vm.classes,
+      style: { backgroundColor: _vm.bc },
+    },
+    [
+      _vm.customLoader
+        ? _c(_vm.customLoader, { tag: "component" })
+        : _c("div", [
+            _c("div", { staticClass: "loading-circle" }),
+            _vm._v(" "),
+            _c("p", { staticClass: "loading-text" }, [
+              _vm._v(_vm._s(_vm.text)),
+            ]),
+          ]),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
 
 /***/ }),
 
@@ -37659,6 +38395,17 @@ function normalizeComponent (
   }
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/vue-loading-overlay/dist/vue-loading.min.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,e){ true?module.exports=e():undefined}("undefined"!=typeof self?self:this,(function(){return function(t){var e={};function i(n){if(e[n])return e[n].exports;var r=e[n]={i:n,l:!1,exports:{}};return t[n].call(r.exports,r,r.exports,i),r.l=!0,r.exports}return i.m=t,i.c=e,i.d=function(t,e,n){i.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:n})},i.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},i.t=function(t,e){if(1&e&&(t=i(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var n=Object.create(null);if(i.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)i.d(n,r,function(e){return t[e]}.bind(null,r));return n},i.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return i.d(e,"a",e),e},i.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},i.p="",i(i.s=1)}([function(t,e,i){},function(t,e,i){"use strict";i.r(e);var n="undefined"!=typeof window?window.HTMLElement:Object,r={mounted:function(){this.enforceFocus&&document.addEventListener("focusin",this.focusIn)},methods:{focusIn:function(t){if(this.isActive&&t.target!==this.$el&&!this.$el.contains(t.target)){var e=this.container?this.container:this.isFullPage?null:this.$el.parentElement;(this.isFullPage||e&&e.contains(t.target))&&(t.preventDefault(),this.$el.focus())}}},beforeDestroy:function(){document.removeEventListener("focusin",this.focusIn)}};function a(t,e,i,n,r,a,o,s){var l,u="function"==typeof t?t.options:t;if(e&&(u.render=e,u.staticRenderFns=i,u._compiled=!0),n&&(u.functional=!0),a&&(u._scopeId="data-v-"+a),o?(l=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),r&&r.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(o)},u._ssrRegister=l):r&&(l=s?function(){r.call(this,(u.functional?this.parent:this).$root.$options.shadowRoot)}:r),l)if(u.functional){u._injectStyles=l;var c=u.render;u.render=function(t,e){return l.call(e),c(t,e)}}else{var d=u.beforeCreate;u.beforeCreate=d?[].concat(d,l):[l]}return{exports:t,options:u}}var o=a({name:"spinner",props:{color:{type:String,default:"#000"},height:{type:Number,default:64},width:{type:Number,default:64}}},(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{viewBox:"0 0 38 38",xmlns:"http://www.w3.org/2000/svg",width:this.width,height:this.height,stroke:this.color}},[e("g",{attrs:{fill:"none","fill-rule":"evenodd"}},[e("g",{attrs:{transform:"translate(1 1)","stroke-width":"2"}},[e("circle",{attrs:{"stroke-opacity":".25",cx:"18",cy:"18",r:"18"}}),e("path",{attrs:{d:"M36 18c0-9.94-8.06-18-18-18"}},[e("animateTransform",{attrs:{attributeName:"transform",type:"rotate",from:"0 18 18",to:"360 18 18",dur:"0.8s",repeatCount:"indefinite"}})],1)])])])}),[],!1,null,null,null).exports,s=a({name:"dots",props:{color:{type:String,default:"#000"},height:{type:Number,default:240},width:{type:Number,default:60}}},(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{viewBox:"0 0 120 30",xmlns:"http://www.w3.org/2000/svg",fill:this.color,width:this.width,height:this.height}},[e("circle",{attrs:{cx:"15",cy:"15",r:"15"}},[e("animate",{attrs:{attributeName:"r",from:"15",to:"15",begin:"0s",dur:"0.8s",values:"15;9;15",calcMode:"linear",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"fill-opacity",from:"1",to:"1",begin:"0s",dur:"0.8s",values:"1;.5;1",calcMode:"linear",repeatCount:"indefinite"}})]),e("circle",{attrs:{cx:"60",cy:"15",r:"9","fill-opacity":"0.3"}},[e("animate",{attrs:{attributeName:"r",from:"9",to:"9",begin:"0s",dur:"0.8s",values:"9;15;9",calcMode:"linear",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"fill-opacity",from:"0.5",to:"0.5",begin:"0s",dur:"0.8s",values:".5;1;.5",calcMode:"linear",repeatCount:"indefinite"}})]),e("circle",{attrs:{cx:"105",cy:"15",r:"15"}},[e("animate",{attrs:{attributeName:"r",from:"15",to:"15",begin:"0s",dur:"0.8s",values:"15;9;15",calcMode:"linear",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"fill-opacity",from:"1",to:"1",begin:"0s",dur:"0.8s",values:"1;.5;1",calcMode:"linear",repeatCount:"indefinite"}})])])}),[],!1,null,null,null).exports,l=a({name:"bars",props:{color:{type:String,default:"#000"},height:{type:Number,default:40},width:{type:Number,default:40}}},(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 30 30",height:this.height,width:this.width,fill:this.color}},[e("rect",{attrs:{x:"0",y:"13",width:"4",height:"5"}},[e("animate",{attrs:{attributeName:"height",attributeType:"XML",values:"5;21;5",begin:"0s",dur:"0.6s",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"y",attributeType:"XML",values:"13; 5; 13",begin:"0s",dur:"0.6s",repeatCount:"indefinite"}})]),e("rect",{attrs:{x:"10",y:"13",width:"4",height:"5"}},[e("animate",{attrs:{attributeName:"height",attributeType:"XML",values:"5;21;5",begin:"0.15s",dur:"0.6s",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"y",attributeType:"XML",values:"13; 5; 13",begin:"0.15s",dur:"0.6s",repeatCount:"indefinite"}})]),e("rect",{attrs:{x:"20",y:"13",width:"4",height:"5"}},[e("animate",{attrs:{attributeName:"height",attributeType:"XML",values:"5;21;5",begin:"0.3s",dur:"0.6s",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"y",attributeType:"XML",values:"13; 5; 13",begin:"0.3s",dur:"0.6s",repeatCount:"indefinite"}})])])}),[],!1,null,null,null).exports,u=a({name:"vue-loading",mixins:[r],props:{active:Boolean,programmatic:Boolean,container:[Object,Function,n],isFullPage:{type:Boolean,default:!0},enforceFocus:{type:Boolean,default:!0},lockScroll:{type:Boolean,default:!1},transition:{type:String,default:"fade"},canCancel:Boolean,onCancel:{type:Function,default:function(){}},color:String,backgroundColor:String,blur:{type:String,default:"2px"},opacity:Number,width:Number,height:Number,zIndex:Number,loader:{type:String,default:"spinner"}},data:function(){return{isActive:this.active}},components:{Spinner:o,Dots:s,Bars:l},beforeMount:function(){this.programmatic&&(this.container?(this.isFullPage=!1,this.container.appendChild(this.$el)):document.body.appendChild(this.$el))},mounted:function(){this.programmatic&&(this.isActive=!0),document.addEventListener("keyup",this.keyPress)},methods:{cancel:function(){this.canCancel&&this.isActive&&(this.hide(),this.onCancel.apply(null,arguments))},hide:function(){var t=this;this.$emit("hide"),this.$emit("update:active",!1),this.programmatic&&(this.isActive=!1,setTimeout((function(){var e;t.$destroy(),void 0!==(e=t.$el).remove?e.remove():e.parentNode.removeChild(e)}),150))},disableScroll:function(){this.isFullPage&&this.lockScroll&&document.body.classList.add("vld-shown")},enableScroll:function(){this.isFullPage&&this.lockScroll&&document.body.classList.remove("vld-shown")},keyPress:function(t){27===t.keyCode&&this.cancel()}},watch:{active:function(t){this.isActive=t},isActive:function(t){t?this.disableScroll():this.enableScroll()}},computed:{bgStyle:function(){return{background:this.backgroundColor,opacity:this.opacity,backdropFilter:"blur(".concat(this.blur,")")}}},beforeDestroy:function(){document.removeEventListener("keyup",this.keyPress)}},(function(){var t=this,e=t.$createElement,i=t._self._c||e;return i("transition",{attrs:{name:t.transition}},[i("div",{directives:[{name:"show",rawName:"v-show",value:t.isActive,expression:"isActive"}],staticClass:"vld-overlay is-active",class:{"is-full-page":t.isFullPage},style:{zIndex:t.zIndex},attrs:{tabindex:"0","aria-busy":t.isActive,"aria-label":"Loading"}},[i("div",{staticClass:"vld-background",style:t.bgStyle,on:{click:function(e){return e.preventDefault(),t.cancel(e)}}}),i("div",{staticClass:"vld-icon"},[t._t("before"),t._t("default",[i(t.loader,{tag:"component",attrs:{color:t.color,width:t.width,height:t.height}})]),t._t("after")],2)])])}),[],!1,null,null,null).exports,c=function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},i=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};return{show:function(){var n=arguments.length>0&&void 0!==arguments[0]?arguments[0]:e,r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:i,a={programmatic:!0},o=Object.assign({},e,n,a),s=new(t.extend(u))({el:document.createElement("div"),propsData:o}),l=Object.assign({},i,r);return Object.keys(l).map((function(t){s.$slots[t]=l[t]})),s}}};i(0);u.install=function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},i=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{},n=c(t,e,i);t.$loading=n,t.prototype.$loading=n};e.default=u}]).default}));
 
 /***/ }),
 
@@ -49697,6 +50444,127 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/vuejs-loading-plugin/Loading.vue":
+/*!*******************************************************!*\
+  !*** ./node_modules/vuejs-loading-plugin/Loading.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Loading_vue_vue_type_template_id_7ab65994_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loading.vue?vue&type=template&id=7ab65994&scoped=true& */ "./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=template&id=7ab65994&scoped=true&");
+/* harmony import */ var _Loading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loading.vue?vue&type=script&lang=js& */ "./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Loading_vue_vue_type_style_index_0_id_7ab65994_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css& */ "./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css&");
+/* harmony import */ var _vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Loading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Loading_vue_vue_type_template_id_7ab65994_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Loading_vue_vue_type_template_id_7ab65994_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "7ab65994",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "node_modules/vuejs-loading-plugin/Loading.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../vue-loader/lib??vue-loader-options!./Loading.vue?vue&type=script&lang=js& */ "./node_modules/vue-loader/lib/index.js?!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css&":
+/*!****************************************************************************************************************!*\
+  !*** ./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css& ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _style_loader_index_js_css_loader_index_js_ref_6_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_src_index_js_ref_6_2_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_style_index_0_id_7ab65994_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../style-loader!../css-loader??ref--6-1!../vue-loader/lib/loaders/stylePostLoader.js!../postcss-loader/src??ref--6-2!../vue-loader/lib??vue-loader-options!./Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=style&index=0&id=7ab65994&scoped=true&lang=css&");
+/* harmony import */ var _style_loader_index_js_css_loader_index_js_ref_6_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_src_index_js_ref_6_2_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_style_index_0_id_7ab65994_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_index_js_css_loader_index_js_ref_6_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_src_index_js_ref_6_2_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_style_index_0_id_7ab65994_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _style_loader_index_js_css_loader_index_js_ref_6_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_src_index_js_ref_6_2_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_style_index_0_id_7ab65994_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _style_loader_index_js_css_loader_index_js_ref_6_1_vue_loader_lib_loaders_stylePostLoader_js_postcss_loader_src_index_js_ref_6_2_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_style_index_0_id_7ab65994_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=template&id=7ab65994&scoped=true&":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=template&id=7ab65994&scoped=true& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_template_id_7ab65994_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../vue-loader/lib??vue-loader-options!./Loading.vue?vue&type=template&id=7ab65994&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vuejs-loading-plugin/Loading.vue?vue&type=template&id=7ab65994&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_template_id_7ab65994_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_Loading_vue_vue_type_template_id_7ab65994_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vuejs-loading-plugin/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/vuejs-loading-plugin/index.js ***!
+  \****************************************************/
+/*! exports provided: default, asyncLoading */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "asyncLoading", function() { return asyncLoading; });
+/* harmony import */ var _Loading_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loading.vue */ "./node_modules/vuejs-loading-plugin/Loading.vue");
+
+let vm = {}
+/* harmony default export */ __webpack_exports__["default"] = ({
+  install(Vue, opts) {
+    opts = opts || {}
+    const loadingPlugin = Vue.extend( _Loading_vue__WEBPACK_IMPORTED_MODULE_0__["default"] )
+    vm = new loadingPlugin({
+      data: opts
+    }).$mount()   
+    document.body.appendChild(vm.$el)
+    Vue.prototype.$loading = ( loading ) => vm.loading = loading
+  }
+});
+const asyncLoading = function(fn){
+  return new Promise((resolve, reject) => {
+    vm.loading = true
+    const finished = cb => { return (result) => { cb(result); vm.loading = false }}
+    fn.then(finished(resolve)).catch(finished(reject))
+  })
+}
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -49765,13 +50633,14 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-loading-plugin */ "./node_modules/vuejs-loading-plugin/index.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -49797,6 +50666,9 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
+
+Vue.use(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default.a);
 var app = new Vue({
   el: '#app',
   data: {
@@ -50019,7 +50891,6 @@ var app = new Vue({
     telephonedelivery: "",
     TotalAmount: ''
   },
-  components: {},
   created: function created() {},
   mounted: function mounted() {},
   watch: {
@@ -50040,7 +50911,7 @@ var app = new Vue({
       deep: true
     }
   },
-  methods: (_methods = {
+  methods: {
     loadProducts: function loadProducts() {
       var _this = this;
 
@@ -50827,7 +51698,7 @@ var app = new Vue({
     AddBrand: function AddBrand() {
       var _this26 = this;
 
-      var loader = Vue.use(Loading, {
+      var loader = Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"], {
         dark: true,
         // default false
         text: 'لطفا شکیبا باشید سیستم در حال آپلود تصویر',
@@ -51306,7 +52177,7 @@ var app = new Vue({
          console.log(this.image);
          console.log(dataform);*/
 
-      var loader = Vue.use(Loading, {
+      var loader = Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"], {
         dark: true,
         // default false
         text: 'لطفا شکیبا باشید در حال آپلود تصاویر و ثبت ....',
@@ -52045,7 +52916,7 @@ var app = new Vue({
       this.files.forEach(function (file) {
         dataform.append('images[]', file, file.name);
       });
-      var loader = Vue.use(Loading, {
+      var loader = Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"], {
         dark: true,
         // default false
         text: 'لطفا شکیبا باشید سیستم در حال آپلود ...',
@@ -54710,29 +55581,8 @@ var app = new Vue({
         console.log("error");
       });
     },
-    ChangeStatusOrder: function ChangeStatusOrder(Id, type) {
-      var _this112 = this;
-
-      axios.post('/admin/ActionServer', {
-        action: 'ChangeStatusOrder',
-        Id: Id,
-        type: type
-      }).then(function (response) {
-        console.log(response.data);
-
-        if (response.data['status'] == 200) {
-          swal("وضعیت سفارش ", "وضعیت سفارش با موفقیت اپدیت شد", "success", {
-            button: "باشه"
-          });
-          window.location.reload();
-        }
-      }, function (response) {
-        _this112.error = 1;
-        console.log("error");
-      });
-    },
     ChangePasswordUser: function ChangePasswordUser(Id) {
-      var _this113 = this;
+      var _this112 = this;
 
       axios.post('/User/ActionServer', {
         action: 'ChangePasswordUser',
@@ -54750,12 +55600,12 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this113.error = 1;
+        _this112.error = 1;
         console.log("error");
       });
     },
     ChangeStatuUser: function ChangeStatuUser(Id, type) {
-      var _this114 = this;
+      var _this113 = this;
 
       axios.post('/admin/ActionServer', {
         action: 'ChangeStatuUser',
@@ -54773,12 +55623,12 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this114.error = 1;
+        _this113.error = 1;
         console.log("error");
       });
     },
     ChangeRoleUser: function ChangeRoleUser(Id, role) {
-      var _this115 = this;
+      var _this114 = this;
 
       axios.post('/admin/ActionServer', {
         action: 'ChangeRoleUser',
@@ -54796,15 +55646,38 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this115.error = 1;
+        _this114.error = 1;
         console.log("error");
       });
     },
     ChangeStatusEstate: function ChangeStatusEstate(Id, role) {
-      var _this116 = this;
+      var _this115 = this;
 
       axios.post('/admin/ActionServer', {
         action: 'ChangeStatusEstate',
+        Id: Id,
+        role: role
+      }).then(function (response) {
+        console.log(response.data);
+
+        if (response.data['status'] == 200) {
+          swal("وضعیت ملک ", "وضعیت ملک با موفقیت تغییر یافت", "success", {
+            button: "باشه"
+          });
+          setTimeout(function () {
+            window.location.assign('Estate');
+          }, 2000);
+        }
+      }, function (response) {
+        _this115.error = 1;
+        console.log("error");
+      });
+    },
+    ChangeStatusEstateUser: function ChangeStatusEstateUser(Id, role) {
+      var _this116 = this;
+
+      axios.post('/User/ActionServer', {
+        action: 'ChangeStatusEstateUser',
         Id: Id,
         role: role
       }).then(function (response) {
@@ -54823,31 +55696,8 @@ var app = new Vue({
         console.log("error");
       });
     },
-    ChangeStatusEstateUser: function ChangeStatusEstateUser(Id, role) {
-      var _this117 = this;
-
-      axios.post('/User/ActionServer', {
-        action: 'ChangeStatusEstateUser',
-        Id: Id,
-        role: role
-      }).then(function (response) {
-        console.log(response.data);
-
-        if (response.data['status'] == 200) {
-          swal("وضعیت ملک ", "وضعیت ملک با موفقیت تغییر یافت", "success", {
-            button: "باشه"
-          });
-          setTimeout(function () {
-            window.location.assign('Estate');
-          }, 2000);
-        }
-      }, function (response) {
-        _this117.error = 1;
-        console.log("error");
-      });
-    },
     EditProfile: function EditProfile(Id) {
-      var _this118 = this;
+      var _this117 = this;
 
       /*  if(this.usernameEdit ===  '')
         {
@@ -54876,7 +55726,7 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this118.error = 1;
+        _this117.error = 1;
         console.log("error");
       });
     },
@@ -55086,7 +55936,7 @@ var app = new Vue({
       });
     },
     AddUsageType: function AddUsageType() {
-      var _this119 = this;
+      var _this118 = this;
 
       axios.post('/admin/ActionServer', {
         action: 'AddUsageType',
@@ -55106,12 +55956,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this119.error = 1;
+        _this118.error = 1;
         console.log("error");
       });
     },
     EditUsageType: function EditUsageType(Id) {
-      var _this120 = this;
+      var _this119 = this;
 
       axios.post('/admin/ActionServer', {
         action: 'EditUsageType',
@@ -55129,7 +55979,7 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this120.error = 1;
+        _this119.error = 1;
         console.log("error");
       });
     },
@@ -55183,7 +56033,7 @@ var app = new Vue({
         },
         dangerMode: true
       }).then(function (willDelete) {
-        var _this121 = this;
+        var _this120 = this;
 
         if (willDelete) {
           axios.post('/admin/DeleteImageEstate', {
@@ -55197,7 +56047,7 @@ var app = new Vue({
               location.reload();
             }, 2000);
           }, function (response) {
-            _this121.error = 1;
+            _this120.error = 1;
             console.log("error");
           });
         } else {
@@ -55211,7 +56061,7 @@ var app = new Vue({
 
     /***************RegionType*********************/
     AddEstate: function AddEstate() {
-      var _this122 = this;
+      var _this121 = this;
 
       var provincelist = $("#state option:selected").text();
       var citylist = $("#city option:selected").text();
@@ -55289,7 +56139,7 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this122.error = 1;
+        _this121.error = 1;
         console.log("error");
       });
     },
@@ -55309,7 +56159,7 @@ var app = new Vue({
       }
     },
     EditEstate: function EditEstate(EstateId, type) {
-      var _this123 = this;
+      var _this122 = this;
 
       var regionselect = $('#regionselect').find(':selected').val();
       var estatetype = $('#estatetype').find(':selected').val();
@@ -55479,7 +56329,7 @@ var app = new Vue({
           }, 2000);
         } else if (response.data['success'] == false) {
           toastr.error('لطفا فیلد ها را با دقت پر کنید');
-          _this123.allerros = response.data.errors;
+          _this122.allerros = response.data.errors;
         }
       });
       /* ,response=>{
@@ -55528,7 +56378,7 @@ var app = new Vue({
       });
     },
     AddTeam: function AddTeam() {
-      var _this124 = this;
+      var _this123 = this;
 
       var name = $("#name").val();
       var job = $("#job").val();
@@ -55566,7 +56416,7 @@ var app = new Vue({
           }, 2000);
         } else if (response.data['success'] == false) {
           toastr.error('لطفا فیلد ها را با دقت پر کنید');
-          _this124.allerros = response.data.errors;
+          _this123.allerros = response.data.errors;
         }
       });
       /* ,response=>{
@@ -55584,7 +56434,7 @@ var app = new Vue({
            }*/
     },
     AddNote: function AddNote(Id) {
-      var _this125 = this;
+      var _this124 = this;
 
       var imageSilder = $("#imageSilder").val();
       var noterequest = $('textarea[name="noterequest"]').val();
@@ -55606,12 +56456,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this125.error = 1;
+        _this124.error = 1;
         console.log("error");
       });
     },
     AddSilder: function AddSilder() {
-      var _this126 = this;
+      var _this125 = this;
 
       var imageSilder = $("#imageSilder").val();
       axios.post('/admin/AddSilder', {
@@ -55633,12 +56483,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this126.error = 1;
+        _this125.error = 1;
         console.log("error");
       });
     },
     EditSliderImage: function EditSliderImage(Id) {
-      var _this127 = this;
+      var _this126 = this;
 
       var TopicSlider = $('input[name="TopicSlider"]').val();
       var TextSlider = $('input[name="TextSlider"]').val();
@@ -55661,7 +56511,7 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this127.error = 1;
+        _this126.error = 1;
         console.log("error");
       });
     },
@@ -55676,7 +56526,7 @@ var app = new Vue({
         },
         dangerMode: true
       }).then(function (willDelete) {
-        var _this128 = this;
+        var _this127 = this;
 
         if (willDelete) {
           axios.post('/admin/DeleteEstateOffer', {
@@ -55690,7 +56540,7 @@ var app = new Vue({
               window.location.assign('/admin/Estatelist');
             }, 2000);
           }, function (response) {
-            _this128.error = 1;
+            _this127.error = 1;
             console.log("error");
           });
         } else {
@@ -55712,7 +56562,7 @@ var app = new Vue({
         },
         dangerMode: true
       }).then(function (willDelete) {
-        var _this129 = this;
+        var _this128 = this;
 
         if (willDelete) {
           axios.post('/admin/DeleteRequest', {
@@ -55726,7 +56576,7 @@ var app = new Vue({
               window.location.assign('/admin/listRequest');
             }, 2000);
           }, function (response) {
-            _this129.error = 1;
+            _this128.error = 1;
             console.log("error");
           });
         } else {
@@ -55740,7 +56590,7 @@ var app = new Vue({
 
     /***************Possibilies Estate*********************/
     AddPossibilitiesEstate: function AddPossibilitiesEstate(id) {
-      var _this130 = this;
+      var _this129 = this;
 
       var val = [];
       var arr = [];
@@ -55774,12 +56624,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this130.error = 1;
+        _this129.error = 1;
         console.log("error");
       });
     },
     AddPossibilitiesToEstate: function AddPossibilitiesToEstate(id, type) {
-      var _this131 = this;
+      var _this130 = this;
 
       var val = [];
       var arr = [];
@@ -55839,12 +56689,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this131.error = 1;
+        _this130.error = 1;
         console.log("error");
       });
     },
     ChangeStatusRequest: function ChangeStatusRequest(Id, type) {
-      var _this132 = this;
+      var _this131 = this;
 
       axios.post('/admin/ChangeStatusRequest', {
         Id: Id,
@@ -55863,12 +56713,12 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this132.error = 1;
+        _this131.error = 1;
         console.log("error");
       });
     },
     ChangeStatus: function ChangeStatus(Id, type) {
-      var _this133 = this;
+      var _this132 = this;
 
       axios.post('/admin/ChangeEstateStatus', {
         Id: Id,
@@ -55893,12 +56743,12 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this133.error = 1;
+        _this132.error = 1;
         console.log("error");
       });
     },
     ChangeEstateVIP: function ChangeEstateVIP(Id, type) {
-      var _this134 = this;
+      var _this133 = this;
 
       axios.post('/admin/ChangeEstateVIP', {
         Id: Id,
@@ -55920,12 +56770,12 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this134.error = 1;
+        _this133.error = 1;
         console.log("error");
       });
     },
     ChangeElevator: function ChangeElevator(type, Id, valueadta) {
-      var _this135 = this;
+      var _this134 = this;
 
       var typelink = '';
 
@@ -55956,12 +56806,12 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this135.error = 1;
+        _this134.error = 1;
         console.log("error");
       });
     },
     ChangeParking: function ChangeParking(type, Id, valueadta) {
-      var _this136 = this;
+      var _this135 = this;
 
       var typelink = '';
 
@@ -55992,12 +56842,12 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this136.error = 1;
+        _this135.error = 1;
         console.log("error");
       });
     },
     ChangeWarehouse: function ChangeWarehouse(type, Id, valueadta) {
-      var _this137 = this;
+      var _this136 = this;
 
       var typelink = '';
 
@@ -56028,12 +56878,12 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this137.error = 1;
+        _this136.error = 1;
         console.log("error");
       });
     },
     ChangeBalcony: function ChangeBalcony(type, Id, valueadta) {
-      var _this138 = this;
+      var _this137 = this;
 
       var typelink = '';
 
@@ -56064,14 +56914,41 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this138.error = 1;
+        _this137.error = 1;
         console.log("error");
       });
     },
     ChangeStatusUser: function ChangeStatusUser(Id, type) {
-      var _this139 = this;
+      var _this138 = this;
 
       axios.post('/admin/ChangeUserStatus', {
+        Id: Id,
+        type: type
+      }).then(function (response) {
+        if (response.data['status'] == 100) {
+          swal("وضیعت دسترسی", "وضعیت حساب کاربری مورد نظر تغییر  یافت شد", "success", {
+            button: "باشه"
+          });
+          setTimeout(function () {
+            window.location.assign('/admin/User');
+          }, 2000);
+        } else if (response.data['status'] == 101) {
+          swal("خطا", "مجددا تلاش کنید ", "warning", {
+            button: "باشه"
+          });
+          /* setTimeout(function () {
+               window.location.assign('/admin/Estatelist');
+           },2000);*/
+        }
+      }, function (response) {
+        _this138.error = 1;
+        console.log("error");
+      });
+    },
+    ChangePermissionUser: function ChangePermissionUser(Id, type) {
+      var _this139 = this;
+
+      axios.post('/admin/ChangePermissionUser', {
         Id: Id,
         type: type
       }).then(function (response) {
@@ -56095,10 +56972,10 @@ var app = new Vue({
         console.log("error");
       });
     },
-    ChangePermissionUser: function ChangePermissionUser(Id, type) {
+    ChangeStateNoty: function ChangeStateNoty() {
       var _this140 = this;
 
-      axios.post('/admin/ChangePermissionUser', {
+      axios.post('/admin/ChangeUserStatus', {
         Id: Id,
         type: type
       }).then(function (response) {
@@ -56122,35 +56999,8 @@ var app = new Vue({
         console.log("error");
       });
     },
-    ChangeStateNoty: function ChangeStateNoty() {
-      var _this141 = this;
-
-      axios.post('/admin/ChangeUserStatus', {
-        Id: Id,
-        type: type
-      }).then(function (response) {
-        if (response.data['status'] == 100) {
-          swal("وضیعت دسترسی", "وضعیت حساب کاربری مورد نظر تغییر  یافت شد", "success", {
-            button: "باشه"
-          });
-          setTimeout(function () {
-            window.location.assign('/admin/User');
-          }, 2000);
-        } else if (response.data['status'] == 101) {
-          swal("خطا", "مجددا تلاش کنید ", "warning", {
-            button: "باشه"
-          });
-          /* setTimeout(function () {
-               window.location.assign('/admin/Estatelist');
-           },2000);*/
-        }
-      }, function (response) {
-        _this141.error = 1;
-        console.log("error");
-      });
-    },
     EditStateEstatePending: function EditStateEstatePending() {
-      var _this142 = this;
+      var _this141 = this;
 
       axios.post('/admin/ChangeEstateStatusPending', {
         Id: $("#IdEstate").val(),
@@ -56166,7 +57016,7 @@ var app = new Vue({
           }, 2000);
         }
       }, function (response) {
-        _this142.error = 1;
+        _this141.error = 1;
         console.log("error");
       });
     },
@@ -56191,7 +57041,7 @@ var app = new Vue({
         },
         dangerMode: true
       }).then(function (willDelete) {
-        var _this143 = this;
+        var _this142 = this;
 
         if (willDelete) {
           axios.post('DeleteSilder', {
@@ -56215,7 +57065,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this143.error = 1;
+            _this142.error = 1;
             console.log("error");
           });
         } else {
@@ -56227,7 +57077,7 @@ var app = new Vue({
       });
     },
     Wo_ResendCode: function Wo_ResendCode(mobile) {
-      var _this144 = this;
+      var _this143 = this;
 
       axios.post('/ResendSMS', {
         mobile: mobile
@@ -56244,12 +57094,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this144.error = 1;
+        _this143.error = 1;
         console.log("error");
       });
     },
     NewCustomer: function NewCustomer() {
-      var _this145 = this;
+      var _this144 = this;
 
       var firstname = $('#firstname').val();
       var codemeli = $('#codemeli').val();
@@ -56445,11 +57295,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this145.allerros = error.response.data.errors;
+        _this144.allerros = error.response.data.errors;
       });
     },
     EditCustomer: function EditCustomer(Id) {
-      var _this146 = this;
+      var _this145 = this;
 
       var firstname = $('#firstname').val();
       var codemeli = $('#codemeli').val();
@@ -56637,11 +57487,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this146.allerros = error.response.data.errors;
+        _this145.allerros = error.response.data.errors;
       });
     },
     NewProductGroup: function NewProductGroup() {
-      var _this147 = this;
+      var _this146 = this;
 
       var titleGroup = $('#titleGroup').val();
       var percentGroup = $('#percentGroup').val();
@@ -56729,11 +57579,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this147.allerros = error.response.data.errors;
+        _this146.allerros = error.response.data.errors;
       });
     },
     EditGroupProduct: function EditGroupProduct(id) {
-      var _this148 = this;
+      var _this147 = this;
 
       var titleGroup = $('#titleGroup').val();
       var percentGroup = $('#percentGroup').val();
@@ -56822,11 +57672,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this148.allerros = error.response.data.errors;
+        _this147.allerros = error.response.data.errors;
       });
     },
     EditProduct: function EditProduct(id) {
-      var _this149 = this;
+      var _this148 = this;
 
       var title = $('#titleProduct').val();
       var GroupProd = $('#GroupProd').find(':selected').val();
@@ -56941,11 +57791,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this149.allerros = error.response.data.errors;
+        _this148.allerros = error.response.data.errors;
       });
     },
     NewProduct: function NewProduct() {
-      var _this150 = this;
+      var _this149 = this;
 
       var title = $('#titleGroup').val();
       var GroupProd = $('#GroupProd').find(':selected').val();
@@ -56953,6 +57803,8 @@ var app = new Vue({
       var unitProduct = $('#unitProduct').val();
       var weightProduct = $('#weightProduct').val();
       var priceProduct = $('#priceProduct').val();
+      var desc = tinyMCE.get('basic-conf').getContent();
+      var statusProduct = $("#statususer").prop('checked') == true ? 'active' : 'inactive';
 
       if (title == '') {
         Swal.fire({
@@ -57029,13 +57881,29 @@ var app = new Vue({
       dataform.append('unit', unitProduct);
       dataform.append('weight', weightProduct);
       dataform.append('price', priceProduct);
+      dataform.append('desc', desc);
+      dataform.append('statusProduct', statusProduct);
+      dataform.append('file', this.image);
+      var loader = Vue.use(vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        dark: true,
+        // default false
+        text: 'لطفا شکیبا باشید سیستم در حال آپلود ...',
+        // default 'Loading'
+        loading: true,
+        // default false
+        background: '#fff',
+        classes: ['myclass'] // array, object or string
+
+      });
       axios.post('/portal/storeProduct', dataform, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
         if (response.data.status == 200) {
-          //window.location.assign('/User/Confirm');
+          _this149.$loading(false); //window.location.assign('/User/Confirm');
+
+
           Swal.fire({
             type: "success",
             title: 'ثبت موفق آمیز ',
@@ -57049,6 +57917,8 @@ var app = new Vue({
             window.location.assign('Product');
           }, 3000);
         } else {
+          _this149.$loading(false);
+
           Swal.fire({
             type: "warning",
             title: 'خطا ',
@@ -57059,11 +57929,13 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this150.allerros = error.response.data.errors;
+        _this149.$loading(false);
+
+        _this149.allerros = error.response.data.errors;
       });
     },
     NewFactor: function NewFactor() {
-      var _this151 = this;
+      var _this150 = this;
 
       var userIdOrder = $('#userIdOrder').attr('data-id'); // var OrderStatus = $('#OrderStatus').find(':selected').val();
 
@@ -57131,11 +58003,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this151.allerros = error.response.data.errors;
+        _this150.allerros = error.response.data.errors;
       });
     },
     updateAboutPage: function updateAboutPage() {
-      var _this152 = this;
+      var _this151 = this;
 
       // var desc = $('#basic-conf').val();
       var titlePageAbout = $('#titlePageAbout').val();
@@ -57204,11 +58076,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this152.allerros = error.response.data.errors;
+        _this151.allerros = error.response.data.errors;
       });
     },
     updateContactPage: function updateContactPage() {
-      var _this153 = this;
+      var _this152 = this;
 
       // var desc = $('#basic-conf').val();
       var titlePageContact = $('#titlePageContact').val();
@@ -57276,7 +58148,7 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this153.allerros = error.response.data.errors;
+        _this152.allerros = error.response.data.errors;
       });
     },
     DeleteCartItem: function DeleteCartItem(cartId) {
@@ -57288,7 +58160,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this154 = this;
+        var _this153 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/DeleteCartItem', {
@@ -57318,7 +58190,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this154.error = 1;
+            _this153.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -57329,694 +58201,726 @@ var app = new Vue({
           });
         }
       });
-    }
-  }, _defineProperty(_methods, "ChangeStatusOrder", function ChangeStatusOrder(type, id) {
-    Swal.fire({
-      title: 'مطمئن هستی وضعیت سفارش به روز رسانی شود؟',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: "\u0628\u0644\u0647",
-      denyButtonText: "\u062E\u06CC\u0631",
-      cancelButtonText: "\u0644\u063A\u0648"
-    }).then(function (result) {
-      var _this155 = this;
+    },
+    ChangeStatusOrder: function ChangeStatusOrder(type, id) {
+      Swal.fire({
+        title: 'مطمئن هستی وضعیت سفارش به روز رسانی شود؟',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "\u0628\u0644\u0647",
+        denyButtonText: "\u062E\u06CC\u0631",
+        cancelButtonText: "\u0644\u063A\u0648"
+      }).then(function (result) {
+        var _this154 = this;
 
-      if (result.isConfirmed) {
-        axios.post('/portal/ChangeStatusOrder', {
-          id: id,
-          type: type
-        }).then(function (response) {
-          if (response.data.status == 200) {
-            iziToast.success({
-              title: 'وضعیت سفارش',
-              message: 'وضعیت سفارش با موفقیت به روز رسانی شد',
-              position: 'topLeft'
-            });
-            setTimeout(function () {
-              window.location.assign('Factor');
-            }, 2000);
-          } else if (response.data.status == 100) {
-            swal("حذف ناموفق مجددا تلاش کنید", {
-              icon: "warning",
-              button: "باشه"
-            });
-            setTimeout(function () {
-              window.location.assign('Factor');
-            }, 2000);
-          }
-        }, function (response) {
-          _this155.error = 1;
-          console.log("error");
-        });
-      } else if (result.isDenied) {
-        iziToast.info({
-          title: 'خطا',
-          message: 'مجددا تلاش کنید',
-          position: 'topLeft'
-        });
-      }
-    });
-  }), _defineProperty(_methods, "DeleteFactor", function DeleteFactor(id) {
-    Swal.fire({
-      title: 'مطمئن هستی فاکتور مورد نظر حذف شود؟',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: "\u0628\u0644\u0647",
-      denyButtonText: "\u062E\u06CC\u0631",
-      cancelButtonText: "\u0644\u063A\u0648"
-    }).then(function (result) {
+        if (result.isConfirmed) {
+          axios.post('/portal/ChangeStatusOrder', {
+            id: id,
+            type: type
+          }).then(function (response) {
+            if (response.data.status == 200) {
+              iziToast.success({
+                title: 'وضعیت سفارش',
+                message: 'وضعیت سفارش با موفقیت به روز رسانی شد',
+                position: 'topLeft'
+              });
+              setTimeout(function () {
+                window.location.assign('Factor');
+              }, 2000);
+            } else if (response.data.status == 100) {
+              swal("حذف ناموفق مجددا تلاش کنید", {
+                icon: "warning",
+                button: "باشه"
+              });
+              setTimeout(function () {
+                window.location.assign('Factor');
+              }, 2000);
+            }
+          }, function (response) {
+            _this154.error = 1;
+            console.log("error");
+          });
+        } else if (result.isDenied) {
+          iziToast.info({
+            title: 'خطا',
+            message: 'مجددا تلاش کنید',
+            position: 'topLeft'
+          });
+        }
+      });
+    },
+    DeleteFactor: function DeleteFactor(id) {
+      Swal.fire({
+        title: 'مطمئن هستی فاکتور مورد نظر حذف شود؟',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "\u0628\u0644\u0647",
+        denyButtonText: "\u062E\u06CC\u0631",
+        cancelButtonText: "\u0644\u063A\u0648"
+      }).then(function (result) {
+        var _this155 = this;
+
+        if (result.isConfirmed) {
+          axios.post('/portal/DeleteFactor', {
+            id: id
+          }).then(function (response) {
+            if (response.data.status == 200) {
+              iziToast.success({
+                title: 'حذف فاکتور ',
+                message: 'فاکتور مورد نظر با موفقیت حذف شد',
+                position: 'topLeft'
+              });
+              setTimeout(function () {
+                window.location.assign('Factor');
+              }, 2000);
+            } else if (response.data.status == 100) {
+              swal("حذف ناموفق مجددا تلاش کنید", {
+                icon: "warning",
+                button: "باشه"
+              });
+              setTimeout(function () {
+                window.location.assign('Factor');
+              }, 2000);
+            }
+          }, function (response) {
+            _this155.error = 1;
+            console.log("error");
+          });
+        } else if (result.isDenied) {
+          iziToast.info({
+            title: 'خطا',
+            message: 'مجددا تلاش کنید',
+            position: 'topLeft'
+          });
+        }
+      });
+    },
+    OrderProduct: function OrderProduct(PID) {
       var _this156 = this;
 
-      if (result.isConfirmed) {
-        axios.post('/portal/DeleteFactor', {
-          id: id
+      var userId = $('select[name="userId"]').find(":selected").val();
+      var qtyProduct = $("#qtyProduct".concat(PID)).val(); //  var qtyProduct = $('#qtyProduct').attr('value');
+      //  alert(this.TotalAmount);
+
+      if (qtyProduct == '') {
+        iziToast.warning({
+          title: 'تعداد الزامیست',
+          message: 'تعداد سفارش را وارد کنید ',
+          position: 'topLeft'
+        });
+        return false;
+      }
+
+      if (userId == 0) {
+        iziToast.warning({
+          title: 'انتخاب مشتری  الزامیست',
+          message: 'لطفا مشتری مورد نظر را انتخاب کنید ',
+          position: 'topLeft'
+        });
+        return false;
+      }
+
+      var dataform = new FormData();
+      dataform.append('PID', PID);
+      dataform.append('qtyProduct', qtyProduct);
+      dataform.append('userId', userId);
+      axios.post('/portal/storeFactor', dataform, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          //window.location.assign('/User/Confirm');
+          iziToast.success({
+            title: 'سبد سفارش کالا',
+            message: 'کالا مورد نظر با موفقیت به سبد سفارش افزوده شد ',
+            position: 'topLeft'
+          });
+          setTimeout(function () {
+            window.location.assign('CreateFactor');
+          }, 3000);
+        } else if (response.data.status == 302) {
+          //window.location.assign('/User/Confirm');
+          iziToast.error({
+            message: response.data.message,
+            title: 'درخواست سفارش نامعتبر',
+            position: 'topLeft'
+          });
+          setTimeout(function () {
+            window.location.assign('CreateFactor');
+          }, 3000);
+        } else if (response.data.status == 404) {
+          //window.location.assign('/User/Confirm');
+          iziToast.error({
+            message: response.data.message,
+            title: 'درخواست سفارش نامعتبر',
+            position: 'topLeft'
+          });
+          setTimeout(function () {
+            window.location.assign('CreateFactor');
+          }, 3000);
+        } else if (response.data.status == 301) {
+          //window.location.assign('/User/Confirm');
+          iziToast.success({
+            message: response.data.message,
+            title: 'به روز رسانی سفارش ',
+            position: 'topLeft'
+          });
+          setTimeout(function () {
+            window.location.assign('CreateFactor');
+          }, 3000);
+        } else if (response.data.status == 304) {
+          //window.location.assign('/User/Confirm');
+          iziToast.success({
+            message: response.data.message,
+            title: 'به روز رسانی سفارش ',
+            position: 'topLeft'
+          });
+          setTimeout(function () {
+            window.location.assign('CreateFactor');
+          }, 3000);
+        } else {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: 'مجددا تلاش کنید',
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        }
+      })["catch"](function (error) {
+        _this156.allerros = error.response.data.errors;
+      });
+    },
+    VerifySMSCode: function VerifySMSCode() {
+      var _this157 = this;
+
+      //alert($("#mobile_code").val());
+      if (this.verify_code == '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'کد تایید',
+          text: 'لطفا کد تایید عضویت را وارد کنید',
+          footer: ''
+        }); //alert('لطفا کد تایید عضویت را وارد کنید');
+      } else {
+        axios.post('/checkCodeSMS', {
+          CodeSMS: this.verify_code,
+          mobile: $("#mobile_code").val()
         }).then(function (response) {
-          if (response.data.status == 200) {
-            iziToast.success({
-              title: 'حذف فاکتور ',
-              message: 'فاکتور مورد نظر با موفقیت حذف شد',
-              position: 'topLeft'
-            });
-            setTimeout(function () {
-              window.location.assign('Factor');
-            }, 2000);
-          } else if (response.data.status == 100) {
-            swal("حذف ناموفق مجددا تلاش کنید", {
-              icon: "warning",
-              button: "باشه"
-            });
-            setTimeout(function () {
-              window.location.assign('Factor');
-            }, 2000);
+          if (response.data['status'] == 'success') {
+            window.location.assign(response.data['url']);
+          } else if (response.data['status'] == 'faild') {
+            alert('کد تایید اشتباه هست مجددا تلاش کنید');
           }
         }, function (response) {
-          _this156.error = 1;
+          swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
+            button: "باشه"
+          });
+          _this157.error = 1;
           console.log("error");
         });
-      } else if (result.isDenied) {
-        iziToast.info({
-          title: 'خطا',
-          message: 'مجددا تلاش کنید',
-          position: 'topLeft'
-        });
       }
-    });
-  }), _defineProperty(_methods, "OrderProduct", function OrderProduct(PID) {
-    var _this157 = this;
+    },
+    ForgotPassword: function ForgotPassword() {
+      var _this158 = this;
 
-    var userId = $('select[name="userId"]').find(":selected").val();
-    var qtyProduct = $("#qtyProduct".concat(PID)).val(); //  var qtyProduct = $('#qtyProduct').attr('value');
-    //  alert(this.TotalAmount);
-
-    if (qtyProduct == '') {
-      iziToast.warning({
-        title: 'تعداد الزامیست',
-        message: 'تعداد سفارش را وارد کنید ',
-        position: 'topLeft'
-      });
-      return false;
-    }
-
-    if (userId == 0) {
-      iziToast.warning({
-        title: 'انتخاب مشتری  الزامیست',
-        message: 'لطفا مشتری مورد نظر را انتخاب کنید ',
-        position: 'topLeft'
-      });
-      return false;
-    }
-
-    var dataform = new FormData();
-    dataform.append('PID', PID);
-    dataform.append('qtyProduct', qtyProduct);
-    dataform.append('userId', userId);
-    axios.post('/portal/storeFactor', dataform, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(function (response) {
-      if (response.data.status == 200) {
-        //window.location.assign('/User/Confirm');
-        iziToast.success({
-          title: 'سبد سفارش کالا',
-          message: 'کالا مورد نظر با موفقیت به سبد سفارش افزوده شد ',
-          position: 'topLeft'
+      if (this.mobile_forgot == '') {
+        swal("خطا", "شماره موبایل خود را وارد کنید", "info", {
+          button: "باشه"
         });
-        setTimeout(function () {
-          window.location.assign('CreateFactor');
-        }, 3000);
-      } else if (response.data.status == 302) {
-        //window.location.assign('/User/Confirm');
-        iziToast.error({
-          message: response.data.message,
-          title: 'درخواست سفارش نامعتبر',
-          position: 'topLeft'
-        });
-        setTimeout(function () {
-          window.location.assign('CreateFactor');
-        }, 3000);
-      } else if (response.data.status == 404) {
-        //window.location.assign('/User/Confirm');
-        iziToast.error({
-          message: response.data.message,
-          title: 'درخواست سفارش نامعتبر',
-          position: 'topLeft'
-        });
-        setTimeout(function () {
-          window.location.assign('CreateFactor');
-        }, 3000);
-      } else if (response.data.status == 301) {
-        //window.location.assign('/User/Confirm');
-        iziToast.success({
-          message: response.data.message,
-          title: 'به روز رسانی سفارش ',
-          position: 'topLeft'
-        });
-        setTimeout(function () {
-          window.location.assign('CreateFactor');
-        }, 3000);
-      } else if (response.data.status == 304) {
-        //window.location.assign('/User/Confirm');
-        iziToast.success({
-          message: response.data.message,
-          title: 'به روز رسانی سفارش ',
-          position: 'topLeft'
-        });
-        setTimeout(function () {
-          window.location.assign('CreateFactor');
-        }, 3000);
       } else {
-        Swal.fire({
-          type: "warning",
-          title: 'خطا ',
-          text: 'مجددا تلاش کنید',
-          position: "top-left",
-          confirmButtonClass: 'btn btn-success',
-          confirmButtonText: 'باشه'
+        axios.post('/ForgotPassword', {
+          mobile_forgot: this.mobile_forgot
+        }).then(function (response) {
+          if (response.data.status == 200) {
+            swal("رمز عبور ", "رمز عبور موقت با موفقیت ارسال شد", "success", {
+              button: "باشه"
+            });
+            $("#codebox").show();
+            $("#btnforgot").hide();
+            $("#btnSavePasswordNew").show();
+          } else if (response.data.status == 404) {
+            swal("خطا", "شماره موبایل پیدا نشد", "warning", {
+              button: "باشه"
+            });
+          }
+        }, function (response) {
+          swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
+            button: "باشه"
+          });
+          _this158.error = 1;
+          console.log("error");
         });
       }
-    })["catch"](function (error) {
-      _this157.allerros = error.response.data.errors;
-    });
-  }), _defineProperty(_methods, "VerifySMSCode", function VerifySMSCode() {
-    var _this158 = this;
+    },
+    UpdatePasswordNew: function UpdatePasswordNew() {
+      var _this159 = this;
 
-    //alert($("#mobile_code").val());
-    if (this.verify_code == '') {
-      Swal.fire({
-        icon: 'error',
-        title: 'کد تایید',
-        text: 'لطفا کد تایید عضویت را وارد کنید',
-        footer: ''
-      }); //alert('لطفا کد تایید عضویت را وارد کنید');
-    } else {
-      axios.post('/checkCodeSMS', {
-        CodeSMS: this.verify_code,
-        mobile: $("#mobile_code").val()
-      }).then(function (response) {
-        if (response.data['status'] == 'success') {
-          window.location.assign(response.data['url']);
-        } else if (response.data['status'] == 'faild') {
-          alert('کد تایید اشتباه هست مجددا تلاش کنید');
-        }
-      }, function (response) {
-        swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
+      if (this.code_temp == '') {
+        swal("خطا", "رمز عبور موقت را وارد کنید", "info", {
           button: "باشه"
         });
-        _this158.error = 1;
-        console.log("error");
-      });
-    }
-  }), _defineProperty(_methods, "ForgotPassword", function ForgotPassword() {
-    var _this159 = this;
-
-    if (this.mobile_forgot == '') {
-      swal("خطا", "شماره موبایل خود را وارد کنید", "info", {
-        button: "باشه"
-      });
-    } else {
-      axios.post('/ForgotPassword', {
-        mobile_forgot: this.mobile_forgot
-      }).then(function (response) {
-        if (response.data.status == 200) {
-          swal("رمز عبور ", "رمز عبور موقت با موفقیت ارسال شد", "success", {
-            button: "باشه"
-          });
-          $("#codebox").show();
-          $("#btnforgot").hide();
-          $("#btnSavePasswordNew").show();
-        } else if (response.data.status == 404) {
-          swal("خطا", "شماره موبایل پیدا نشد", "warning", {
-            button: "باشه"
-          });
-        }
-      }, function (response) {
-        swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
+      } else if (this.new_password == '') {
+        swal("خطا", "رمز عبور جدید را وارد کنید", "info", {
           button: "باشه"
         });
-        _this159.error = 1;
-        console.log("error");
-      });
-    }
-  }), _defineProperty(_methods, "UpdatePasswordNew", function UpdatePasswordNew() {
-    var _this160 = this;
-
-    if (this.code_temp == '') {
-      swal("خطا", "رمز عبور موقت را وارد کنید", "info", {
-        button: "باشه"
-      });
-    } else if (this.new_password == '') {
-      swal("خطا", "رمز عبور جدید را وارد کنید", "info", {
-        button: "باشه"
-      });
-    } else {
-      axios.post('/UpdatePassword', {
-        mobile_forgot: this.mobile_forgot,
-        new_password: this.new_password,
-        code_temp: this.code_temp
-      }).then(function (response) {
-        if (response.data.status == 200) {
-          window.location.assign(response.data['url']);
-        } else if (response.data.status == 404) {
-          swal("خطا", "رمز عبور موقت اشتباه هست", "warning", {
+      } else {
+        axios.post('/UpdatePassword', {
+          mobile_forgot: this.mobile_forgot,
+          new_password: this.new_password,
+          code_temp: this.code_temp
+        }).then(function (response) {
+          if (response.data.status == 200) {
+            window.location.assign(response.data['url']);
+          } else if (response.data.status == 404) {
+            swal("خطا", "رمز عبور موقت اشتباه هست", "warning", {
+              button: "باشه"
+            });
+          } else if (response.data.status == 100) {
+            swal("خطا", "خطا در عملیات", "warning", {
+              button: "باشه"
+            });
+          }
+        }, function (response) {
+          swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
             button: "باشه"
           });
+          _this159.error = 1;
+          console.log("error");
+        });
+      }
+    },
+    EditRequest: function EditRequest(Id) {
+      var _this160 = this;
+
+      var Posselected = $("#Posselected").val();
+      var estateSelected = $("#estateSelected").val();
+      var namereq = $('input[name="namereq"]').val();
+      var mobile = $('input[name="mobile"]').val();
+      var pricefrom = $('input[name="pricefrom"]').val();
+      var priceto = $('input[name="priceto"]').val();
+
+      if (namereq == "") {
+        toastr.info('لطفا نام خود را وارد کنید');
+        $("#namereq").addClass('input_alert');
+        $('#namereq').after('<span class="invalid-feedback3"> انتخاب فیلد الزامسیت </span>');
+      } else if (namereq != "") {
+        $("#nameOffer").removeClass('input_alert');
+        $(".invalid-feedback3").hide('invalid-feedback');
+      }
+
+      if (mobile == "") {
+        toastr.info('لطفا شماره موبایل درخواست کننده رار وارد کنید');
+        $("#mobile").addClass('input_alert');
+        $('#mobile').after('<span class="invalid-feedback3"> انتخاب فیلد الزامسیت </span>');
+      } else if (mobile != "") {
+        $("#mobile").removeClass('input_alert');
+        $(".invalid-feedback3").hide('invalid-feedback');
+      }
+
+      if (pricefrom == "") {
+        toastr.info('لطفا حداقل قیمت را وارد کنید');
+        $("#pricefrom").addClass('input_alert');
+        $('#pricefrom').after('<span class="invalid-feedback3"> انتخاب فیلد الزامسیت </span>');
+      } else if (pricefrom != "") {
+        $("#pricefrom").removeClass('input_alert');
+        $(".invalid-feedback3").hide('invalid-feedback');
+      }
+
+      if (priceto == "") {
+        toastr.info('لطفا حداقل قیمت را وارد کنید');
+        $("#priceto").addClass('input_alert');
+        $('#priceto').after('<span class="invalid-feedback3"> انتخاب فیلد الزامسیت </span>');
+      } else if (priceto != "") {
+        $("#priceto").removeClass('input_alert');
+        $(".invalid-feedback3").hide('invalid-feedback');
+      }
+
+      if (namereq != '' && mobile != '' && pricefrom != '' && priceto != '') {
+        axios.post('/admin/EditRequestOffer', {
+          Id: Id,
+          namereq: namereq,
+          mobile: mobile,
+          pricefrom: pricefrom,
+          priceto: priceto,
+          Posselected: Posselected,
+          estateSelected: estateSelected
+        }).then(function (response) {
+          console.log(response.data.status);
+
+          if (response.data.status == 100) {
+            toastr.success('درخواست شما با موفقیت ویرایش شد');
+            setTimeout(function () {
+              window.location.reload();
+            }, 2000);
+          } else {
+            toastr.info('مشتری گرامی قبلا درخواست شما ثبت شده در حال بررسی هستیم');
+          }
+        }, function (response) {
+          _this160.error = 1;
+          console.log("error");
+        });
+      }
+    },
+    onImageChange: function onImageChange(e) {
+      var _this161 = this;
+
+      var files = e.target.files;
+      Array.from(files).forEach(function (file) {
+        return _this161.addImage(file);
+      });
+    },
+    addImage: function addImage(file) {
+      var _this162 = this;
+
+      if (!file.type.match('image.*')) {
+        console.log("".concat(file.name, " is not an image"));
+        return;
+      }
+
+      this.files.push(file);
+      var img = new Image(),
+          reader = new FileReader();
+
+      reader.onload = function (e) {
+        return _this162.images.push(e.target.result);
+      };
+
+      reader.readAsDataURL(file);
+    },
+    CalculateRent: function CalculateRent() {
+      var _this163 = this;
+
+      var RentPrice = $("#RentPrice").val();
+      var rahanPrice = $("#rahanPrice").val();
+      axios.post('CalculateRent', {
+        RentPrice: RentPrice,
+        rahanPrice: rahanPrice
+      }).then(function (response) {
+        if (response.data.status == 100) {
+          // $("#amount_receive_rent").html(commaSeparateNumber(response.data.result)+'تومان');
+          $("#amount_receive_rentlandlord").html('  سهم پرداختی مستاجر    : ' + commaSeparateNumber(response.data.result) + ' تومان ');
+          $("#amount_receive_rentRented").html('  سهم پرداختی موجر    : ' + commaSeparateNumber(response.data.result) + ' تومان ');
+        } else {
+          toastr.info('متاسفانه سیستم دچار مشکل شد مجددا تلاش کنید  ');
+          console.log(response.data);
+        }
+      }, function (response) {
+        swal(" خطا ", "خطا مجددا سعی کنید", "error", {
+          button: "باشه"
+        });
+        _this163.error = 1;
+        console.log("error");
+      });
+    },
+    CalculateSale: function CalculateSale() {
+      var _this164 = this;
+
+      var number_under = $("#number_under").val();
+      axios.post('CalculateSale', {
+        number_under: number_under
+      }).then(function (response) {
+        console.log(response.data);
+
+        if (response.data.status == 101) {
+          $("#amount_receive_underhundred").html(commaSeparateNumber(response.data.result) + 'تومان' + '<br/>');
+          $("#amount_receive_divide").html('  سهم پرداختی خریدار    : ' + commaSeparateNumber(parseInt(response.data.share)) + ' تومان ');
+          $("#amount_receive_divideseller").html('  سهم پرداختی فروشنده    : ' + commaSeparateNumber(parseInt(response.data.share)) + ' تومان ');
         } else if (response.data.status == 100) {
-          swal("خطا", "خطا در عملیات", "warning", {
-            button: "باشه"
-          });
+          $("#amount_receive_underhundred").html(commaSeparateNumber(response.data.result) + 'تومان');
+          $("#amount_receive_divide").html('  سهم پرداختی خریدار    : ' + commaSeparateNumber(parseInt(response.data.share)) + ' تومان ');
+          $("#amount_receive_divideseller").html('  سهم پرداختی فروشنده    : ' + commaSeparateNumber(parseInt(response.data.share)) + ' تومان ');
+        } else {
+          toastr.info('متاسفانه سیستم دچار مشکل شد مجددا تلاش کنید  ');
+          console.log(response.data);
         }
       }, function (response) {
-        swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
+        swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this160.error = 1;
+        _this164.error = 1;
         console.log("error");
       });
-    }
-  }), _defineProperty(_methods, "EditRequest", function EditRequest(Id) {
-    var _this161 = this;
+    },
+    commaSeparateNumber: function commaSeparateNumber(val) {
+      while (/(\d+)(\d{3})/.test(val.toString())) {
+        val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
+      }
 
-    var Posselected = $("#Posselected").val();
-    var estateSelected = $("#estateSelected").val();
-    var namereq = $('input[name="namereq"]').val();
-    var mobile = $('input[name="mobile"]').val();
-    var pricefrom = $('input[name="pricefrom"]').val();
-    var priceto = $('input[name="priceto"]').val();
+      return val;
+    },
+    UpdateinfoSite: function UpdateinfoSite() {
+      var _this165 = this;
 
-    if (namereq == "") {
-      toastr.info('لطفا نام خود را وارد کنید');
-      $("#namereq").addClass('input_alert');
-      $('#namereq').after('<span class="invalid-feedback3"> انتخاب فیلد الزامسیت </span>');
-    } else if (namereq != "") {
-      $("#nameOffer").removeClass('input_alert');
-      $(".invalid-feedback3").hide('invalid-feedback');
-    }
-
-    if (mobile == "") {
-      toastr.info('لطفا شماره موبایل درخواست کننده رار وارد کنید');
-      $("#mobile").addClass('input_alert');
-      $('#mobile').after('<span class="invalid-feedback3"> انتخاب فیلد الزامسیت </span>');
-    } else if (mobile != "") {
-      $("#mobile").removeClass('input_alert');
-      $(".invalid-feedback3").hide('invalid-feedback');
-    }
-
-    if (pricefrom == "") {
-      toastr.info('لطفا حداقل قیمت را وارد کنید');
-      $("#pricefrom").addClass('input_alert');
-      $('#pricefrom').after('<span class="invalid-feedback3"> انتخاب فیلد الزامسیت </span>');
-    } else if (pricefrom != "") {
-      $("#pricefrom").removeClass('input_alert');
-      $(".invalid-feedback3").hide('invalid-feedback');
-    }
-
-    if (priceto == "") {
-      toastr.info('لطفا حداقل قیمت را وارد کنید');
-      $("#priceto").addClass('input_alert');
-      $('#priceto').after('<span class="invalid-feedback3"> انتخاب فیلد الزامسیت </span>');
-    } else if (priceto != "") {
-      $("#priceto").removeClass('input_alert');
-      $(".invalid-feedback3").hide('invalid-feedback');
-    }
-
-    if (namereq != '' && mobile != '' && pricefrom != '' && priceto != '') {
-      axios.post('/admin/EditRequestOffer', {
-        Id: Id,
-        namereq: namereq,
-        mobile: mobile,
-        pricefrom: pricefrom,
-        priceto: priceto,
-        Posselected: Posselected,
-        estateSelected: estateSelected
+      var email = $('input[name="email_site"]').val();
+      var phone_Sellerone = $('input[name="phone_Sellerone"]').val();
+      var phone_Sellertwo = $('input[name="phone_Sellertwo"]').val();
+      var realestateAddress = $('input[name="realestateAddress"]').val();
+      axios.post('/admin/updateinfosite', {
+        email: email,
+        phoneone: phone_Sellerone,
+        phonetwo: phone_Sellertwo,
+        Address: realestateAddress
       }).then(function (response) {
         console.log(response.data.status);
 
-        if (response.data.status == 100) {
-          toastr.success('درخواست شما با موفقیت ویرایش شد');
+        if (response.data['status'] == 100) {
+          swal("ثبت موفق ", "اطلاعات تماس با ما با موفقیت ثبت شد", "success", {
+            button: "باشه"
+          });
           setTimeout(function () {
-            window.location.reload();
+            location.reload();
           }, 2000);
         } else {
-          toastr.info('مشتری گرامی قبلا درخواست شما ثبت شده در حال بررسی هستیم');
+          console.log(response.data);
         }
       }, function (response) {
-        _this161.error = 1;
+        swal(" خطا ", "خطا مجددا سعی کنید", "error", {
+          button: "باشه"
+        });
+        _this165.error = 1;
         console.log("error");
       });
-    }
-  }), _defineProperty(_methods, "onImageChange", function onImageChange(e) {
-    var _this162 = this;
+    },
+    AddReport: function AddReport() {
+      var _this166 = this;
 
-    var files = e.target.files;
-    Array.from(files).forEach(function (file) {
-      return _this162.addImage(file);
-    });
-  }), _defineProperty(_methods, "addImage", function addImage(file) {
-    var _this163 = this;
+      var descreport = $('textarea[name="descreport"]').val();
+      var descresultreport = $('textarea[name="descresultreport"]').val();
 
-    if (!file.type.match('image.*')) {
-      console.log("".concat(file.name, " is not an image"));
-      return;
-    }
-
-    this.files.push(file);
-    var img = new Image(),
-        reader = new FileReader();
-
-    reader.onload = function (e) {
-      return _this163.images.push(e.target.result);
-    };
-
-    reader.readAsDataURL(file);
-  }), _defineProperty(_methods, "CalculateRent", function CalculateRent() {
-    var _this164 = this;
-
-    var RentPrice = $("#RentPrice").val();
-    var rahanPrice = $("#rahanPrice").val();
-    axios.post('CalculateRent', {
-      RentPrice: RentPrice,
-      rahanPrice: rahanPrice
-    }).then(function (response) {
-      if (response.data.status == 100) {
-        // $("#amount_receive_rent").html(commaSeparateNumber(response.data.result)+'تومان');
-        $("#amount_receive_rentlandlord").html('  سهم پرداختی مستاجر    : ' + commaSeparateNumber(response.data.result) + ' تومان ');
-        $("#amount_receive_rentRented").html('  سهم پرداختی موجر    : ' + commaSeparateNumber(response.data.result) + ' تومان ');
-      } else {
-        toastr.info('متاسفانه سیستم دچار مشکل شد مجددا تلاش کنید  ');
-        console.log(response.data);
-      }
-    }, function (response) {
-      swal(" خطا ", "خطا مجددا سعی کنید", "error", {
-        button: "باشه"
-      });
-      _this164.error = 1;
-      console.log("error");
-    });
-  }), _defineProperty(_methods, "CalculateSale", function CalculateSale() {
-    var _this165 = this;
-
-    var number_under = $("#number_under").val();
-    axios.post('CalculateSale', {
-      number_under: number_under
-    }).then(function (response) {
-      console.log(response.data);
-
-      if (response.data.status == 101) {
-        $("#amount_receive_underhundred").html(commaSeparateNumber(response.data.result) + 'تومان' + '<br/>');
-        $("#amount_receive_divide").html('  سهم پرداختی خریدار    : ' + commaSeparateNumber(parseInt(response.data.share)) + ' تومان ');
-        $("#amount_receive_divideseller").html('  سهم پرداختی فروشنده    : ' + commaSeparateNumber(parseInt(response.data.share)) + ' تومان ');
-      } else if (response.data.status == 100) {
-        $("#amount_receive_underhundred").html(commaSeparateNumber(response.data.result) + 'تومان');
-        $("#amount_receive_divide").html('  سهم پرداختی خریدار    : ' + commaSeparateNumber(parseInt(response.data.share)) + ' تومان ');
-        $("#amount_receive_divideseller").html('  سهم پرداختی فروشنده    : ' + commaSeparateNumber(parseInt(response.data.share)) + ' تومان ');
-      } else {
-        toastr.info('متاسفانه سیستم دچار مشکل شد مجددا تلاش کنید  ');
-        console.log(response.data);
-      }
-    }, function (response) {
-      swal(" خطا ", "خطا مجددا سعی کنید", "error", {
-        button: "باشه"
-      });
-      _this165.error = 1;
-      console.log("error");
-    });
-  }), _defineProperty(_methods, "commaSeparateNumber", function commaSeparateNumber(val) {
-    while (/(\d+)(\d{3})/.test(val.toString())) {
-      val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
-    }
-
-    return val;
-  }), _defineProperty(_methods, "UpdateinfoSite", function UpdateinfoSite() {
-    var _this166 = this;
-
-    var email = $('input[name="email_site"]').val();
-    var phone_Sellerone = $('input[name="phone_Sellerone"]').val();
-    var phone_Sellertwo = $('input[name="phone_Sellertwo"]').val();
-    var realestateAddress = $('input[name="realestateAddress"]').val();
-    axios.post('/admin/updateinfosite', {
-      email: email,
-      phoneone: phone_Sellerone,
-      phonetwo: phone_Sellertwo,
-      Address: realestateAddress
-    }).then(function (response) {
-      console.log(response.data.status);
-
-      if (response.data['status'] == 100) {
-        swal("ثبت موفق ", "اطلاعات تماس با ما با موفقیت ثبت شد", "success", {
-          button: "باشه"
-        });
-        setTimeout(function () {
-          location.reload();
-        }, 2000);
-      } else {
-        console.log(response.data);
-      }
-    }, function (response) {
-      swal(" خطا ", "خطا مجددا سعی کنید", "error", {
-        button: "باشه"
-      });
-      _this166.error = 1;
-      console.log("error");
-    });
-  }), _defineProperty(_methods, "AddReport", function AddReport() {
-    var _this167 = this;
-
-    var descreport = $('textarea[name="descreport"]').val();
-    var descresultreport = $('textarea[name="descresultreport"]').val();
-
-    if (descreport == '') {
-      swal(" خطا  ", "فیلد شرح گزارش خالی هست ", "info", {
-        button: "متوجه شدم"
-      });
-      return false;
-    } else if (descresultreport == '') {
-      swal(" خطا  ", "فیلد نتیجه گزارش خالی هست ", "info", {
-        button: "متوجه شدم"
-      });
-      return false;
-    }
-
-    axios.post('/User/ActionServer', {
-      action: 'AddReport',
-      titlereport: this.titlereport,
-      descreport: descreport,
-      descresultreport: descresultreport,
-      resultstatus: this.resultstatus
-    }).then(function (response) {
-      if (response.data.status == 200) {
-        swal("ثبت  ", "تشکر از شما گزارش شما با موفقیت ثبت شد خسته نباشید ", "success", {
-          button: "ممنونم"
-        }); //alert('با موفقیت گزارش ثبت شد تشمکر از شما');
-
-        setTimeout(function () {
-          window.location.assign('/admin/index');
-        }, 2000);
-      }
-    }, function (response) {
-      swal(" خطا ", "خطا مجددا سعی کنید", "error", {
-        button: "باشه"
-      });
-      _this167.error = 1;
-      console.log("error");
-    });
-  }), _defineProperty(_methods, "SendVisitSMS", function SendVisitSMS(Id) {
-    var _this168 = this;
-
-    axios.post('/admin/SendVisitSMS', {
-      Id: Id
-    }).then(function (response) {
-      console.log(response.data);
-
-      if (response.data['status'] == 100) {
-        swal("هشدار ", "خطا", "warning", {
+      if (descreport == '') {
+        swal(" خطا  ", "فیلد شرح گزارش خالی هست ", "info", {
           button: "متوجه شدم"
         });
-        setTimeout(function () {
-          location.reload();
-        }, 2000);
-      } else if (response.data['status'] == 200) {
-        swal("پیامک موفق آمیز ", "بازدید با موفقیت پیامک شد", "success", {
-          button: "باشه"
-        });
-        setTimeout(function () {
-          location.reload();
-        }, 2000);
-      }
-    }, function (response) {
-      swal(" خطا ", "خطا مجددا سعی کنید", "error", {
-        button: "باشه"
-      });
-      _this168.error = 1;
-      console.log("error");
-    });
-  }), _defineProperty(_methods, "AddReportOperator", function AddReportOperator() {
-    var _this169 = this;
-
-    var descreport = $('textarea[name="descreport"]').val();
-    var descresultreport = $('textarea[name="descresultreport"]').val();
-    axios.post('/admin/addReport', {
-      titlereport: this.titlereport,
-      descreport: descreport,
-      descresultreport: descresultreport,
-      resultstatus: this.resultstatus
-    }).then(function (response) {
-      if (response.data['status'] == 400) {
-        swal("هشدار ", "لطفا تمام فیلد ها را پر کنید", "warning", {
+        return false;
+      } else if (descresultreport == '') {
+        swal(" خطا  ", "فیلد نتیجه گزارش خالی هست ", "info", {
           button: "متوجه شدم"
         });
-        /*  setTimeout(function () {
-              location.reload();
-          },2000);*/
-      } else if (response.data['status'] == 200) {
-        swal("ثبت گزارش ", "گزارش شما با موفقیت ثبت شد", "success", {
-          button: "باشه"
-        });
-        setTimeout(function () {
-          location.reload();
-        }, 2000);
-      } else if (response.data['status'] == 300) {
-        swal("خطا  ", "مجددا تلاش کنید", "info", {
-          button: "باشه"
-        });
+        return false;
       }
-    }, function (response) {
-      swal(" خطا ", "خطا مجددا سعی کنید", "error", {
-        button: "باشه"
-      });
-      _this169.error = 1;
-      console.log("error");
-    });
-  }), _defineProperty(_methods, "AddFavorite", function AddFavorite(estateId) {
-    var _this170 = this;
 
-    axios.post('/AddFavoriteEstate', {
-      estateId: estateId
-    }).then(function (response) {
-      console.log(response.data.status);
+      axios.post('/User/ActionServer', {
+        action: 'AddReport',
+        titlereport: this.titlereport,
+        descreport: descreport,
+        descresultreport: descresultreport,
+        resultstatus: this.resultstatus
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          swal("ثبت  ", "تشکر از شما گزارش شما با موفقیت ثبت شد خسته نباشید ", "success", {
+            button: "ممنونم"
+          }); //alert('با موفقیت گزارش ثبت شد تشمکر از شما');
 
-      if (response.data['status'] == 100) {
-        swal("ثبت موفق ", "اطلاعات تماس با ما با موفقیت ثبت شد", "success", {
+          setTimeout(function () {
+            window.location.assign('/admin/index');
+          }, 2000);
+        }
+      }, function (response) {
+        swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        setTimeout(function () {
-          location.reload();
-        }, 2000);
-      } else {
+        _this166.error = 1;
+        console.log("error");
+      });
+    },
+    SendVisitSMS: function SendVisitSMS(Id) {
+      var _this167 = this;
+
+      axios.post('/admin/SendVisitSMS', {
+        Id: Id
+      }).then(function (response) {
         console.log(response.data);
-      }
-    }, function (response) {
-      swal(" خطا ", "خطا مجددا سعی کنید", "error", {
-        button: "باشه"
-      });
-      _this170.error = 1;
-      console.log("error");
-    });
-  }), _defineProperty(_methods, "PublishTextAbout", function PublishTextAbout() {
-    var _this171 = this;
 
-    var titleAbout = CKEDITOR.instances['editor-demo3'].getData();
-    var planAbout = CKEDITOR.instances['editor-demo2'].getData();
-    axios.post('/admin/updateAboutText', {
-      titleAbout: titleAbout,
-      planAbout: planAbout
-    }).then(function (response) {
-      console.log(response.data.status);
-
-      if (response.data['status'] == 100) {
-        swal("ثبت موفق ", "اطلاعات    درباره ما با موفقیت ثبت شد", "success", {
+        if (response.data['status'] == 100) {
+          swal("هشدار ", "خطا", "warning", {
+            button: "متوجه شدم"
+          });
+          setTimeout(function () {
+            location.reload();
+          }, 2000);
+        } else if (response.data['status'] == 200) {
+          swal("پیامک موفق آمیز ", "بازدید با موفقیت پیامک شد", "success", {
+            button: "باشه"
+          });
+          setTimeout(function () {
+            location.reload();
+          }, 2000);
+        }
+      }, function (response) {
+        swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        setTimeout(function () {
-          location.reload();
-        }, 2000);
-      } else {
-        console.log(response.data);
-      }
-    }, function (response) {
-      swal(" خطا ", "خطا مجددا سعی کنید", "error", {
-        button: "باشه"
+        _this167.error = 1;
+        console.log("error");
       });
-      _this171.error = 1;
-      console.log("error");
-    });
-  }), _defineProperty(_methods, "regionSelectedSearch", function regionSelectedSearch(id) {
-    this.regionselectedSearch = id;
-    $("#regionselect").val(id);
-    this.regionrequestOffer = id;
-    /* var d= types.addClass('a_checked');
-      console.log(d);
+    },
+    AddReportOperator: function AddReportOperator() {
+      var _this168 = this;
+
+      var descreport = $('textarea[name="descreport"]').val();
+      var descresultreport = $('textarea[name="descresultreport"]').val();
+      axios.post('/admin/addReport', {
+        titlereport: this.titlereport,
+        descreport: descreport,
+        descresultreport: descresultreport,
+        resultstatus: this.resultstatus
+      }).then(function (response) {
+        if (response.data['status'] == 400) {
+          swal("هشدار ", "لطفا تمام فیلد ها را پر کنید", "warning", {
+            button: "متوجه شدم"
+          });
+          /*  setTimeout(function () {
+                location.reload();
+            },2000);*/
+        } else if (response.data['status'] == 200) {
+          swal("ثبت گزارش ", "گزارش شما با موفقیت ثبت شد", "success", {
+            button: "باشه"
+          });
+          setTimeout(function () {
+            location.reload();
+          }, 2000);
+        } else if (response.data['status'] == 300) {
+          swal("خطا  ", "مجددا تلاش کنید", "info", {
+            button: "باشه"
+          });
+        }
+      }, function (response) {
+        swal(" خطا ", "خطا مجددا سعی کنید", "error", {
+          button: "باشه"
+        });
+        _this168.error = 1;
+        console.log("error");
+      });
+    },
+    AddFavorite: function AddFavorite(estateId) {
+      var _this169 = this;
+
+      axios.post('/AddFavoriteEstate', {
+        estateId: estateId
+      }).then(function (response) {
+        console.log(response.data.status);
+
+        if (response.data['status'] == 100) {
+          swal("ثبت موفق ", "اطلاعات تماس با ما با موفقیت ثبت شد", "success", {
+            button: "باشه"
+          });
+          setTimeout(function () {
+            location.reload();
+          }, 2000);
+        } else {
+          console.log(response.data);
+        }
+      }, function (response) {
+        swal(" خطا ", "خطا مجددا سعی کنید", "error", {
+          button: "باشه"
+        });
+        _this169.error = 1;
+        console.log("error");
+      });
+    },
+    PublishTextAbout: function PublishTextAbout() {
+      var _this170 = this;
+
+      var titleAbout = CKEDITOR.instances['editor-demo3'].getData();
+      var planAbout = CKEDITOR.instances['editor-demo2'].getData();
+      axios.post('/admin/updateAboutText', {
+        titleAbout: titleAbout,
+        planAbout: planAbout
+      }).then(function (response) {
+        console.log(response.data.status);
+
+        if (response.data['status'] == 100) {
+          swal("ثبت موفق ", "اطلاعات    درباره ما با موفقیت ثبت شد", "success", {
+            button: "باشه"
+          });
+          setTimeout(function () {
+            location.reload();
+          }, 2000);
+        } else {
+          console.log(response.data);
+        }
+      }, function (response) {
+        swal(" خطا ", "خطا مجددا سعی کنید", "error", {
+          button: "باشه"
+        });
+        _this170.error = 1;
+        console.log("error");
+      });
+    },
+    regionSelectedSearch: function regionSelectedSearch(id) {
+      this.regionselectedSearch = id;
+      $("#regionselect").val(id);
+      this.regionrequestOffer = id;
+      /* var d= types.addClass('a_checked');
+        console.log(d);
+        if (d.hasClass('a_checked')){
+            alert('yes');
+            d.removeClass('a_checked');
+        }else {
+            alert('no');
+            d.addClass('a_checked');
+            /!*  arr[i++] = this.getAttribute('data-val');
+            if ($.inArray(this.getAttribute('data-val'), list_possibi) == -1) {
+                list_possibi.push(this.getAttribute('data-val'));
+                $("#Posselected").val(list_possibi.join());
+             }*!/
+         }*/
+
+      /*var d = e.target();
+      alert(d);
+       console.log(d.textContent);
       if (d.hasClass('a_checked')){
           alert('yes');
           d.removeClass('a_checked');
       }else {
           alert('no');
           d.addClass('a_checked');
-          /!*  arr[i++] = this.getAttribute('data-val');
+          /!* arr[i++] = this.getAttribute('data-val');
           if ($.inArray(this.getAttribute('data-val'), list_possibi) == -1) {
               list_possibi.push(this.getAttribute('data-val'));
               $("#Posselected").val(list_possibi.join());
            }*!/
        }*/
+    },
+    CityActive: function CityActive(subscription) {
+      this.city_user = subscription;
+    },
+    regionActive: function regionActive(subscription) {
+      alert(this.regionselect_user);
+      this.regionselect_user = subscription;
+    },
+    EstatetypeActive: function EstatetypeActive(subscription) {
+      $("#estatetypevalue").val(subscription);
+      this.estatetype_user = subscription; // $("#estateselect").val(subscription);
 
-    /*var d = e.target();
-    alert(d);
-     console.log(d.textContent);
-    if (d.hasClass('a_checked')){
-        alert('yes');
-        d.removeClass('a_checked');
-    }else {
-        alert('no');
-        d.addClass('a_checked');
-        /!* arr[i++] = this.getAttribute('data-val');
-        if ($.inArray(this.getAttribute('data-val'), list_possibi) == -1) {
-            list_possibi.push(this.getAttribute('data-val'));
-            $("#Posselected").val(list_possibi.join());
-         }*!/
-     }*/
-  }), _defineProperty(_methods, "CityActive", function CityActive(subscription) {
-    this.city_user = subscription;
-  }), _defineProperty(_methods, "regionActive", function regionActive(subscription) {
-    alert(this.regionselect_user);
-    this.regionselect_user = subscription;
-  }), _defineProperty(_methods, "EstatetypeActive", function EstatetypeActive(subscription) {
-    $("#estatetypevalue").val(subscription);
-    this.estatetype_user = subscription; // $("#estateselect").val(subscription);
-
-    this.estatetype_userOffer = subscription;
-  }), _defineProperty(_methods, "UsageTypeActive", function UsageTypeActive(subscription) {
-    this.usagetype_user = subscription;
-  }), _defineProperty(_methods, "RequestTourActive", function RequestTourActive(subscription) {
-    this.requestTour_user = subscription;
-  }), _defineProperty(_methods, "EstateOwenrshipActive", function EstateOwenrshipActive(subscription) {
-    this.ownership_user = subscription;
-  }), _defineProperty(_methods, "PositionActive", function PositionActive(subscription) {
-    this.position_type_user = subscription;
-  }), _defineProperty(_methods, "YearSelect", function YearSelect(subscription) {
-    $("#yearselect").val(subscription);
-  }), _defineProperty(_methods, "RoomNumberSelect", function RoomNumberSelect(subscription) {
-    $("#RoomNumberSelect").val(subscription);
-  }), _methods)
+      this.estatetype_userOffer = subscription;
+    },
+    UsageTypeActive: function UsageTypeActive(subscription) {
+      this.usagetype_user = subscription;
+    },
+    RequestTourActive: function RequestTourActive(subscription) {
+      this.requestTour_user = subscription;
+    },
+    EstateOwenrshipActive: function EstateOwenrshipActive(subscription) {
+      this.ownership_user = subscription;
+    },
+    PositionActive: function PositionActive(subscription) {
+      this.position_type_user = subscription;
+    },
+    YearSelect: function YearSelect(subscription) {
+      $("#yearselect").val(subscription);
+    },
+    RoomNumberSelect: function RoomNumberSelect(subscription) {
+      $("#RoomNumberSelect").val(subscription);
+    }
+  },
+  components: {
+    LoadingPlugin: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default.a,
+    Loading: vuejs_loading_plugin__WEBPACK_IMPORTED_MODULE_1__["default"]
+  }
 });
 
 /***/ }),

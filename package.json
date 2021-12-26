@@ -24,7 +24,9 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "vue-axios": "^3.2.1",
         "vue-loading-overlay": "^3.4.2",
+        "vue-router": "^3.5.1",
         "vuejs-loading-plugin": "^1.0.51",
         "vuelidate": "^0.7.5"
     }

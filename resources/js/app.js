@@ -27,6 +27,11 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import LoadingPlugin from "vue-loading-overlay";
+import Loading from "vuejs-loading-plugin";
+
+Vue.use(LoadingPlugin);
+
 const app = new Vue({
     el: '#app',
     data: {
@@ -259,7 +264,7 @@ const app = new Vue({
         telephonedelivery: "",
         TotalAmount: '',
     },
-    components: {},
+
     created: function () {
 
     },
@@ -6187,34 +6192,7 @@ const app = new Vue({
 
 
         },
-        ChangeStatusOrder: function (Id, type) {
 
-            axios.post('/admin/ActionServer', {
-                action: 'ChangeStatusOrder',
-                Id: Id,
-                type: type
-
-            }).then(response => {
-
-                console.log(response.data);
-
-                if (response.data['status'] == 200) {
-                    swal("وضعیت سفارش ", "وضعیت سفارش با موفقیت اپدیت شد", "success", {
-                        button: "باشه"
-                    });
-                    window.location.reload();
-
-
-                }
-
-
-            }, response => {
-                this.error = 1;
-                console.log("error");
-            });
-
-
-        },
         ChangePasswordUser: function (Id) {
 
 
@@ -8986,6 +8964,9 @@ const app = new Vue({
             var unitProduct = $('#unitProduct').val();
             var weightProduct = $('#weightProduct').val();
             var priceProduct = $('#priceProduct').val();
+            var desc=  tinyMCE.get('basic-conf').getContent();
+            var statusProduct=  $("#statususer").prop('checked') == true ? 'active' : 'inactive';
+
 
 
             if (title == '') {
@@ -9064,6 +9045,22 @@ const app = new Vue({
             dataform.append('unit', unitProduct);
             dataform.append('weight', weightProduct);
             dataform.append('price', priceProduct);
+            dataform.append('desc', desc);
+            dataform.append('statusProduct', statusProduct);
+
+            dataform.append('file', this.image);
+
+
+            let loader = Vue.use(Loading, {
+
+                dark: true, // default false
+                text: 'لطفا شکیبا باشید سیستم در حال آپلود ...', // default 'Loading'
+                loading: true, // default false
+                background: '#fff',
+                classes: ['myclass'] // array, object or string
+
+            });
+
 
             axios.post('/portal/storeProduct',
                 dataform,
@@ -9078,6 +9075,7 @@ const app = new Vue({
 
                 if (response.data.status == 200) {
 
+                    this.$loading(false);
                     //window.location.assign('/User/Confirm');
                     Swal.fire({
                         type: "success",
@@ -9092,7 +9090,7 @@ const app = new Vue({
                         window.location.assign('Product');
                     }, 3000);
                 } else {
-
+                    this.$loading(false);
                     Swal.fire({
                         type: "warning",
                         title: 'خطا ',
@@ -9106,7 +9104,7 @@ const app = new Vue({
 
             }).catch((error) => {
 
-
+                this.$loading(false);
                 this.allerros = error.response.data.errors;
 
             });
@@ -9465,8 +9463,6 @@ const app = new Vue({
             });
         },
         ChangeStatusOrder(type,id) {
-
-
 
             Swal.fire({
                 title: 'مطمئن هستی وضعیت سفارش به روز رسانی شود؟',
@@ -10439,5 +10435,9 @@ const app = new Vue({
         }
 
 
-    }
+    },
+    components: {
+        LoadingPlugin,
+        Loading
+    },
 });
