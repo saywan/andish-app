@@ -32,7 +32,7 @@ class AdminMeddleware
             return $next($request);
         }else{
 
-            return redirect()->route('portal.Adminlogin');
+            return redirect()->route('login');
         }
     }
 }

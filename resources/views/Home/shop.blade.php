@@ -38,60 +38,11 @@
     <div class="preloader"></div>
 
     <!-- Main Header-->
-@include('home.header')
+@include('Home.header')
 <!-- End Main Header -->
 
     <!-- Sidebar Cart Item -->
-    <div class="xs-sidebar-group info-group">
-        <div class="xs-overlay xs-bg-black"></div>
-        <div class="xs-sidebar-widget">
-            <div class="sidebar-widget-container">
-                <div class="widget-heading">
-                    <a href="#" class="close-side-widget">
-                        X
-                    </a>
-                </div>
-                <div class="sidebar-textwidget">
 
-                    <!-- Sidebar Info Content -->
-                    <div class="sidebar-info-contents">
-                        <div class="content-inner">
-                            <div class="logo">
-                                <a href="index.html"><img src="images/logo-2.png" alt=""/></a>
-                            </div>
-                            <div class="content-box">
-                                <h2> درباره ما </h2>
-                                <p class="text">استدلال به نفع استفاده از متن پرکننده چیزی شبیه به این است: اگر در
-                                    فرآیند مشاوره از محتوای واقعی استفاده می کنید ، هر زمان که به یک نقطه بررسی رسیدید ،
-                                    در نهایت خود و نه طرح محتوا را بررسی و مذاکره می کنید.</p>
-                                <a href="#" class="theme-btn btn-style-two"><span class="txt">مشاوره </span></a>
-                            </div>
-                            <div class="contact-info">
-                                <h2>اطلاعات تماس </h2>
-                                <ul class="list-style-one">
-                                    <li><span class="icon fa fa-location-arrow"></span>شیکاگو، مرکز لوراس منطقه سه</li>
-                                    <li><span class="icon fa fa-phone"></span>(111) 111-111-1111</li>
-                                    <li><span class="icon fa fa-envelope"></span>globex@gmail.com</li>
-                                    <li><span class="icon fa fa-clock-o"></span>شنبه - چهارشنبه | ساعت کاری 9 صبح تا 19
-                                        عصر
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- Social Box -->
-                            <ul class="social-box">
-                                <li class="facebook"><a href="#" class="fa fa-facebook-f"></a></li>
-                                <li class="twitter"><a href="#" class="fa fa-twitter"></a></li>
-                                <li class="linkedin"><a href="#" class="fa fa-linkedin"></a></li>
-                                <li class="instagram"><a href="#" class="fa fa-instagram"></a></li>
-                                <li class="youtube"><a href="#" class="fa fa-youtube"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- END sidebar widget item -->
 
     <!--Page Title-->
@@ -373,42 +324,14 @@
     <!-- End Info Section -->
 
     <!-- Main Footer -->
-    @include('home.footer')
+    @include('Home.footer')
 
 </div>
 <!--End pagewrapper-->
 
 <!-- Color Palate / Color Switcher -->
 
-<div class="color-palate">
-    <div class="color-trigger">
-        <i class="fa fa-gear"></i>
-    </div>
-    <div class="color-palate-head">
-        <h6>انتخاب رنگ دلخواه</h6>
-    </div>
 
-    <div class="various-color clearfix">
-        <div class="colors-list">
-            <span class="palate default-color active" data-theme-file="css/color-themes/default-theme.css"></span>
-            <span class="palate green-color" data-theme-file="css/color-themes/green-theme.css"></span>
-            <span class="palate olive-color" data-theme-file="css/color-themes/olive-theme.css"></span>
-            <span class="palate orange-color" data-theme-file="css/color-themes/orange-theme.css"></span>
-            <span class="palate purple-color" data-theme-file="css/color-themes/purple-theme.css"></span>
-            <span class="palate teal-color" data-theme-file="css/color-themes/teal-theme.css"></span>
-            <span class="palate brown-color" data-theme-file="css/color-themes/brown-theme.css"></span>
-            <span class="palate redd-color" data-theme-file="css/color-themes/redd-color.css"></span>
-        </div>
-    </div>
-
-
-    <a href="https://www.rtl-theme.com/user-profile/tn_plugin/" class="purchase-btn">خرید فقط با 89 هزار تومان</a>
-
-    <div class="palate-foo">
-        <span>در پنل مدیریت گزینه های بیشتری برای رنگ و یک ظاهر طراحی خواهید یافت. این انتخابگر رنگ فقط برای اهداف نمایشی استفاده می شود.</span>
-    </div>
-
-</div>
 
 <!-- Search Popup -->
 <div class="search-popup">

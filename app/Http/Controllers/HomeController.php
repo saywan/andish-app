@@ -40,4 +40,8 @@ class HomeController extends Controller
 
         dd($slug . $id);
     }
+    public function showAuthForm()
+    {
+        return view('Home.auth.login');
+    }
 }

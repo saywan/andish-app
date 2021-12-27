@@ -7,6 +7,7 @@ namespace App\Helper;
 use App\Models\FactorUser;
 use App\Models\ProductGroup;
 use App\Models\Products;
+use App\Models\UserRole;
 use App\User;
 
 
@@ -66,6 +67,33 @@ class Helper
             return count($userInfo);
         } else {
             return 0;
+        }
+    }
+
+    public static function getUserInfoRole($roleId)
+    {
+
+        $role = UserRole::where('id',$roleId)->first();
+
+        if ($role) {
+            if ($role->title == 'accountant') {
+                echo "<span class='badge badge-outline-success font-14'>حسابدار</span>";
+            } elseif ($role->title == 'Admin') {
+
+                echo "<span class='badge badge-outline-success font-14'>مدیریت</span>";
+            } elseif ($role->title == 'buyer') {
+
+                echo "<span class='badge badge-outline-danger font-14'>خریدار</span>";
+            } elseif ($role->title == 'operator') {
+
+                echo "<span class='badge badge-outline-success font-14'>اپراتور</span>";
+            } elseif ($role->title == 'seller') {
+
+                echo "<span class='badge badge-outline-success font-14'>فروشنده</span>";
+            } elseif ($role->title == 'User') {
+
+                echo "<span class='badge badge-outline-warning font-14'>کاربر عادی</span>";
+            }
         }
     }
 
@@ -393,7 +421,7 @@ class Helper
 
     public static function TotalFactorProccsing()
     {
-        $userInfo = FactorUser::where('factor_status','processStore')->get();
+        $userInfo = FactorUser::where('factor_status', 'processStore')->get();
         if (count($userInfo) > 0) {
             return count($userInfo);
         } else {

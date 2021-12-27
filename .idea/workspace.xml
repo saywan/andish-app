@@ -20,23 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33155898-2c51-4e59-a1be-7db08cb863af" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/Upload/Blog/1615585671.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Upload/Blog/1_20210312/1615585628.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Upload/logo/1633727171.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Upload/slider/1616272154.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Upload/slider/1616272164.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Upload/slider/1616272175.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Home/auth/login.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Helper/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helper/Helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Products.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Products.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AdminMeddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AdminMeddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/attendance.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/attendance.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Home/about.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Home/about.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Home/contact.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Home/contact.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Home/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Home/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Home/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Home/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/Home/shop.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Home/shop.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/portal/Product/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/portal/Product/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Home/test.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Home/test.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/portal/Product/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/portal/Product/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/portal/layouts/Menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/portal/layouts/Menu.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/portal/user/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/portal/user/list.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -171,7 +171,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../blogcms" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -216,7 +216,7 @@
       <workItem from="1640244350148" duration="1895000" />
       <workItem from="1640289026101" duration="24676000" />
       <workItem from="1640463904103" duration="8114000" />
-      <workItem from="1640509769250" duration="21126000" />
+      <workItem from="1640509769250" duration="38316000" />
     </task>
     <servers />
   </component>
@@ -240,19 +240,19 @@
       <screen x="1366" y="0" width="1366" height="728" />
     </state>
     <state x="1779" y="111" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1640514441253" />
-    <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1640554778485">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="1779" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1640588155192">
+      <screen x="1366" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728/-1366.0.1366.728@0.0.1366.728" timestamp="1639597241397" />
     <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1640419308053" />
-    <state x="1779" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1640425108868" />
+    <state x="1779" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1640588155192" />
     <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728/1366.0.1680.1010@0.0.1366.728" timestamp="1640554778485" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1640551459917">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="1527" y="95" key="FileChooserDialogImpl" timestamp="1640587080704">
+      <screen x="1366" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728/-1366.0.1366.728@0.0.1366.728" timestamp="1639594710207" />
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1639893778838" />
-    <state x="1527" y="95" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1640519018723" />
+    <state x="1527" y="95" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1640587080704" />
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1680.1010@0.0.1366.728" timestamp="1640551459917" />
     <state x="1564" y="132" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1680.1010@1366.0.1680.1010" timestamp="1640289139963" />
     <state width="1323" height="172" key="GridCell.Tab.0.bottom" timestamp="1640552960333">
@@ -275,23 +275,24 @@
     </state>
     <state width="1323" height="172" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1639298200257" />
     <state width="1323" height="172" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1680.1010@0.0.1366.728" timestamp="1640552960332" />
-    <state x="517" y="283" key="NewPhpFileDialog" timestamp="1640550387947">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="1883" y="283" key="NewPhpFileDialog" timestamp="1640586532597">
+      <screen x="1366" y="0" width="1366" height="728" />
     </state>
     <state x="517" y="283" key="NewPhpFileDialog/0.0.1366.728/-1366.0.1366.728@0.0.1366.728" timestamp="1639598386635" />
     <state x="517" y="283" key="NewPhpFileDialog/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1640499179385" />
-    <state x="1883" y="283" key="NewPhpFileDialog/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1640523654289" />
+    <state x="1883" y="283" key="NewPhpFileDialog/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1640586532597" />
     <state x="517" y="283" key="NewPhpFileDialog/0.0.1366.728/1366.0.1680.1010@0.0.1366.728" timestamp="1640550387947" />
-    <state x="391" y="81" width="583" height="624" key="find.popup" timestamp="1640469927967">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="1757" y="81" width="583" height="624" key="find.popup" timestamp="1640596777068">
+      <screen x="1366" y="0" width="1366" height="728" />
     </state>
     <state x="391" y="81" width="583" height="566" key="find.popup/0.0.1366.728/-1366.0.1366.728@0.0.1366.728" timestamp="1639589105486" />
-    <state x="391" y="81" width="583" height="624" key="find.popup/0.0.1366.728/1366.0.1680.1010@0.0.1366.728" timestamp="1640469927967" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1640547293416">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="1757" y="81" width="583" height="624" key="find.popup/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1640596777068" />
+    <state x="391" y="81" width="583" height="624" key="find.popup/0.0.1366.728/1366.0.1680.1010@0.0.1366.728" timestamp="1640558988914" />
+    <state x="1712" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1640593403242">
+      <screen x="1366" y="0" width="1366" height="728" />
     </state>
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1640525757371" />
-    <state x="1712" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1640523816270" />
+    <state x="1712" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1640593403242" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1680.1010@0.0.1366.728" timestamp="1640547293416" />
   </component>
 </project>

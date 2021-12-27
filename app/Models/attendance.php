@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class attendance extends Model
 {
     public $table = 'attendance';
-    protected $fillable = [
-        'userId', 'login_date', 'IP', 'browser','type'
-    ];
+
+    protected $guarded = [];
 
     protected $casts = [
         'browser' => 'array',

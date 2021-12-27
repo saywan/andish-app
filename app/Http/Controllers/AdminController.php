@@ -198,7 +198,7 @@ class AdminController extends Controller
 
         //dd( auth()->user()->email);
 
-        return redirect()->route('portal.Adminlogin');
+        return redirect()->route('login');
         // auth()->logout();
 
         return redirect('/login');

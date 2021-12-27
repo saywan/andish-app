@@ -20,18 +20,19 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/contactUs', 'HomeController@contactUs')->name('contactUs');
 Route::get('/aboutUs', 'HomeController@aboutUs')->name('aboutUs');
 Route::get('/shop', 'HomeController@showshop')->name('shop');
+//Route::get('/auth/user', 'HomeController@showAuthForm')->name('showAuthForm');
 Route::get('/Product/{slug}/{id}', 'HomeController@showSingleProduct')->name('showSingleProduct');
 
 
 
-Route::get('Adminlogin', 'AdminController@showlogin')->name('portal.Adminlogin');
+/*Route::get('Adminlogin', 'AdminController@showlogin')->name('portal.Adminlogin');
 Route::get('AdminRegister', 'AdminController@register')->name('portal.AdminRegister');
 Route::post('CreateAdminRegister', 'AdminController@CreateAdminRegister')->name('portal.CreateAdminRegister');
 Route::get('/verifymobile/{mobile}', 'AdminController@verifymobile')->name('verifymobile');
 Route::post('checkCodeSMS', 'AdminController@checkCodeSMS')->name('checkCodeSMS');
 Route::post('checklogin', 'AdminController@checklogin')->name('portal.checklogin');
 Route::get('portal/auth-recover-pw', 'AdminController@showlogin')->name('portal.auth-recover-pw');
-Route::get('/logout', 'AdminController@logout')->name('portal.logout');
+Route::get('/logout', 'AdminController@logout')->name('portal.logout');*/
 
 
 Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['admin']], function () {
@@ -71,6 +72,7 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['admin']
 
     Route::get('/', 'AdminController@index')->name('index');
     Route::get('/index', 'AdminController@index')->name('portal.index');
+    Route::post('logout', 'AdminController@logout')->name('logout');
 
 
     //User

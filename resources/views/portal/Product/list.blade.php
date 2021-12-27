@@ -97,7 +97,9 @@
                                     @foreach($Product as $itemUser)
                                         <tr class="text-center">
                                             <td>  {{$itemUser->id}}   </td>
-                                            <td>  {{$itemUser->userId}}   </td>
+                                            <td>  {{
+    \App\Helper\Helper::getInfoUser($itemUser->userId)['fullname']
+}}   </td>
                                             <td>  {{$itemUser->title}}   </td>
                                             <td>  {{
     \App\Helper\Helper::GetGroupName($itemUser->groupId)

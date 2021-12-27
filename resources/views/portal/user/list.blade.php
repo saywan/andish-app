@@ -76,6 +76,7 @@
                                     <tr>
                                         <th>ردیف</th>
                                         <th>نام و نام خانوادگی</th>
+                                        <th>سطح دسترسی</th>
                                         <th>شماره موبایل</th>
                                         <th>آدرس ایمیل</th>
                                         <th>کد ملی</th>
@@ -90,6 +91,10 @@
                                             <tr>
                                                 <td>  {{$itemUser->id}}   </td>
                                                 <td>  {{$itemUser->fullname}}   </td>
+                                                <td>  {{
+   \App\Helper\Helper::getUserInfoRole($itemUser->role_id)
+
+}}   </td>
                                                 <td>  {{$itemUser->mobile}}   </td>
                                                 <td>  {{$itemUser->email}}   </td>
                                                 <td>  {{$itemUser->codemeli}}   </td>

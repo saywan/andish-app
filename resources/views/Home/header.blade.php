@@ -24,10 +24,11 @@
                 <div class="top-right pull-right clearfix">
                     <!-- Info List -->
                     <ul class="info-list">
-                        <li><a href="mailto:info@andishgostar.com"><span class="icon flaticon-email"></span>
-                                info@andishgostar.com</a></li>
-                        <li><a href="tel:09183732103"><span class="icon flaticon-telephone"></span>
-                                09183732103
+                        <li><a href="mailto: {{$setting->emails_site}}"><span class="icon flaticon-email"></span>
+                                {{$setting->emails_site}}
+                            </a></li>
+                        <li><a href="tel: {{$setting->telephone_one_shop}}"><span class="icon flaticon-telephone"></span>
+                                {{$setting->telephone_one_shop}}
                             </a>
                         </li>
                     </ul>
@@ -70,7 +71,7 @@
                         <div class="icon-box"><span class="flaticon-email-1"></span></div>
                         <ul>
                             <li><strong>ایمیل </strong></li>
-                            <li>info@andishgostar.com</li>
+                            <li>{{$setting->emails_site}}</li>
                         </ul>
                     </div>
 
@@ -78,8 +79,11 @@
                     <div class="upper-column info-box">
                         <!-- Quote Btn -->
                         <div class="btn-box">
-                            <a href="tel:09183732103" class="theme-btn btn-style-one"><span
-                                    class="txt">مشاوره رایگان </span></a>
+                            <a href="{{route('login')}}" class="theme-btn btn-style-one">
+                                <span   class="txt">
+                                    ورود یا عضویت
+                                </span>
+                            </a>
                         </div>
                     </div>
 
@@ -134,6 +138,7 @@
                                     وبلاگ
                                 </a>
                             </li>
+
                             <li class="dropdown">
                                 <a href="#">پروژه های ما </a>
                                 <ul>
@@ -195,6 +200,11 @@
                     <div class="search-box-outer">
                         <div class="search-box-btn"><span class="fa fa-search"></span></div>
                     </div>
+                    <div class="search-box-outer">
+                        <div class="search-box-btn">
+                            <span class="fa fa-user"></span>
+                        </div>
+                    </div>
 
                 </nav>
                 <!-- Main Menu End-->
@@ -243,3 +253,63 @@
     </div><!-- End Mobile Menu -->
 
 </header>
+
+
+<div class="xs-sidebar-group info-group">
+    <div class="xs-overlay xs-bg-black"></div>
+    <div class="xs-sidebar-widget">
+        <div class="sidebar-widget-container">
+            <div class="widget-heading">
+                <a href="#" class="close-side-widget">
+                    X
+                </a>
+            </div>
+            <div class="sidebar-textwidget">
+
+                <!-- Sidebar Info Content -->
+                <div class="sidebar-info-contents">
+                    <div class="content-inner">
+                        <div class="logo">
+                            <a href="{{url('/')}}"><img src="{{asset("Content/images/loginmain.png")}}" alt="" width="100" height="60"/></a>
+                        </div>
+                        <div class="content-box">
+                            <h2> درباره ما </h2>
+                            <p class="text-justify">
+                                شرکت اندیش گستر
+                                یکی از بزرگترین تامین کنندگان لوله و اتصالات پلی اتیلن آبرسانی، گاز رسانی و فاضلابی مطابق با استانداردهای معتبر ملی، بیـن المللی و سیـستم استاندارد مدیریت کیفیت ISO 9001-2015, ISO14001- 2015 , OHSAS 18001 در ایران است.
+
+                            </p>
+                            <a href="{{url('contactUs')}}" class="theme-btn btn-style-three"><span class="txt">مشاوره </span></a>
+                        </div>
+                        <div class="contact-info">
+                            <h2>اطلاعات تماس </h2>
+                            <ul class="list-style-one">
+                                <li><span class="icon fa fa-location-arrow"></span>
+                                    {!! $setting->contact_address !!}
+                                </li>
+                                <li><span class="icon fa fa-phone"></span>
+                                    {{$setting->telephone_one_shop}}
+                                </li>
+                                <li><span class="icon fa fa-envelope"></span>
+                                    {{$setting->emails_site}}
+                                </li>
+                                <li><span class="icon fa fa-clock-o"></span>شنبه - چهارشنبه | ساعت کاری 9 صبح تا 19
+                                    عصر
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Social Box -->
+                        <ul class="social-box">
+                            <li class="facebook"><a href="#" class="fa fa-facebook-f"></a></li>
+                            <li class="twitter"><a href="#" class="fa fa-twitter"></a></li>
+                            <li class="linkedin"><a href="#" class="fa fa-linkedin"></a></li>
+                            <li class="instagram"><a href="#" class="fa fa-instagram"></a></li>
+                            <li class="youtube"><a href="#" class="fa fa-youtube"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
