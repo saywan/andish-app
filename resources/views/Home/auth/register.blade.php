@@ -7,7 +7,7 @@ $setting = \App\Models\AdminSettings::find(1);
 <head>
     <meta charset="utf-8">
     <title>
-        ورود یا عضویت - شرکت اندیش گستر
+        عضویت - شرکت اندیش گستر
     </title>
     <!-- Stylesheets -->
     <link href="{{asset("Content/css/bootstrap.css")}}" rel="stylesheet">
@@ -20,7 +20,6 @@ $setting = \App\Models\AdminSettings::find(1);
 
     <!-- Color Themes -->
     <link id="theme-color-file" href="{{asset("Content/css/color-themes/teal-theme.css")}}" rel="stylesheet">
-    <link id="theme-color-file" href="{{asset("Content/js/sweet-alert2/sweetalert2.min.css")}}" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{asset("Content/images/favicon.png")}}" type="image/x-icon">
     <link rel="icon" href="{{asset("Content/images/favicon.png")}}" type="image/x-icon">
@@ -32,7 +31,6 @@ $setting = \App\Models\AdminSettings::find(1);
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
 <!--[if lt IE 9]><script src="{{asset("Content/js/respond.js")}}"></script><![endif]-->
-    <script src="{{asset("Content/js/sweet-alert2/sweetalert2.min.js")}}"></script>
 </head>
 
 <body class="hidden-bar-wrapper">
@@ -46,9 +44,6 @@ $setting = \App\Models\AdminSettings::find(1);
 @include('Home.header')
 <!-- End Main Header -->
 
-    <!-- Sidebar Cart Item -->
-
-    <!-- END sidebar widget item -->
 
     <!--Page Title-->
     <section class="page-title">
@@ -68,53 +63,37 @@ $setting = \App\Models\AdminSettings::find(1);
         <div class="auto-container">
             <div class="row clearfix">
 
+
                 <!--Form Column-->
-                <div class="form-column column col-lg-6 col-md-12 col-sm-12">
+                <div class="form-column column col-lg-6 col-md-12 col-sm-12 text-center">
 
                     <div class="sec-title">
-                        <h3> ورود به سیستم اندیش گستر </h3>
+                        <h2>ثبت نام در اندیش گستر</h2>
                         <div class="separate"></div>
-
-                        @if ($message = \Illuminate\Support\Facades\Session::get('warning'))
-                            <div class="alert alert-warning alert-block">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <strong>{{ $message }}</strong>
-
-                                <a  @click="SendVerifyEmail({{\Illuminate\Support\Facades\Session::get('Confirm')}})" class="text-primary">
-                                    جهت ارسال ایمیل فعالسازی کلیک کنید
-                              </a>
-                            </div>
-                        @endif
-
-                       {{-- @if(\Illuminate\Support\Facades\Session::has('errorMessage'))
-
-                                <p style="color: red">{{\Illuminate\Support\Facades\Session::get('errorMessage')}}</p>
-                                <br>
-                                <span class="text-dark">
-                                     جهت ارسال ایمیل فعالسازی کلیک کنید
-                              </span>
-
-                        @endif--}}
-
                     </div>
 
                     <!--Login Form-->
-                    <div class="styled-form login-form">
+                    <div class="styled-form register-form">
                         <ul style="list-style-type: disc !important;list-style: disc ">
-
                             @foreach($errors->all() as $error )
                                 <li style="color: red">{{$error}}</li>
                             @endforeach
                         </ul>
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="form-group">
                                 <span class="adon-icon"><span class="fa fa-envelope-o"></span></span>
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror"
-                                       name="email" value="{{ old('email') }}" autocomplete="email" required autofocus
-                                       oninvalid="this.setCustomValidity('شماره موبایل یا آدرس ایمیل معتبر را وارد کنید')"
-                                       oninput="this.setCustomValidity('')" tabindex="1" required autofocus
-                                       placeholder="آدرس ایمیل یا شماره موبایل خود را وارد کنید">
+                                <input id="fullname" type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ old('fullname') }}"  autocomplete="fullname" required autofocus oninvalid="this.setCustomValidity(' نام خود را وارد کنید')" oninput="this.setCustomValidity('')" tabindex="1" required placeholder="نام خود را وارد کنید">
+                                @error('fullname')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <span class="adon-icon"><span class="fa fa-envelope-o"></span></span>
+                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" required autofocus oninvalid="this.setCustomValidity('شماره موبایل یا آدرس ایمیل معتبر را وارد کنید')" oninput="this.setCustomValidity('')" tabindex="1" required placeholder="آدرس ایمیل یا شماره موبایل خود را وارد کنید">
+
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -125,30 +104,19 @@ $setting = \App\Models\AdminSettings::find(1);
                                 <span class="adon-icon">
                                     <span class="fa fa-unlock-alt"></span>
                                 </span>
-                                <input id="userpasswordlogin" type="password" class="form-control"
-                                       name="userpasswordlogin" autocomplete="current-password" autocomplete="password"
-                                       autofocus oninvalid="this.setCustomValidity('گذرواژه را وارد کنید')"
-                                       oninput="this.setCustomValidity('')" tabindex="2" required
-                                       placeholder="رمز عبور خود را وارد کنید">
+                                <input id="passwordregister" type="password" class="form-control" name="passwordregister"  autocomplete="current-password"  autocomplete="password" autofocus oninvalid="this.setCustomValidity('گذرواژه را وارد کنید')" oninput="this.setCustomValidity('')" tabindex="2" required placeholder="گذرواژه خود را وارد کنید">
 
-                                @error('userpasswordlogin')
+                                @error('passwordregister')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-                            <div class="clearfix">
-                                <div class="pull-left">
-                                    <input type="checkbox" id="remember-me" name="remember">
-                                    <label class="remember-me" for="remember-me">&nbsp;
-                                        مرا به خاطر بسپار
-                                    </label>
-                                </div>
-                            </div>
+
                             <div class="clearfix">
                                 <div class="form-group pull-left">
                                     <button type="submit" class="theme-btn btn-style-three"><span
-                                            class="txt">ورود به سیستم </span>
+                                            class="txt">ثبت نام در اندیش گستر </span>
                                     </button>
                                 </div>
 
@@ -158,9 +126,6 @@ $setting = \App\Models\AdminSettings::find(1);
                     </div>
 
                 </div>
-
-                <!--Form Column-->
-
 
             </div>
         </div>
@@ -192,7 +157,6 @@ $setting = \App\Models\AdminSettings::find(1);
 <!--Scroll to top-->
 <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-up"></span></div>
 
-<script src="{{asset("js/app.js")}}"></script>
 <script src="{{asset("Content/js/jquery.js")}}"></script>
 <script src="{{asset("Content/js/popper.min.js")}}"></script>
 <script src="{{asset("Content/js/bootstrap.min.js")}}"></script>

@@ -81,7 +81,14 @@
                         <div class="btn-box">
                             <a href="{{route('login')}}" class="theme-btn btn-style-one">
                                 <span   class="txt">
-                                    ورود یا عضویت
+                                    ورود
+                                </span>
+                            </a>
+                        </div>
+                        <div class="btn-box">
+                            <a href="{{route('register')}}" class="theme-btn btn-style-one">
+                                <span   class="txt">
+                                    عضویت
                                 </span>
                             </a>
                         </div>

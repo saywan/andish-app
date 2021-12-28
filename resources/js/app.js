@@ -9111,6 +9111,68 @@ const app = new Vue({
 
 
         },
+        SendVerifyEmail: function (userId) {
+
+
+
+          //  var title = $('#titleGroup').val();
+
+
+
+
+
+            let dataform = new FormData();
+            dataform.append('userId', userId);
+
+
+
+            axios.post('/SendVerifyEmail',
+                dataform,
+                {
+                    headers: {
+
+                        'Content-Type': 'multipart/form-data'
+                    }
+
+                }).then(response => {
+
+
+                if (response.data.status == 200) {
+
+
+                    //window.location.assign('/User/Confirm');
+                    Swal.fire({
+                        type: "success",
+                        title: 'ایمیل فعالسازی',
+                        text: ' ایمیل فعالسازی با موفقیت ارسال شد',
+                        position: "top-right",
+                        icon: 'success',
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+
+                } else {
+
+                    Swal.fire({
+                        type: "warning",
+                        title: 'خطا ',
+                        text: 'مجددا تلاش کنید',
+                        position: "top-left",
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                }
+
+
+            }).catch((error) => {
+
+                this.$loading(false);
+                this.allerros = error.response.data.errors;
+
+            });
+
+
+        },
         NewFactor: function () {
 
 

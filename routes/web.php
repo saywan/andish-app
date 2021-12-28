@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/Confirm/{email}', 'HomeController@ShowConfirm')->name('ShowConfirm');
+Route::post('SendVerifyEmail', 'HomeController@SendVerifyEmail')->name('SendVerifyEmail');
 Route::get('/contactUs', 'HomeController@contactUs')->name('contactUs');
 Route::get('/aboutUs', 'HomeController@aboutUs')->name('aboutUs');
 Route::get('/shop', 'HomeController@showshop')->name('shop');

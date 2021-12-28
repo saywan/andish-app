@@ -87,13 +87,13 @@ class LoginController extends Controller
         }
 
 
-       // dd($request->all());
+        // dd($request->all());
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         } else {
             // attempt to log
-         //   dd(Auth::attempt(['status' => 'active', $inputType => $request->email, 'password' => $request->userpasswordlogin], $request->remember));
+            //   dd(Auth::attempt(['status' => 'active', $inputType => $request->email, 'password' => $request->userpasswordlogin], $request->remember));
 
             if (Auth::attempt(['status' => 'active', $inputType => $request->email, 'password' => $request->userpasswordlogin], $request->remember)) {
 
@@ -132,10 +132,10 @@ class LoginController extends Controller
                     $_email_noreply = 'support@tether-bank.com';
 
 
-                   /* Smsirlaravel::ultraFastSend([
-                        'username' => auth()->user()->email,
-                        'datetime' => Jalalian::fromCarbon(Carbon::now())->format('H:i:s | %A  %d %B %Y ')
-                    ], 58917, "09035478091");*/
+                    /* Smsirlaravel::ultraFastSend([
+                         'username' => auth()->user()->email,
+                         'datetime' => Jalalian::fromCarbon(Carbon::now())->format('H:i:s | %A  %d %B %Y ')
+                     ], 58917, "09035478091");*/
 
                     //09358505007
                     //09358505007
@@ -173,19 +173,25 @@ class LoginController extends Controller
                     // return redirect()->intended(route('User.index'));
                 }
 
-            }
-            elseif (Auth::attempt(['status' => 'pending', $inputType =>$request->email , 'password' => $request->userpasswordlogin], $request->remember)) {
+            } elseif (Auth::attempt(['status' => 'pending', $inputType => $request->email, 'password' => $request->userpasswordlogin], $request->remember)) {
                 // return
                 $status = Auth::user()->status;
-                // dd($status);
+                //dd(Auth::user()->email);
+              //  Session::flush('UserEmail', base64_encode(Auth::user()->email));
+             //   Session::put('UserEmail',base64_encode(Auth::user()->email));
+                Session::put('Confirm', Auth::user()->id);
+
                 Auth::logout();
-                Session::flush();
-                return redirect(url('login'))->withInput()->with('errorMsg', 'حساب کاربری شما هنوز فعال نشده است');
 
 
-                return redirect()->back()->withErrors([
+                // return redirect(url('login'))->withInput()->with('errorMsg', 'حساب کاربری شما هنوز فعال نشده است');
+                return back()->with('warning','حساب کاربری شما هنوز فعال نشده است');
+              //  return redirect(url('login'));
+
+
+                /*return redirect()->back()->withErrors([
                     'status' => 'حساب کاربری شما هنوز فعال نشده است.',
-                ]);
+                ]);*/
 
             }
 
