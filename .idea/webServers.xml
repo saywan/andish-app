@@ -3,9 +3,9 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="6c9701d7-0617-4a1a-ba53-8408ab7ebc0e" name="andish" url="http://ftp.andishgostar.com">
-        <fileTransfer host="ftp.andishgostar.com" port="21">
+        <fileTransfer rootFolder="/public_html" host="ftp.andishgostar.com" port="21">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

@@ -150,7 +150,7 @@
 
                                     <textarea  id="address" name="address" rows="5" placeholder="About Me..." class="form-control">{{$user->address}} </textarea>
                                     <button class="btn btn-de-primary btn-sm text-light px-4 mt-3 mb-0" @click="EditCustomer({{$user->id}})">به روز رسانی حساب کاربری</button>
-                                    <button class="btn btn-de-danger btn-sm text-light px-4 mt-3 mb-0">برگشت به لیست مشتریان</button>
+                                    <a href="{{route('portal.User')}}" class="btn btn-de-danger btn-sm text-light px-4 mt-3 mb-0">برگشت به لیست مشتریان</a>
                                 </div>
 
                         </div> <!--end card-body-->

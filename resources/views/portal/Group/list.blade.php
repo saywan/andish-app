@@ -95,7 +95,7 @@
                                                 <td>  {{$itemUser->datereg}}   </td>
 
                                                 <td>
-                                                    <a href="{{url('portal/GroupProduct/edit/'.$itemUser->id)}}" title="ویرایش مشتری">
+                                                    <a href="{{url('portal/GroupProduct/edit/'.$itemUser->id)}}" title="ویرایش گروه بندی کالا">
                                                         <i data-feather="edit"></i>
                                                     </a>
                                                     <a @click="DeleteGroupProduct({{$itemUser->id}})" title="حذف گروه بندی کالا">

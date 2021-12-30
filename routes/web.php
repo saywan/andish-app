@@ -128,11 +128,11 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['admin']
     Route::post('updateAboutPage', 'SettingController@updateAboutPage')->name('updateAboutPage');
     Route::post('updateContactPage', 'SettingController@updateContactPage')->name('updateContactPage');
 
-    Route::get('CreateGroupProduct', 'SettingController@create')->name('CreateGroupProduct');
+   /* Route::get('CreateGroupProduct', 'SettingController@create')->name('CreateGroupProduct');
     Route::post('storeGroupProduct', 'SettingController@store')->name('storeGroupProduct');
     Route::get('GroupProduct/edit/{id}', 'SettingController@edit')->name('EditGroupProduct');
     Route::post('UpdateProductGroup', 'SettingController@update')->name('UpdateProductGroup');
-    Route::post('DeleteGroupProduct', 'SettingController@destroy')->name('DeleteGroupProduct');
+    Route::post('DeleteGroupProduct', 'SettingController@destroy')->name('DeleteGroupProduct');*/
 
 
 
