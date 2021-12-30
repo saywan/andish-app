@@ -9111,6 +9111,139 @@ const app = new Vue({
 
 
         },
+        AddBasket: function (ProdId) {
+
+
+
+
+
+            var price = $('#price').val();
+            var quantity = $('#quantity').find(':selected').val();
+
+
+            if (quantity == 0) {
+                Swal.fire({
+                    type: "warning",
+                    title: 'تعداد سفارش ',
+                    text: ' تعداد سفارش را انتخاب کنید',
+                    position: "center",
+                    icon: 'warning',
+                    confirmButtonClass: 'btn btn-success',
+                    confirmButtonText: 'متوجه شدم',
+                });
+                return false;
+            }
+
+            let dataform = new FormData();
+            dataform.append('ProdId', ProdId);
+            dataform.append('price', price);
+            dataform.append('quantity', quantity);
+
+
+
+          /*  let loader = Vue.use(Loading, {
+
+                dark: true, // default false
+                text: 'لطفا شکیبا باشید سیستم در حال آپلود ...', // default 'Loading'
+                loading: true, // default false
+                background: '#fff',
+                classes: ['myclass'] // array, object or string
+
+            });*/
+
+
+            axios.post('/NewCart',
+                dataform,
+                {
+                    headers: {
+
+                        'Content-Type': 'multipart/form-data'
+                    }
+
+                }).then(response => {
+
+
+                if (response.data.status == 200) {
+
+                 //   this.$loading(false);
+                    //window.location.assign('/User/Confirm');
+                    Swal.fire({
+                        type: "success",
+                        title: 'سبد خرید ',
+                        text: 'کالا با موفقیت به سبد خرید اضافه شد',
+                        position: "top-right",
+                        icon: 'success',
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                    setTimeout(function () {
+                        window.location.assign('/Cart');
+                    }, 3000);
+                }else if (response.data.status == 401) {
+
+                    Swal.fire({
+                        type: "info",
+                        title:response.data.MsgTitle ,
+                        text: response.data.Msg,
+                        position: "top-right",
+                        icon: 'info',
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                    setTimeout(function () {
+                        window.location.assign('/Cart');
+                    }, 3000);
+
+                }else if (response.data.status == 419) {
+
+                    Swal.fire({
+                        type: "info",
+                        title:'خطا' ,
+                        text: 'کالا قبلا در سبد خرید شما افزوده شده است',
+                        position: "top-right",
+                        icon: 'info',
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                    setTimeout(function () {
+                        window.location.assign('/Cart');
+                    }, 3000);
+                }else if (response.data.status == 202) {
+
+                    Swal.fire({
+                        type: "success",
+                        title:'به روز رسانی کالا' ,
+                        text: 'کالا با موفقیت به روز رسانی شد',
+                        position: "top-right",
+                        icon: 'success',
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                    setTimeout(function () {
+                        window.location.assign('/Cart');
+                    }, 3000);
+                } else {
+                   // this.$loading(false);
+                    Swal.fire({
+                        type: "warning",
+                        title: 'خطا ',
+                        text: 'مجددا تلاش کنید',
+                        position: "top-left",
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                }
+
+
+            }).catch((error) => {
+
+                this.$loading(false);
+                this.allerros = error.response.data.errors;
+
+            });
+
+
+        },
         SendVerifyEmail: function (userId) {
 
 

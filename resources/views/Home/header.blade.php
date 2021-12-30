@@ -1,5 +1,7 @@
 
-
+<?php
+$setting=\App\Models\AdminSettings::find(1);
+?>
 
 <header class="main-header header-style-three">
 
@@ -169,11 +171,13 @@
                         <div class="dropdown">
                             <button class="cart-box-btn dropdown-toggle" type="button" id="dropdownMenu"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
-                                    class="flaticon-shopping-bag-1"></span><span class="total-cart">2</span>
+                                    class="flaticon-shopping-bag-1"></span><span class="total-cart">
+                                    0
+                                </span>
                             </button>
                             <div class="dropdown-menu pull-right cart-panel" aria-labelledby="dropdownMenu">
 
-                                <div class="cart-product">
+                             {{--   <div class="cart-product">
                                     <div class="inner">
                                         <div class="cross-icon"><span class="icon fa fa-remove"></span></div>
                                         <div class="image"><img src="Content/images/resource/post-thumb-1.jpg"
@@ -197,7 +201,7 @@
                                 <ul class="btns-boxed">
                                     <li><a href="shopping-cart.html">نمایش سبد </a></li>
                                     <li><a href="checkout.html">پرداخت </a></li>
-                                </ul>
+                                </ul>--}}
 
                             </div>
                         </div>

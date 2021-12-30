@@ -1,6 +1,4 @@
-<?php
-$setting=\App\Models\AdminSettings::find(1);
-?>
+
 <!DOCTYPE html>
 <html lang="fa">
 
@@ -52,60 +50,29 @@ $setting=\App\Models\AdminSettings::find(1);
     <section class="banner-section-three">
         <div class="main-slider-carousel owl-carousel owl-theme">
 
-            <div class="slide" style="background-image: url(images/main-slider/image-2.jpg)">
+            <div class="slide" style="background-image: url({{asset("Content/images/main-slider/image-2.jpg")}})">
                 <div class="color-layer"></div>
-                <div class="pattern-layer-one" style="background-image: url(images/main-slider/pattern-7.png)"></div>
+                <div class="pattern-layer-one" style="background-image: url({{asset("Content/images/main-slider/pattern-7.png")}})"></div>
                 <div class="auto-container">
                     <!-- Content Column -->
                     <div class="content-column clearfix">
                         <div class="inner-column">
-                            <h1>ما واقعاً تهیه می کنیم <br> اینجا برجسته است <br> راه حل های IT.</h1>
-                            <div class="text">جمع آوری رویداد قدیمی به نفع تختخواب خجالتی <br> از آن زمان درآمد چیزهای
-                                زیادی دارد.
-                            </div>
-                            <div class="button-box">
-                                <a href="contact.html" class="theme-btn btn-style-one"><span
-                                        class="txt">مطالعه بیشتر</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <h1>
+                               خوش آمدید
+                                <br>
+                                به وب سایت شرکت اندیش گستر
 
-            <div class="slide" style="background-image: url(images/main-slider/image-2.jpg)">
-                <div class="color-layer"></div>
-                <div class="pattern-layer-one" style="background-image: url(images/main-slider/pattern-7.png)"></div>
-                <div class="auto-container">
-                    <!-- Content Column -->
-                    <div class="content-column clearfix">
-                        <div class="inner-column">
-                            <h1>ما واقعاً تهیه می کنیم <br> اینجا برجسته است <br> راه حل های IT.</h1>
-                            <div class="text">جمع آوری رویداد قدیمی به نفع تختخواب خجالتی <br> از آن زمان درآمد چیزهای
-                                زیادی دارد.
-                            </div>
-                            <div class="button-box">
-                                <a href="contact.html" class="theme-btn btn-style-one"><span
-                                        class="txt">مطالعه بیشتر</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            </h1>
+                            <div class="text">
+                                یکی از بزرگترین تامین کنندگان لوله و اتصالات پلی اتیلن آبرسانی
+                                <br>
+                                گاز رسانی
 
-            <div class="slide" style="background-image: url(images/main-slider/image-2.jpg)">
-                <div class="color-layer"></div>
-                <div class="pattern-layer-one" style="background-image: url(images/main-slider/pattern-7.png)"></div>
-                <div class="auto-container">
-                    <!-- Content Column -->
-                    <div class="content-column clearfix">
-                        <div class="inner-column">
-                            <h1>ما واقعاً تهیه می کنیم <br> اینجا برجسته است <br> راه حل های IT.</h1>
-                            <div class="text">جمع آوری رویداد قدیمی به نفع تختخواب خجالتی <br> از آن زمان درآمد چیزهای
-                                زیادی دارد.
                             </div>
                             <div class="button-box">
-                                <a href="contact.html" class="theme-btn btn-style-one"><span
-                                        class="txt">مطالعه بیشتر</span></a>
+                                <a href="{{url('/aboutUs')}}" class="theme-btn btn-style-one">
+                                    <span class="txt">مطالعه بیشتر</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -127,11 +94,15 @@ $setting=\App\Models\AdminSettings::find(1);
                         <div class="inner-box">
                             <div class="content">
                                 <div class="service-number">01</div>
-                                <h4><a href="services-detail.html">ضمانت نامه مدیریت IT</a></h4>
-                                <div class="text">اجرای چرخه کامل محصول نرم افزار خود را به کارشناسی با تجربه ، طراحان
-                                    UI / UX ، توسعه دهندگان ما بسپارید..
+                                <h4>
+                                    <a href="{{url('/')}}">
+                                        تامین کنندگان لوله
+                                    </a>
+                                </h4>
+                                <div class="text">
+                                     تامین کنندگان لوله و اتصالات پلی اتیلن آبرسانی
                                 </div>
-                                <a href="services-detail.html" class="more-detail">جزئیات بیشتر</a>
+                                <a href="{{url('/')}}" class="more-detail">جزئیات بیشتر</a>
                             </div>
                         </div>
                     </div>
@@ -141,9 +112,12 @@ $setting=\App\Models\AdminSettings::find(1);
                         <div class="inner-box">
                             <div class="content">
                                 <div class="service-number">02</div>
-                                <h4><a href="services-detail.html">کنترل خدمات محصول</a></h4>
-                                <div class="text">اجرای چرخه کامل محصول نرم افزار خود را به کارشناسی با تجربه ، طراحان
-                                    UI / UX ، توسعه دهندگان ما بسپارید..
+                                <h4><a href="services-detail.html">
+                                        تامین کنندگان لوله گاز
+                                    </a>
+                                </h4>
+                                <div class="text">
+                                    تامین کنندگان لوله و اتصالات پلی اتیلن آبرسانی
                                 </div>
                                 <a href="services-detail.html" class="more-detail">جزئیات بیشتر</a>
                             </div>
@@ -155,10 +129,13 @@ $setting=\App\Models\AdminSettings::find(1);
                         <div class="inner-box">
                             <div class="content">
                                 <div class="service-number">03</div>
-                                <h4><a href="services-detail.html">سیستم کنترل کیفیت</a></h4>
-                                <div class="text">اجرای چرخه کامل محصول نرم افزار خود را به کارشناسی با تجربه ، طراحان
-                                    UI / UX ، توسعه دهندگان ما بسپارید..
-                                </div>
+                                <h4><a href="services-detail.html">
+                                        استانداردهای معتبر ملی
+
+                                    </a></h4>
+                             <div class="text">
+                                 استانداردهای معتبر ملی
+                             </div>
                                 <a href="services-detail.html" class="more-detail">جزئیات بیشتر</a>
                             </div>
                         </div>
@@ -224,578 +201,22 @@ $setting=\App\Models\AdminSettings::find(1);
     <!--End Sponsors Section-->
 
     <!-- Fluid Section One -->
-    <section class="fluid-section-one">
-        <div class="outer-container clearfix">
 
-            <!-- Content Column -->
-            <div class="content-column" style="background-image:url(images/background/pattern-13.png)">
-                <div class="inner-column">
-                    <!-- Sec Title -->
-                    <div class="sec-title light">
-                        <div class="title">درباره آتچ</div>
-                        <h2>مورد اعتماد <br> 5000+ مشتری خوشحال</h2>
-                        <div class="text">گوش می دهیم. ما توصیه می کنیم. ما با هم طراحی می کنیم. مشتری های خوشحال و
-                            روابط مداوم همان چیزی است که ما برای آن تلاش می کنیم. موفقیت با نتایج سنجیده می شود ،
-                            مهمترین احساس مشتری در مورد تجربه خود با ماست. ما این بررسی ها را انجام می دهیم.
-                        </div>
-                    </div>
-                    <div class="row clearfix">
-
-                        <!-- Feature Block Three -->
-                        <div class="feature-block-three col-lg-4 col-md-4 col-sm-12">
-                            <div class="inner-box">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-web-1"></span>
-                                </div>
-                                <div class="number">478</div>
-                                <div class="feature-text">مشتریان خوشحال</div>
-                            </div>
-                        </div>
-
-                        <!-- Feature Block Three -->
-                        <div class="feature-block-three col-lg-4 col-md-4 col-sm-12">
-                            <div class="inner-box">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-designer"></span>
-                                </div>
-                                <div class="number">642</div>
-                                <div class="feature-text">پروژه تکمیلی</div>
-                            </div>
-                        </div>
-
-                        <!-- Feature Block Three -->
-                        <div class="feature-block-three col-lg-4 col-md-4 col-sm-12">
-                            <div class="inner-box">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-planet-earth"></span>
-                                </div>
-                                <div class="number">578</div>
-                                <div class="feature-text">طراح ابری</div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Image Column -->
-            <div class="image-column" style="background-image:url(images/resource/image-1.jpg)">
-                <figure class="image-box"><img src="Content/images/resource/image-1.jpg" alt=""></figure>
-            </div>
-
-        </div>
-    </section>
 
     <!-- News Section Three -->
-    <section class="news-section-three">
-        <div class="auto-container">
-            <!-- Sec Title -->
-            <div class="sec-title centered">
-                <div class="title">آخرین خدمات ما</div>
-                <h2>ما انواع خدمات را به صورت <br> فناوری اطلاعات ارائه میدهیم</h2>
-            </div>
-            <div class="three-item-carousel owl-carousel owl-theme">
 
-                <!-- News Block Three -->
-                <div class="news-block-three">
-                    <div class="inner-box">
-                        <div class="image">
-                            <a href="news-detail.html"><img src="Content/images/resource/news-5.jpg" alt=""/></a>
-                        </div>
-                        <div class="lower-content">
-                            <div class="content">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-coding-1"></span>
-                                </div>
-                                <h4><a href="news-detail.html">توسعه وب</a></h4>
-                                <div class="text">ما چیزی فراتر از مهارت های خوب کد نویسی داریم. تجربه ما باعث می شود از
-                                    دیگران جدا شویم توسعه وب.
-                                </div>
-                                <a class="read-more" href="news-detail.html">ادامه مطلب <span
-                                        class="arrow flaticon-long-arrow-pointing-to-the-right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Block Three -->
-                <div class="news-block-three style-two">
-                    <div class="inner-box">
-                        <div class="lower-content">
-                            <div class="content">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-mobile-app"></span>
-                                </div>
-                                <h4><a href="news-detail.html">توسعه وب</a></h4>
-                                <div class="text">ما چیزی فراتر از مهارت های خوب کد نویسی داریم. تجربه ما باعث می شود از
-                                    دیگران جدا شویم توسعه وب.
-                                </div>
-                                <a class="read-more" href="news-detail.html">ادامه مطلب <span
-                                        class="arrow flaticon-long-arrow-pointing-to-the-right"></span></a>
-                            </div>
-                        </div>
-                        <div class="image">
-                            <a href="news-detail.html"><img src="Content/images/resource/news-6.jpg" alt=""/></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Block Three -->
-                <div class="news-block-three">
-                    <div class="inner-box">
-                        <div class="image">
-                            <a href="news-detail.html"><img src="Content/images/resource/news-7.jpg" alt=""/></a>
-                        </div>
-                        <div class="lower-content">
-                            <div class="content">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-computer"></span>
-                                </div>
-                                <h4><a href="news-detail.html">UI/UX طراحی </a></h4>
-                                <div class="text">محصول مورد نیاز خود را به موقع با تیمی مجرب که از روند طراحی واضح و
-                                    موثر استفاده می کند ، بسازید.
-                                </div>
-                                <a class="read-more" href="news-detail.html">ادامه مطلب <span
-                                        class="arrow flaticon-long-arrow-pointing-to-the-right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Block Three -->
-                <div class="news-block-three">
-                    <div class="inner-box">
-                        <div class="image">
-                            <a href="news-detail.html"><img src="Content/images/resource/news-5.jpg" alt=""/></a>
-                        </div>
-                        <div class="lower-content">
-                            <div class="content">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-coding-1"></span>
-                                </div>
-                                <h4><a href="news-detail.html">توسعه وب</a></h4>
-                                <div class="text">ما چیزی فراتر از مهارت های خوب کد نویسی داریم. تجربه ما باعث می شود از
-                                    دیگران جدا شویم توسعه وب.
-                                </div>
-                                <a class="read-more" href="news-detail.html">ادامه مطلب <span
-                                        class="arrow flaticon-long-arrow-pointing-to-the-right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Block Three -->
-                <div class="news-block-three style-two">
-                    <div class="inner-box">
-                        <div class="lower-content">
-                            <div class="content">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-mobile-app"></span>
-                                </div>
-                                <h4><a href="news-detail.html">توسعه وب</a></h4>
-                                <div class="text">ما چیزی فراتر از مهارت های خوب کد نویسی داریم. تجربه ما باعث می شود از
-                                    دیگران جدا شویم توسعه وب.
-                                </div>
-                                <a class="read-more" href="news-detail.html">ادامه مطلب <span
-                                        class="arrow flaticon-long-arrow-pointing-to-the-right"></span></a>
-                            </div>
-                        </div>
-                        <div class="image">
-                            <a href="news-detail.html"><img src="Content/images/resource/news-6.jpg" alt=""/></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Block Three -->
-                <div class="news-block-three">
-                    <div class="inner-box">
-                        <div class="image">
-                            <a href="news-detail.html"><img src="Content/images/resource/news-7.jpg" alt=""/></a>
-                        </div>
-                        <div class="lower-content">
-                            <div class="content">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-computer"></span>
-                                </div>
-                                <h4><a href="news-detail.html">UI/UX طراحی </a></h4>
-                                <div class="text">محصول مورد نیاز خود را به موقع با تیمی مجرب که از روند طراحی واضح و
-                                    موثر استفاده می کند ، بسازید.
-                                </div>
-                                <a class="read-more" href="news-detail.html">ادامه مطلب <span
-                                        class="arrow flaticon-long-arrow-pointing-to-the-right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Block Three -->
-                <div class="news-block-three">
-                    <div class="inner-box">
-                        <div class="image">
-                            <a href="news-detail.html"><img src="Content/images/resource/news-5.jpg" alt=""/></a>
-                        </div>
-                        <div class="lower-content">
-                            <div class="content">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-coding-1"></span>
-                                </div>
-                                <h4><a href="news-detail.html">توسعه وب</a></h4>
-                                <div class="text">ما چیزی فراتر از مهارت های خوب کد نویسی داریم. تجربه ما باعث می شود از
-                                    دیگران جدا شویم توسعه وب.
-                                </div>
-                                <a class="read-more" href="news-detail.html">ادامه مطلب <span
-                                        class="arrow flaticon-long-arrow-pointing-to-the-right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Block Three -->
-                <div class="news-block-three style-two">
-                    <div class="inner-box">
-                        <div class="lower-content">
-                            <div class="content">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-mobile-app"></span>
-                                </div>
-                                <h4><a href="news-detail.html">توسعه وب</a></h4>
-                                <div class="text">ما چیزی فراتر از مهارت های خوب کد نویسی داریم. تجربه ما باعث می شود از
-                                    دیگران جدا شویم توسعه وب.
-                                </div>
-                                <a class="read-more" href="news-detail.html">ادامه مطلب <span
-                                        class="arrow flaticon-long-arrow-pointing-to-the-right"></span></a>
-                            </div>
-                        </div>
-                        <div class="image">
-                            <a href="news-detail.html"><img src="Content/images/resource/news-6.jpg" alt=""/></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Block Three -->
-                <div class="news-block-three">
-                    <div class="inner-box">
-                        <div class="image">
-                            <a href="news-detail.html"><img src="Content/images/resource/news-7.jpg" alt=""/></a>
-                        </div>
-                        <div class="lower-content">
-                            <div class="content">
-                                <div class="icon-box">
-                                    <span class="icon flaticon-computer"></span>
-                                </div>
-                                <h4><a href="news-detail.html">UI/UX طراحی </a></h4>
-                                <div class="text">محصول مورد نیاز خود را به موقع با تیمی مجرب که از روند طراحی واضح و
-                                    موثر استفاده می کند ، بسازید.
-                                </div>
-                                <a class="read-more" href="news-detail.html">ادامه مطلب <span
-                                        class="arrow flaticon-long-arrow-pointing-to-the-right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
     <!-- End News Section Three -->
 
     <!-- Call To Action Two -->
-    <section class="call-to-action-section-two">
-        <div class="auto-container">
-            <div class="inner-container">
-                <div class="image">
-                    <img src="Content/images/resource/image-2.jpg" alt=""/>
-                </div>
-                <h3>ما خدمات فناوری اطلاعات خارجی را برای مشاغل کوچک و متوسط ارائه می دهیم</h3>
-                <a href="services.html" class="theme-btn btn-style-two"><span class="txt">خدمات بیشتر</span></a>
-            </div>
-        </div>
-    </section>
+
     <!-- End Call To Action Two -->
 
     <!-- Cases Section Two -->
-    <section class="cases-section-two">
-        <div class="auto-container">
-            <!-- Sec Title -->
-            <div class="sec-title">
-                <div class="title">آخرین مورد موردی</div>
-                <h2>مطالب اخیر ما را می خواند <br> مطالعات موردی</h2>
-            </div>
-        </div>
 
-        <div class="outer-container">
-
-            <div class="five-item-carousel owl-carousel owl-theme">
-
-                <!-- Case Block Two -->
-                <div class="case-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="Content/images/gallery/6.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <a href="images/gallery/6.jpg" data-fancybox="case-2" data-caption=""
-                                   class="search-icon"><span class="icon flaticon-search"></span></a>
-                                <a href="projects-detail.html"
-                                   class="arrow flaticon-long-arrow-pointing-to-the-right"></a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h5><a href="projects-detail.html">برنامه رسانه های اجتماعی</a></h5>
-                            <div class="category">مشاوره / فناوری</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case Block Two -->
-                <div class="case-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="Content/images/gallery/7.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <a href="images/gallery/7.jpg" data-fancybox="case-2" data-caption=""
-                                   class="search-icon"><span class="icon flaticon-search"></span></a>
-                                <a href="projects-detail.html"
-                                   class="arrow flaticon-long-arrow-pointing-to-the-right"></a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h5><a href="projects-detail.html">برنامه رسانه های اجتماعی</a></h5>
-                            <div class="category">ایده ها / فناوری</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case Block Two -->
-                <div class="case-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="Content/images/gallery/8.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <a href="images/gallery/8.jpg" data-fancybox="case-2" data-caption=""
-                                   class="search-icon"><span class="icon flaticon-search"></span></a>
-                                <a href="projects-detail.html"
-                                   class="arrow flaticon-long-arrow-pointing-to-the-right"></a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h5><a href="projects-detail.html">وب سایت تجارت الکترونیکی</a></h5>
-                            <div class="category">طراحی و توسعه</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case Block Two -->
-                <div class="case-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="Content/images/gallery/9.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <a href="images/gallery/9.jpg" data-fancybox="case-2" data-caption=""
-                                   class="search-icon"><span class="icon flaticon-search"></span></a>
-                                <a href="projects-detail.html"
-                                   class="arrow flaticon-long-arrow-pointing-to-the-right"></a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h5><a href="projects-detail.html">تجارت IT خود را توسعه دهید </a></h5>
-                            <div class="category">پروژه / تجارت فناوری اطلاعات</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case Block Two -->
-                <div class="case-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="Content/images/gallery/10.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <a href="images/gallery/10.jpg" data-fancybox="case-2" data-caption=""
-                                   class="search-icon"><span class="icon flaticon-search"></span></a>
-                                <a href="projects-detail.html"
-                                   class="arrow flaticon-long-arrow-pointing-to-the-right"></a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h5><a href="projects-detail.html">راه حل IT خود را مدیریت کنید</a></h5>
-                            <div class="category">راه حل IT</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case Block Two -->
-                <div class="case-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="Content/images/gallery/6.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <a href="images/gallery/6.jpg" data-fancybox="case-2" data-caption=""
-                                   class="search-icon"><span class="icon flaticon-search"></span></a>
-                                <a href="projects-detail.html"
-                                   class="arrow flaticon-long-arrow-pointing-to-the-right"></a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h5><a href="projects-detail.html">برنامه رسانه های اجتماعی</a></h5>
-                            <div class="category">مشاوره / فناوری</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case Block Two -->
-                <div class="case-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="Content/images/gallery/7.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <a href="images/gallery/7.jpg" data-fancybox="case-2" data-caption=""
-                                   class="search-icon"><span class="icon flaticon-search"></span></a>
-                                <a href="projects-detail.html"
-                                   class="arrow flaticon-long-arrow-pointing-to-the-right"></a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h5><a href="projects-detail.html">برنامه رسانه های اجتماعی</a></h5>
-                            <div class="category">ایده ها / فناوری</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case Block Two -->
-                <div class="case-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="Content/images/gallery/8.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <a href="images/gallery/8.jpg" data-fancybox="case-2" data-caption=""
-                                   class="search-icon"><span class="icon flaticon-search"></span></a>
-                                <a href="projects-detail.html"
-                                   class="arrow flaticon-long-arrow-pointing-to-the-right"></a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h5><a href="projects-detail.html">وب سایت تجارت الکترونیکی</a></h5>
-                            <div class="category">طراحی و توسعه</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case Block Two -->
-                <div class="case-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="Content/images/gallery/9.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <a href="images/gallery/9.jpg" data-fancybox="case-2" data-caption=""
-                                   class="search-icon"><span class="icon flaticon-search"></span></a>
-                                <a href="projects-detail.html"
-                                   class="arrow flaticon-long-arrow-pointing-to-the-right"></a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h5><a href="projects-detail.html">تجارت IT خود را توسعه دهید </a></h5>
-                            <div class="category">پروژه / تجارت فناوری اطلاعات</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case Block Two -->
-                <div class="case-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="Content/images/gallery/10.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <a href="images/gallery/10.jpg" data-fancybox="case-2" data-caption=""
-                                   class="search-icon"><span class="icon flaticon-search"></span></a>
-                                <a href="projects-detail.html"
-                                   class="arrow flaticon-long-arrow-pointing-to-the-right"></a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h5><a href="projects-detail.html">راه حل IT خود را مدیریت کنید</a></h5>
-                            <div class="category">راه حل IT</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
     <!-- End Cases Section Two -->
 
     <!-- Pricing Section -->
-    <section class="pricing-section">
-        <div class="auto-container">
-            <!-- Sec Title -->
-            <div class="sec-title centered">
-                <div class="title">برنامه های قیمت گذاری ما</div>
-                <h2>هزینه پروژه ماهانه <br> پلن قیمتها</h2>
-            </div>
 
-            <div class="row clearfix">
-
-                <!-- Price Block -->
-                <div class="price-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner-box">
-                        <h3>پایه </h3>
-                        <div class="text">طراحی شده برای مشاغل با الزامات بهداشتی استاندارد</div>
-                        <div class="price">70000 تومان<span>/ هر ماه </span></div>
-                        <ul class="price-list">
-                            <li>پشتیبانی 24/7</li>
-                            <li>تنظیمات پیشرفته</li>
-                            <li>16 گیگابایت فضا</li>
-                            <li>پشتیبانی نامحدود</li>
-                        </ul>
-                        <div class="btn-box">
-                            <a href="contact.html" class="theme-btn btn-style-one"><span
-                                    class="txt">شروع کنید</span></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Price Block -->
-                <div class="price-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner-box">
-                        <h3>استاندارد </h3>
-                        <div class="text">طراحی شده برای مشاغل با الزامات بهداشتی استاندارد</div>
-                        <div class="price">90000 تومان<span>/ هر ماه </span></div>
-                        <ul class="price-list">
-                            <li>پشتیبانی 24/7</li>
-                            <li>تنظیمات پیشرفته</li>
-                            <li>16 گیگابایت فضا</li>
-                            <li>پشتیبانی نامحدود</li>
-                        </ul>
-                        <div class="btn-box">
-                            <a href="contact.html" class="theme-btn btn-style-one"><span
-                                    class="txt">شروع کنید</span></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Price Block -->
-                <div class="price-block col-lg-4 col-md-6 col-sm-12">
-                    <div class="inner-box">
-                        <h3>حرفه ای </h3>
-                        <div class="text">طراحی شده برای مشاغل با الزامات بهداشتی استاندارد</div>
-                        <div class="price">100000 تومان <span>/ هر ماه </span></div>
-                        <ul class="price-list">
-                            <li>پشتیبانی 24/7</li>
-                            <li>تنظیمات پیشرفته</li>
-                            <li>16 گیگابایت فضا</li>
-                            <li>پشتیبانی نامحدود</li>
-                        </ul>
-                        <div class="btn-box">
-                            <a href="contact.html" class="theme-btn btn-style-one"><span
-                                    class="txt">شروع کنید</span></a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
     <!-- End Pricing Section -->
 
     <!-- News Section Four -->

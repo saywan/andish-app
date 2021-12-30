@@ -19,9 +19,12 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/Confirm/{email}', 'HomeController@ShowConfirm')->name('ShowConfirm');
 Route::post('SendVerifyEmail', 'HomeController@SendVerifyEmail')->name('SendVerifyEmail');
+Route::get('VerifyAccount/{token}', 'HomeController@VerifyAccount')->name('VerifyAccount');
 Route::get('/contactUs', 'HomeController@contactUs')->name('contactUs');
 Route::get('/aboutUs', 'HomeController@aboutUs')->name('aboutUs');
 Route::get('/shop', 'HomeController@showshop')->name('shop');
+Route::post('/NewCart', 'HomeController@NewCart')->name('NewCart');
+Route::get('/Cart', 'HomeController@showCart')->name('showCart');
 //Route::get('/auth/user', 'HomeController@showAuthForm')->name('showAuthForm');
 Route::get('/Product/{slug}/{id}', 'HomeController@showSingleProduct')->name('showSingleProduct');
 
