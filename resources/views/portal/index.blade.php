@@ -402,9 +402,9 @@
             </script>
             طراحی توسعه سیوان گنجی
             <span class="text-muted d-none d-sm-inline-block float-end">
-  <i class="mdi mdi-heart text-danger"></i>
-             کلیه حقوق مادی و معنوی برای شرکت اندیش گستر محففوظ می باشد
-                <i class="mdi mdi-heart text-danger"></i>
+
+             کلیه حقوق مادی و معنوی برای شرکت اندیش گستر محفوظ می باشد
+
 
             </span>
         </footer>

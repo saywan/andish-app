@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Morilog\Jalali\Jalalian;
 
-class UserController extends Controller
+class EmployeeController extends Controller
 {
-    public function UserActionServer(Request $request)
+    public function EmployeeActionServer(Request $request)
     {
         if ($request->has('action')) {
             // dd($request->has('action'));
@@ -28,16 +28,16 @@ class UserController extends Controller
 
     }
 
-    public function createuser()
+    public function listEmployee()
     {
-
-        return view('portal.user.create');
+        $listUser = User::where('role_id', '=', 4)->Orwhere('role_id', '=', 5)->orderBy('id', 'DESC')->get();
+        return view('portal.employee.list', ['listUser' => $listUser]);
     }
 
-    public function NewCustomer(Request $request)
+    public function NewEmployee(Request $request)
     {
 
-        if ($request->action == 'NewCustomer') {
+        if ($request->action == 'NewEmployee') {
 
             // dd($request->all());
 
@@ -112,15 +112,16 @@ class UserController extends Controller
             $user->namecard = $request->cardtitle;
             $user->sheba = $request->shebacard;
             $user->address = $request->address;
+            $user->status = 'active';
             $user->datereg = Jalalian::fromCarbon(Carbon::now())->format(' %A  %d %B %Y | H:i:s ');;
             $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
 
 
-            if ($request->typeuser == 'buyer') {
-                $user->role_id = 3;
+            if ($request->typeuser == 'accountant') {
+                $user->role_id = 4;
 
-            } elseif ($request->typeuser == 'seller') {
-                $user->role_id = 2;
+            } elseif ($request->typeuser == 'operator') {
+                $user->role_id = 5;
             }
             if ($user->save()) {
                 return response()->json(['status' => 200]);
@@ -132,7 +133,26 @@ class UserController extends Controller
         }
     }
 
-    public function EditCustomer(Request $request)
+    public function createEmployee()
+    {
+
+        return view('portal.employee.create');
+    }
+
+    public function ShowEditEmployee($id)
+    {
+
+
+        $userinfo = User::where('id',$id)->first();
+        if (!is_null($userinfo)) {
+            return view('portal.employee.edit', ['user' => $userinfo,'id'=>$id]);
+        } else {
+            \Session::flush('error','کاربر مورد نظر شما یافت نشد');
+            return redirect('portal/Employee');
+        }
+    }
+
+    public function EditEmployee(Request $request)
     {
 
         if ($request->action == 'EditCustomer') {
@@ -179,23 +199,23 @@ class UserController extends Controller
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-           /* $checkMobileUser = User::where('mobile', $request->mobile)->exists();
-            if ($checkMobileUser) {
+            /* $checkMobileUser = User::where('mobile', $request->mobile)->exists();
+             if ($checkMobileUser) {
 
-                return response()->json(['status' => 100, 'textmessage' => 'شماره موبایل تکراری هست']);
-            }
+                 return response()->json(['status' => 100, 'textmessage' => 'شماره موبایل تکراری هست']);
+             }
 
-            $checkEmailUser = User::where('email', $request->email)->exists();
-            if ($checkEmailUser) {
+             $checkEmailUser = User::where('email', $request->email)->exists();
+             if ($checkEmailUser) {
 
-                return response()->json(['status' => 100, 'textmessage' => 'آدرس ایمیل تکراری هست']);
-            }
+                 return response()->json(['status' => 100, 'textmessage' => 'آدرس ایمیل تکراری هست']);
+             }
 
-            $checkCodeMeliCheck = User::where('codemeli', $request->codemeli)->exists();
-            if ($checkCodeMeliCheck) {
+             $checkCodeMeliCheck = User::where('codemeli', $request->codemeli)->exists();
+             if ($checkCodeMeliCheck) {
 
-                return response()->json(['status' => 422, 'errors' => 'کد ملی تکراری هست']);
-            }*/
+                 return response()->json(['status' => 422, 'errors' => 'کد ملی تکراری هست']);
+             }*/
 
 
             $user = User::where('id',$request->Id)->first();
@@ -231,37 +251,10 @@ class UserController extends Controller
         }
     }
 
-    public function listUser()
+    public function ChangeStatusEmployee(Request $request)
     {
 
-        $listUser = User::where('role_id', '!=', 1)
-            ->Orwhere('role_id','=',2)
-            ->where('role_id','=',3)
-            ->Orwhere('role_id','=',6)
-            ->orderBy('id', 'DESC')->get();
-
-        return view('portal.user.list', ['listUser' => $listUser]);
-    }
-
-    public function DeleteUser(Request $request)
-    {
-
-        if ($request->action == 'DeleteUser') {
-            $userinfo = User::where('id', $request->Id)->first();
-            if ($userinfo) {
-
-                $userinfo->delete();
-
-            }
-            return response()->json(['status' => 200]);
-        }
-
-    }
-
-    public function ChangeStatusUser(Request $request)
-    {
-
-        if ($request->action == 'ChangeStatusUser') {
+        if ($request->action == 'ChangeStatusEmployee') {
 
             $userinfo = User::where('id', $request->card_id)->first();
             if ($userinfo) {
@@ -273,19 +266,5 @@ class UserController extends Controller
             return response()->json(['status' => 200]);
         }
 
-    }
-
-    public function ShowEditUser($id)
-    {
-
-        $userinfo = User::find($id);
-        if (!is_null($userinfo)) {
-            return view('portal.user.edit', ['user' => $userinfo]);
-        } else {
-
-
-            \Session::flush('error','کاربر مورد نظر شما یافت نشد');
-           return redirect('portal/User');
-        }
     }
 }

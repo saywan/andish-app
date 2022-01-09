@@ -13,7 +13,9 @@
                 <div class="col-sm-12">
                     <div class="page-title-box">
 
-                        <h4 class="page-title">ثبت مشتری جدید</h4>
+                        <h4 class="page-title">
+                           ثبت پرسنل جدید شرکت
+                        </h4>
                     </div>
                     <!--end page-title-box-->
                 </div>
@@ -132,7 +134,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group row mb-2">
                                                     <label for="txtAddress1Billing" class="col-lg-3 col-form-label text-end">
-                                                        آدرس محل کار یا سکونت
+                                                        آدرس محل سکونت
                                                     </label>
                                                     <div class="col-lg-9">
                                                         <textarea id="address" name="address" rows="4" class="form-control"></textarea>
@@ -226,11 +228,11 @@
                                                     </label>
                                                     <div class="col-lg-9">
                                                         <select class="form-control" id="typeuser" name="typeuser">
-                                                            <option value="buyer">
-                                                                خریدار
+                                                            <option value="accountant">
+                                                                حسابدار
                                                             </option>
-                                                            <option value="seller">
-                                                                فروشنده
+                                                            <option value="operator">
+                                                                اپراتور و پشتیبانی
                                                             </option>
                                                         </select>
                                                     </div>
@@ -243,7 +245,7 @@
 
                                                 قبلی
                                             </button>
-                                            <button type="button" id="step4Finish" class="btn btn-danger float-end" @click="NewCustomer()">
+                                            <button type="button" id="step4Finish" class="btn btn-danger float-end" @click="NewEmployee()">
                                                 ثبت
                                             </button>
                                         </div>

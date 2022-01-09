@@ -42,31 +42,40 @@ class GroupProductController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'titleGroup' => 'required',
-            'percentGroup' => 'required',
-            'feeGroup' => 'required',
-            'unitGroup' => 'required',
-
-
+            'unitPercent' => 'required',
         ], [
             'titleGroup.required' => 'عنوان گروه کالای را وارد کنید',
-            'percentGroup.required' => 'درصد گروه کالای را وارد کنید',
-            'feeGroup.required' => 'ارزش افزوده گروه کالای را وارد کنید',
-            'unitGroup.required' => 'واحد گروه کالای را وارد کنید',
+            'unitPercent.required' => 'واحد کالا را وارد کنید',
 
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
+        $priceproduct = str_replace(",", "", $request->priceproduct);
+
+        if ($request->unitPercent == 'meter') {
+
+            $unitPercent ='meter';
+            $weight = $request->weightProduct;
+            $price=0;
+
+        } else if ($request->unitPercent == 'numerical')
+        {
+            $weight=0;
+            $price= $priceproduct;
+            $unitPercent ='numerical';
+
+        }
         $user = new ProductGroup();
         $user->userId = \Auth::user()->id;
         $user->title = $request->titleGroup;
-        $user->percent = $request->percentGroup;
-        $user->fee = $request->feeGroup;
-        $user->unit = $request->unitGroup;
+        $user->unit_producte =$unitPercent;
+        $user->status = $request->statusProduct;
+        $user->weight = $weight;
+        $user->price = $price;
+        $user->datereg = Jalalian::fromCarbon(Carbon::now())->format(' %A  %d %B %Y | H:i:s ');
 
-
-        $user->datereg = Jalalian::fromCarbon(Carbon::now())->format(' %A  %d %B %Y | H:i:s ');;
         if ($user->save()) {
             return response()->json(['status' => 200]);
         } else {

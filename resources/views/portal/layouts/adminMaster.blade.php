@@ -41,7 +41,7 @@
         <div class="main-icon-menu-body">
             <div class="position-reletive h-100" data-simplebar style="overflow-x: hidden;">
                 <ul class="nav nav-tabs" role="tablist" id="tab-menu">
-                    <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard"
+                    <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="داشبورد"
                         data-bs-trigger="hover">
                         <a href="#MetricaDashboard" id="dashboard-tab" class="nav-link">
                             <i class="ti ti-smart-home menu-icon"></i>
@@ -393,9 +393,11 @@
 <script src="{{asset("panel/plugins/sweet-alert2/sweetalert2.min.js")}}"></script>
 <script src="{{asset("panel/pages/sweet-alert.init.js")}}"></script>
 <script src="{{asset("panel/plugins/toaster/iziToast.min.js")}}"></script>
+<script src="{{asset("panel/js/cleave.min.js")}}"></script>
+<script src="{{asset("panel/js/num2persian.js")}}"></script>
 @yield('scripts')
 </body>
-<!--end body-->
+
 
 
 </html>

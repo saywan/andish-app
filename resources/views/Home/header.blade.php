@@ -6,46 +6,7 @@ $setting=\App\Models\AdminSettings::find(1);
 <header class="main-header header-style-three">
 
     <!-- Header Top Two -->
-    <div class="header-top-two">
-        <div class="outer-container">
-            <div class="clearfix">
 
-                <!-- Top Left -->
-                <div class="top-left clearfix">
-                    <!-- Info List -->
-                    <ul class="info-list">
-
-                        <li><a href="{{url('contactUs')}}"><span class="icon fa fa-location-arrow"></span>
-                                ایران - سنندج - میدان جهاد ابتدای شهرک کوثر شرکت اندیش گستر
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Top Right -->
-                <div class="top-right pull-right clearfix">
-                    <!-- Info List -->
-                    <ul class="info-list">
-                        <li><a href="mailto: {{$setting->emails_site}}"><span class="icon flaticon-email"></span>
-                                {{$setting->emails_site}}
-                            </a></li>
-                        <li><a href="tel: {{$setting->telephone_one_shop}}"><span class="icon flaticon-telephone"></span>
-                                {{$setting->telephone_one_shop}}
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- Social Box -->
-                    <ul class="social-box">
-                        <li><a href="#" class="fa fa-whatsapp-f"></a></li>
-                        <li><a href="#" class="fa fa-telegram"></a></li>
-                        <li><a href="#" class="fa fa-instagram"></a></li>
-                        {{--  <li><a href="#" class="fa fa-google"></a></li>--}}
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
 
     <!--Header-Upper-->
     <div class="header-upper">
@@ -59,23 +20,6 @@ $setting=\App\Models\AdminSettings::find(1);
 
                 <div class="pull-right upper-right clearfix">
 
-                    <!--Info Box-->
-                    <div class="upper-column info-box">
-                        <div class="icon-box"><span class="flaticon-pin"></span></div>
-                        <ul>
-                            <li><strong>آدرس </strong></li>
-                            <li>ایران، سنندج - میدان جهاد ابتدای شهرک کوثر</li>
-                        </ul>
-                    </div>
-
-                    <!--Info Box-->
-                    <div class="upper-column info-box">
-                        <div class="icon-box"><span class="flaticon-email-1"></span></div>
-                        <ul>
-                            <li><strong>ایمیل </strong></li>
-                            <li>{{$setting->emails_site}}</li>
-                        </ul>
-                    </div>
 
                     <!--Info Box-->
                     <div class="upper-column info-box">
@@ -213,7 +157,9 @@ $setting=\App\Models\AdminSettings::find(1);
                     </div>
                     <div class="search-box-outer">
                         <div class="search-box-btn">
-                            <span class="fa fa-user"></span>
+                            <a href="{{route('login')}}">
+                                <span class="fa fa-user"></span>
+                            </a>
                         </div>
                     </div>
 

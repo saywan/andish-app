@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductGroup extends Model
+class ProductPercent extends Model
 {
-    public $table = 'product_group';
-    protected $guarded = [];
+    public $table = 'product_percent';
+    protected $guarded =[];
     public $timestamps = true;
 }

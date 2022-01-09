@@ -17,7 +17,7 @@
                     <div class="page-title-box">
 
                         <h4 class="page-title">
-                            لیست فاکتور های ثبت شده شرکت اندیش گستر
+                            لیست مشتریان شرکت اندیش گستر
                         </h4>
                     </div>
                     <!--end page-title-box-->
@@ -33,6 +33,7 @@
                     <div class="card">
 
                         <div class="card-body">
+
 
 
                                 <div class="form-group mb-3 row">
@@ -134,11 +135,11 @@
                                             نوع حساب کاربری
                                         </label>
                                         <select class="form-control" id="typeuser" name="typeuser">
-                                            <option value="buyer">
-                                                خریدار
+                                            <option value="accountant">
+                                                حسابدار
                                             </option>
-                                            <option value="seller">
-                                                فروشنده
+                                            <option value="operator">
+                                                اپراتور و پشتیبانی
                                             </option>
                                         </select>
                                     </div>
@@ -149,8 +150,8 @@
                                     </label>
 
                                     <textarea  id="address" name="address" rows="5" placeholder="About Me..." class="form-control">{{$user->address}} </textarea>
-                                    <button class="btn btn-de-primary btn-sm text-light px-4 mt-3 mb-0" @click="EditCustomer({{$user->id}})">به روز رسانی حساب کاربری</button>
-                                    <button class="btn btn-de-danger btn-sm text-light px-4 mt-3 mb-0">برگشت به لیست مشتریان</button>
+                                    <button class="btn btn-de-primary btn-sm text-light px-4 mt-3 mb-0" @click="EditEmployee({{$user->id}})">به روز رسانی حساب کاربری</button>
+                                    <a href="{{route('portal.Employee')}}" class="btn btn-de-danger btn-sm text-light px-4 mt-3 mb-0">برگشت به لیست پرسنل</a>
                                 </div>
 
                         </div> <!--end card-body-->
@@ -216,6 +217,7 @@
 
             </span>
         </footer>
+
     </div>
 
 @endsection

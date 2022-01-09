@@ -73,6 +73,9 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['admin']
     Route::match(['get', 'post', 'put'], 'UserActionServer', 'UserController@UserActionServer')->name('UserActionServer');
 
 
+    Route::match(['get', 'post', 'put'], 'EmployeeActionServer', 'EmployeeController@EmployeeActionServer')->name('EmployeeActionServer');
+
+
 
 
     Route::get('/', 'AdminController@index')->name('index');
@@ -87,10 +90,18 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['admin']
     Route::get('User/edit/{id}', 'UserController@ShowEditUser')->name('portal.ShowEditUser');
 
 
+    //Employment
+    Route::get('Employee', 'EmployeeController@listEmployee')->name('Employee');
+    Route::get('createEmployee', 'EmployeeController@createEmployee')->name('createEmployee');
+    Route::post('ChangeStatusEmployee', 'EmployeeController@ChangeStatusEmployee')->name('ChangeStatusEmployee');
+    Route::get('Employee/edit/{id}', 'EmployeeController@ShowEditEmployee')->name('portal.ShowEditEmployee');
+
+
     //Product
     Route::get('Product', 'ProductController@index')->name('Product');
     Route::get('CreateProduct', 'ProductController@create')->name('CreateProduct');
     Route::post('storeProduct', 'ProductController@store')->name('storeProduct');
+    Route::post('getPriceProduct', 'ProductController@getPriceProduct')->name('getPriceProduct');
     Route::post('ChangeStatusProduct', 'ProductController@ChangeStatusProduct')->name('ChangeStatusProduct');
     Route::get('Product/edit/{id}', 'ProductController@edit')->name('portal.ShowEditProduct');
     Route::post('UpdateProduct', 'ProductController@update')->name('UpdateProduct');
@@ -107,6 +118,15 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['admin']
 
     // Route::post('ChangeStatusProduct', 'UserController@ChangeStatusProduct')->name('ChangeStatusProduct');
 
+
+
+    //PercentProduct
+    Route::get('PercentProduct', 'PercentProductController@index')->name('PercentProduct');
+    Route::get('CreatePercentProduct', 'PercentProductController@create')->name('CreatePercentProduct');
+    Route::post('storePercentProduct', 'PercentProductController@store')->name('storePercentProduct');
+    Route::get('PercentProduct/edit/{id}', 'PercentProductController@edit')->name('EditPercentProduct');
+    Route::post('UpdatePercentProduct', 'PercentProductController@update')->name('UpdatePercentProduct');
+    Route::post('DeletePercentProduct', 'PercentProductController@destroy')->name('DeletePercentProduct');
 
 
     //Factor

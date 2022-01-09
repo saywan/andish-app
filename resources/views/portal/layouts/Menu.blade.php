@@ -20,7 +20,7 @@
     <div id="MetricaApps" class="main-icon-menu-pane tab-pane" role="tabpanel"
          aria-labelledby="apps-tab">
         <div class="title-box">
-            <h6 class="menu-title">امور مشتریان</h6>
+            <h6 class="menu-title">امور مشتریان و پرسنل </h6>
         </div>
 
         <div class="collapse navbar-collapse" id="sidebarCollapse">
@@ -35,13 +35,31 @@
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a href="{{route('portal.createuser')}}" class="nav-link ">ثبت مشتری جدید</a>
-                            </li><!--end nav-item-->
+                            </li>
                             <li class="nav-item">
                                 <a href="{{route('portal.User')}}" class="nav-link ">لیست مشتریان</a>
-                            </li><!--end nav-item-->
-                        </ul><!--end nav-->
-                    </div><!--end sidebarAnalytics-->
-                </li><!--end nav-item-->
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#sidebarEmployement" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="sidebarEmployement">
+                      پرسنل
+                    </a>
+                    <div class="collapse " id="sidebarEmployement">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('portal.createEmployee')}}" class="nav-link ">ثبت پرسنل جدید</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('portal.Employee')}}" class="nav-link ">لیست پرسنل</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
 
 
 
@@ -58,6 +76,27 @@
         <div class="collapse navbar-collapse" id="sidebarCollapse_22">
             <!-- Navigation -->
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#ProductPercentProduct" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="ProductPercentProduct">
+                        تخفیفات و درصد کلایی
+                    </a>
+                    <div class="collapse " id="ProductPercentProduct">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('portal.CreatePercentProduct')}}">
+                                   ثبت درصد جدید
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('portal.PercentProduct')}}">
+                                لیست درصد کالای
+                                </a>
+                            </li>
+
+                        </ul><!--end nav-->
+                    </div>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#ProductGroupPart" data-bs-toggle="collapse" role="button"
                        aria-expanded="false" aria-controls="ProductGroupPart">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helper\Helper;
 use App\Models\ProductGroup;
+use App\Models\ProductPercent;
 use App\Models\Products;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,7 +33,9 @@ class ProductController extends Controller
     public function create()
     {
         $ProdGroup = ProductGroup::all();
-        return view('portal.Product.create', ['GroupProd' => $ProdGroup]);
+        $ProdPercent = ProductPercent::all();
+
+        return view('portal.Product.create', ['GroupProd' => $ProdGroup, 'ProdPercent' => $ProdPercent]);
     }
 
     /**
@@ -92,7 +95,7 @@ class ProductController extends Controller
             $product = Products::where('id', $user->id)->first();
             if ($product) {
                 //(hexdec(substr(uniqid(), 6, 3)))
-                $AKC = 'AGC-' . $product->id . '-' .  date('Ymd');
+                $AKC = 'AGC-' . $product->id . '-' . date('Ymd');
                 $product->update([
                     'AKC' => $AKC,
                     'url' => 'Product' . '/' . $user->title . '/' . $user->id,
@@ -154,6 +157,63 @@ class ProductController extends Controller
         } else {
             return response()->json(['status' => 100]);
         }
+    }
+
+
+    public function getPriceProduct(Request $request)
+    {
+        if ($request->action == 'getPriceProduct') {
+
+            $validator = Validator::make($request->all(), [
+                'ProductId' => 'required',
+                'PercentGroupId' => 'required',
+
+
+            ], [
+                'ProductId.required' => 'عنوان کالا الزامسیت',
+                'PercentGroupId.required' => ' گروه کالای الزامسیت',
+            ]);
+
+
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            $productGroupId = $request->ProductId;
+            $PercentGroupId = $request->PercentGroupId;
+            $getProductGroup = ProductGroup::where('id', $productGroupId)->first()->toArray();
+            $getPercentProduct = ProductPercent::where('id', $PercentGroupId)->first()->toArray();
+
+            $unit=$getProductGroup['unit_producte'];
+            if($unit =='meter')
+            {
+                $unit='متر';
+            }elseif($unit =='numerical')
+            {
+                $unit='عدد';
+            }elseif($unit =='kilogarm')
+            {
+                $unit='کیلوگرم';
+            }elseif($unit =='roll')
+            {
+                $unit='رول';
+            }
+            if ($getProductGroup['unit_producte'] == 'meter') {
+
+
+                $calc = (float)$getProductGroup['weight'] * $getPercentProduct['total'];
+                return response()->json(['status' => 200, 'result' => number_format($calc) ,'unit'=>$unit]);
+            }
+            if ($getProductGroup['unit_producte'] == 'numerical') {
+
+                $calc = (float)$getProductGroup['price'] * ($getPercentProduct['total'] / 100) + (float)$getProductGroup['price'] ;
+                return response()->json(['status' => 200, 'result' => number_format($calc),'unit'=>$unit]);
+            }
+
+
+
+        }
+
     }
 
     /**

@@ -17,7 +17,7 @@
                     <div class="page-title-box">
 
                         <h4 class="page-title">
-                            لیست کالایی شرکت اندیش گستر
+                            لیست درصد کالایی شرکت اندیش گستر
                         </h4>
                     </div>
                     <!--end page-title-box-->
@@ -30,7 +30,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>
-                                گروه کالایی اندیش گستر
+                                درصد کالایی اندیش گستر
                             </h4>
 
                             @if ( Session::has('error'))
@@ -77,56 +77,65 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover text-center" id="tableExport" style="width:100%;">
+                            <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
                                 <thead>
                                 <tr>
                                     <th>ردیف</th>
-                                    <th>کاربر ثبت کننده</th>
-                                    <th> عنوان کالایی</th>
-                                    <th>گروه کالا</th>
-                                    <th> تعداد موجودی</th>
-                                    <th> قیمت موجودی</th>
-                                    <th> واحد کالا</th>
-                                    <th> وزن کالا</th>
+                                    <th> عنوان درصد کالایی</th>
+                                    <th> درصد کالا</th>
+                                    <th> ارزش افزوده</th>
+                                    <th> واحد</th>
+                                    <th> جمع کل</th>
                                     <th>تاریخ ثبت نام</th>
                                     <th>اطلاعات بیشتر</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if(count($Product) > 0)
-                                    @foreach($Product as $itemUser)
+                                @if(count($GProuct) > 0)
+                                    @foreach($GProuct as $itemUser)
                                         <tr class="text-center">
                                             <td>  {{$itemUser->id}}   </td>
-                                            <td>  {{
-    \App\Helper\Helper::getInfoUser($itemUser->userId)['fullname']
-}}   </td>
                                             <td>  {{$itemUser->title}}   </td>
-                                            <td>  {{
-    \App\Helper\Helper::GetGroupName($itemUser->groupId)
-
-    }}    </td>
-                                            <td>  {{$itemUser->count}}   </td>
                                             <td>
-                                                @if(!empty($itemUser->price))
-                                                   <span class="text-danger">
-                                                        {{  $itemUser->price }}
-                                                    تومان
-                                                   </span>
-                                                @else
-                                                   0
+                                                @if($itemUser->unit =='kilo')
+                                                    <span class="text-danger font-26">
+                                                        {{$itemUser->percent}}
+                                                    </span>
+                                                @elseif($itemUser->unit =='numberic')
+                                                    <span class="text-success font-11">
+
+                                                        {{$itemUser->percent}}
+                                                        %
+                                                    </span>
                                                 @endif
                                             </td>
-                                            <td>  {{$itemUser->unit}}   </td>
-                                            <td>  {{$itemUser->weight}}   </td>
+                                            <td>  {{$itemUser->fee}} %</td>
+                                            <td>
+
+                                                @if($itemUser->unit =='kilo')
+
+                                                    <span class="text-danger font-26">
+                                                       کیلو
+                                                    </span>
+                                                @elseif($itemUser->unit =='numberic')
+                                                    <span class="text-success font-26">
+                                                       عدد
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <td>  {{
+    empty($itemUser->total) ? 0 :  number_format($itemUser->total)
+}}   </td>
                                             <td>  {{$itemUser->datereg}}   </td>
 
 
                                             <td>
-                                                <a href="{{url('portal/Product/edit/'.$itemUser->id)}}"
-                                                   title="ویرایش کالا">
+                                                <a href="{{url('portal/PercentProduct/edit/'.$itemUser->id)}}"
+                                                   title="ویرایش درصد  بندی کالا">
                                                     <i data-feather="edit"></i>
                                                 </a>
-                                                <a @click="DeleteProduct({{$itemUser->id}})" title="حذف   کالا">
+                                                <a @click="DeletePercentProduct({{$itemUser->id}})"
+                                                   title="حذف درصد  بندی کالا">
                                                     <i data-feather="trash"></i>
                                                 </a>
                                             </td>
@@ -134,7 +143,7 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td> لیست گروه کالایی خالی می باشد</td>
+                                        <td> لیست درصد کالایی خالی می باشد</td>
                                     </tr>
                                 @endif
 

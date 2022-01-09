@@ -50889,7 +50889,11 @@ var app = new Vue({
     namedelivery: "",
     mobiledelivery: "",
     telephonedelivery: "",
-    TotalAmount: ''
+    TotalAmount: '',
+    percentProduct: 0,
+    feeGroup: 0,
+    unitPercent: 0,
+    TotalPercent: ''
   },
   created: function created() {},
   mounted: function mounted() {},
@@ -55795,6 +55799,63 @@ var app = new Vue({
         }
       });
     },
+    DeleteEmployee: function DeleteEmployee(Id) {
+      var swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger me-2'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'آیا مطمئنید؟',
+        text: "این عمل قابل بازگشت نخواهد بود!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'بله ، حذف  کن!',
+        cancelButtonText: 'انصراف',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios.post('/portal/EmployeeActionServer', {
+            action: 'DeleteEmployee',
+            Id: Id
+          }).then(function (response) {
+            if (response.data.status == 200) {
+              /*  swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )*/
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'پرسنل مورد نظر با موفقیت حذف شد',
+                showConfirmButton: true
+              });
+              setTimeout(function () {
+                window.location.reload();
+              }, 3000);
+            } else {
+              Swal.fire({
+                type: "error",
+                title: 'مجددا تلاش کنید',
+                showConfirmButton: false,
+                timer: 2500,
+                confirmButtonClass: 'btn btn-primary',
+                buttonsStyling: false
+              });
+            }
+          }, function (response) {
+            console.log("error");
+          });
+        } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
+        }
+      });
+    },
     DeleteGroupProduct: function DeleteGroupProduct(Id) {
       var swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -57298,8 +57359,208 @@ var app = new Vue({
         _this144.allerros = error.response.data.errors;
       });
     },
-    EditCustomer: function EditCustomer(Id) {
+    NewEmployee: function NewEmployee() {
       var _this145 = this;
+
+      var firstname = $('#firstname').val();
+      var codemeli = $('#codemeli').val();
+      var mobile = $('#mobile').val();
+      var job = $('#job').val();
+      var telephone = $('#telephone').val();
+      var datebirth = $('#datebirth').val();
+      var email = $('#email').val();
+      var accountno = $('#accountno').val();
+      var cardno = $('#cardno').val();
+      var cardtitle = $('#cardtitle').val();
+      var shebacard = $('#shebacard').val();
+      var password = $('#password').val();
+      var typeuser = $('#typeuser :selected').val();
+      var address = $('#address').val();
+      /*     var arr = [];
+           $.each($("input[name='leveltype']:checked"), function () {
+               arr.push($(this).val());
+           });*/
+
+      if (firstname == '') {
+        Swal.fire({
+          type: "info",
+          title: 'نام و نام خانوادگی الزامیست ',
+          text: 'نام و نام خانوادگی مشتری را وارد کنید ',
+          position: "top-right",
+          icon: 'warning',
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (codemeli == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'کد ملی الزامیست ',
+          text: 'کد ملی مشتری را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (mobile == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'شماره موبایل الزامیست ',
+          text: 'شماره موبایل را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (password == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'رمز عبور الزامیست ',
+          text: 'رمز عبور را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (job == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'شغل مشتری الزامیست ',
+          text: 'شغل را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (telephone == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'تلفن ثابت الزامیست ',
+          text: 'تلفن ثابت را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (accountno == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'شماره حساب الزامیست ',
+          text: 'شماره حساب را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (cardno == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'شماره کارت الزامیست ',
+          text: 'شماره کارت را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (cardtitle == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'عنوان شماره کارت الزامیست ',
+          text: 'عنوان شماره کارت را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (shebacard == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'شماره شبا الزامیست ',
+          text: 'شماره شبا را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (typeuser == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'نوع حساب کاربری الزامیست ',
+          text: 'نوع حساب کاربری را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      }
+
+      var dataform = new FormData();
+      dataform.append('action', 'NewEmployee');
+      dataform.append('firstname', firstname);
+      dataform.append('codemeli', codemeli);
+      dataform.append('mobile', mobile);
+      dataform.append('password', password);
+      dataform.append('job', job);
+      dataform.append('telephone', telephone);
+      dataform.append('datebirth', datebirth);
+      dataform.append('email', email);
+      dataform.append('accountno', accountno);
+      dataform.append('cardno', cardno);
+      dataform.append('cardtitle', cardtitle);
+      dataform.append('shebacard', shebacard);
+      dataform.append('typeuser', typeuser);
+      dataform.append('address', address);
+      axios.post('/portal/EmployeeActionServer', dataform, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          //window.location.assign('/User/Confirm');
+          Swal.fire({
+            type: "success",
+            title: 'ثبت موفق آمیز ',
+            text: 'مشتری جدید با موفقیت ثبت شد',
+            position: "top-right",
+            icon: 'success',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        } else if (response.data.status == 100) {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: response.data.textmessage,
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        } else if (response.data.status == 422) {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: response.data.errors,
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        }
+      })["catch"](function (error) {
+        _this145.allerros = error.response.data.errors;
+      });
+    },
+    EditCustomer: function EditCustomer(Id) {
+      var _this146 = this;
 
       var firstname = $('#firstname').val();
       var codemeli = $('#codemeli').val();
@@ -57487,16 +57748,325 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this145.allerros = error.response.data.errors;
+        _this146.allerros = error.response.data.errors;
+      });
+    },
+    EditEmployee: function EditEmployee(Id) {
+      var _this147 = this;
+
+      var firstname = $('#firstname').val();
+      var codemeli = $('#codemeli').val();
+      var mobile = $('#mobile').val();
+      var job = $('#job').val();
+      var telephone = $('#telephone').val();
+      var datebirth = $('#datebirth').val();
+      var email = $('#email').val();
+      var accountno = $('#accountno').val();
+      var cardno = $('#cardno').val();
+      var cardtitle = $('#cardtitle').val();
+      var shebacard = $('#shebacard').val();
+      var password = $('#password').val();
+      var typeuser = $('#typeuser :selected').val();
+      var address = $('#address').val();
+      /*     var arr = [];
+           $.each($("input[name='leveltype']:checked"), function () {
+               arr.push($(this).val());
+           });*/
+
+      if (firstname == '') {
+        Swal.fire({
+          type: "info",
+          title: 'نام و نام خانوادگی الزامیست ',
+          text: 'نام و نام خانوادگی مشتری را وارد کنید ',
+          position: "top-right",
+          icon: 'warning',
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (codemeli == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'کد ملی الزامیست ',
+          text: 'کد ملی مشتری را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (mobile == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'شماره موبایل الزامیست ',
+          text: 'شماره موبایل را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (job == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'شغل مشتری الزامیست ',
+          text: 'شغل را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (telephone == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'تلفن ثابت الزامیست ',
+          text: 'تلفن ثابت را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (accountno == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'شماره حساب الزامیست ',
+          text: 'شماره حساب را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (cardno == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'شماره کارت الزامیست ',
+          text: 'شماره کارت را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (cardtitle == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'عنوان شماره کارت الزامیست ',
+          text: 'عنوان شماره کارت را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (shebacard == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'شماره شبا الزامیست ',
+          text: 'شماره شبا را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (typeuser == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'نوع حساب کاربری الزامیست ',
+          text: 'نوع حساب کاربری را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      }
+
+      var dataform = new FormData();
+      dataform.append('action', 'EditEmployee');
+      dataform.append('firstname', firstname);
+      dataform.append('codemeli', codemeli);
+      dataform.append('mobile', mobile);
+      dataform.append('job', job);
+      dataform.append('telephone', telephone);
+      dataform.append('datebirth', datebirth);
+      dataform.append('email', email);
+      dataform.append('accountno', accountno);
+      dataform.append('cardno', cardno);
+      dataform.append('cardtitle', cardtitle);
+      dataform.append('shebacard', shebacard);
+      dataform.append('typeuser', typeuser);
+      dataform.append('address', address);
+      dataform.append('Id', Id);
+      axios.post('/portal/EmployeeActionServer', dataform, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          //window.location.assign('/User/Confirm');
+          Swal.fire({
+            type: "success",
+            title: 'ویرایش موفق آمیز',
+            text: 'اطلاعات پرسنل مورد نظر با موفقیت ویرایش شد',
+            position: "top-right",
+            icon: 'success',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+          setTimeout(function () {
+            window.location.assign('Employee');
+          }, 3000);
+        } else if (response.data.status == 100) {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: response.data.textmessage,
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        } else if (response.data.status == 422) {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: response.data.errors,
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        }
+      })["catch"](function (error) {
+        _this147.allerros = error.response.data.errors;
+      });
+    },
+    NewProductPercent: function NewProductPercent() {
+      var _this148 = this;
+
+      var titlePercent = $('#titlePercent').val();
+      var percentProduct = $('#percentProduct').val();
+      var feeGroup = $('#feeGroup').val(); //   var unitGroup = $('#unitGroup').val();
+
+      var unitPercent = $('#unitPercent :selected').val();
+
+      if (titlePercent == '') {
+        Swal.fire({
+          type: "info",
+          title: 'عنوان گروه کالای الزامیست ',
+          text: 'عنوان گروه کالای را وارد کنید ',
+          position: "top-right",
+          icon: 'warning',
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (percentProduct == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'درصد الزامیست ',
+          text: 'درصد  کالای را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (feeGroup == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'ارزش افزوده  کالای الزامیست ',
+          text: 'ارزش افزوده  کالای  را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (unitPercent == 0) {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'واحد درصد  الزامیست ',
+          text: 'واحد  درصد را انتخاب کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      }
+      /*else if (this.TotalPercent == 0) {
+        Swal.fire({
+            type: "info",
+            icon: 'warning',
+            title: '  درصد الزامسیت',
+            text: 'لطفا مقدار درصد را وارد کنید',
+            position: "top-right",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'متوجه شدم',
+        });
+        return false;
+      }*/
+
+
+      var dataform = new FormData();
+      dataform.append('titlePercent', titlePercent);
+      dataform.append('percentProduct', percentProduct);
+      dataform.append('feeGroup', feeGroup);
+      dataform.append('unitPercent', unitPercent); // dataform.append('TotalPercent', this.TotalPercent);
+
+      axios.post('/portal/storePercentProduct', dataform, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          //window.location.assign('/User/Confirm');
+          Swal.fire({
+            type: "success",
+            title: 'ثبت موفق آمیز ',
+            text: 'گروه کالای جدید با موفقیت ثبت شد',
+            position: "top-right",
+            icon: 'success',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+          setTimeout(function () {
+            window.location.assign('PercentProduct');
+          }, 3000);
+        } else if (response.data.status == 419) {
+          iziToast.error({
+            title: 'عنوان تخفیف',
+            message: response.data.message,
+            position: 'topLeft'
+          });
+          setTimeout(function () {
+            window.location.assign('CreatePercentProduct');
+          }, 3000);
+        } else {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: 'مجددا تلاش کنید',
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        }
+      })["catch"](function (error) {
+        _this148.allerros = error.response.data.errors;
       });
     },
     NewProductGroup: function NewProductGroup() {
-      var _this146 = this;
+      var _this149 = this;
 
       var titleGroup = $('#titleGroup').val();
-      var percentGroup = $('#percentGroup').val();
-      var feeGroup = $('#feeGroup').val();
-      var unitGroup = $('#unitGroup').val();
+      var unitPercent = $('#unitPercent :selected').val();
+      var weightProduct = $('#weightProduct').val();
+      var priceproduct = $('#priceproduct').val();
+      var statusProduct = $("#statususer").prop('checked') == true ? 'active' : 'inactive';
 
       if (titleGroup == '') {
         Swal.fire({
@@ -57509,34 +58079,12 @@ var app = new Vue({
           confirmButtonText: 'متوجه شدم'
         });
         return false;
-      } else if (percentGroup == '') {
+      } else if (unitPercent == 0) {
         Swal.fire({
           type: "info",
           icon: 'warning',
-          title: 'درصد گروه کالای الزامیست ',
-          text: 'درصد گروه کالای را وارد کنید ',
-          position: "top-right",
-          confirmButtonClass: 'btn btn-success',
-          confirmButtonText: 'متوجه شدم'
-        });
-        return false;
-      } else if (feeGroup == '') {
-        Swal.fire({
-          type: "info",
-          icon: 'warning',
-          title: 'ارزش افزوده گروه کالای الزامیست ',
-          text: 'ارزش افزوده گروه کالای  را وارد کنید ',
-          position: "top-right",
-          confirmButtonClass: 'btn btn-success',
-          confirmButtonText: 'متوجه شدم'
-        });
-        return false;
-      } else if (unitGroup == '') {
-        Swal.fire({
-          type: "info",
-          icon: 'warning',
-          title: 'واحد گروه کالا الزامیست ',
-          text: 'واحد گروه کالا را وارد کنید ',
+          title: 'واحد کالا الزامیست ',
+          text: 'واحد کالا را مشخص کنید ',
           position: "top-right",
           confirmButtonClass: 'btn btn-success',
           confirmButtonText: 'متوجه شدم'
@@ -57544,11 +58092,40 @@ var app = new Vue({
         return false;
       }
 
+      if (unitPercent == 'meter') {
+        if (weightProduct == '') {
+          Swal.fire({
+            type: "info",
+            icon: 'warning',
+            title: 'وزن کالا الزامسیت',
+            text: 'وزن کالا را وارد  کنید ',
+            position: "top-right",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'متوجه شدم'
+          });
+          return false;
+        }
+      } else if (unitPercent == 'numerical') {
+        if (priceproduct == '') {
+          Swal.fire({
+            type: "info",
+            icon: 'warning',
+            title: 'قیمت کالا الزامسیت',
+            text: 'قیمت کالا را وارد  کنید ',
+            position: "top-right",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'متوجه شدم'
+          });
+          return false;
+        }
+      }
+
       var dataform = new FormData();
       dataform.append('titleGroup', titleGroup);
-      dataform.append('percentGroup', percentGroup);
-      dataform.append('feeGroup', feeGroup);
-      dataform.append('unitGroup', unitGroup);
+      dataform.append('unitPercent', unitPercent);
+      dataform.append('weightProduct', weightProduct);
+      dataform.append('priceproduct', priceproduct);
+      dataform.append('statusProduct', statusProduct);
       axios.post('/portal/storeGroupProduct', dataform, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -57579,11 +58156,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this146.allerros = error.response.data.errors;
+        _this149.allerros = error.response.data.errors;
       });
     },
     EditGroupProduct: function EditGroupProduct(id) {
-      var _this147 = this;
+      var _this150 = this;
 
       var titleGroup = $('#titleGroup').val();
       var percentGroup = $('#percentGroup').val();
@@ -57672,11 +58249,108 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this147.allerros = error.response.data.errors;
+        _this150.allerros = error.response.data.errors;
+      });
+    },
+    EditPercentProduct: function EditPercentProduct(id) {
+      var _this151 = this;
+
+      var titlePercent = $('#titlePercent').val();
+      var percentProduct = $('#percentProduct').val();
+      var feeGroup = $('#feeGroup').val();
+      var unitPercent = $('#unitPercent :selected').val();
+      /*  var titleGroup = $('#titleGroup').val();
+        var percentGroup = $('#percentGroup').val();
+        var feeGroup = $('#feeGroup').val();
+        var unitGroup = $('#unitGroup').val();*/
+
+      if (titlePercent == '') {
+        Swal.fire({
+          type: "info",
+          title: 'عنوان گروه کالای الزامیست ',
+          text: 'عنوان گروه کالای را وارد کنید ',
+          position: "top-right",
+          icon: 'warning',
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (percentProduct == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'درصد الزامیست ',
+          text: 'درصد  کالای را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (feeGroup == '') {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'ارزش افزوده  کالای الزامیست ',
+          text: 'ارزش افزوده  کالای  را وارد کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      } else if (unitPercent == 0) {
+        Swal.fire({
+          type: "info",
+          icon: 'warning',
+          title: 'واحد درصد  الزامیست ',
+          text: 'واحد  درصد را انتخاب کنید ',
+          position: "top-right",
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      }
+
+      var dataform = new FormData();
+      dataform.append('titlePercent', titlePercent);
+      dataform.append('percentProduct', percentProduct);
+      dataform.append('feeGroup', feeGroup);
+      dataform.append('unitPercent', unitPercent);
+      dataform.append('id', id);
+      axios.post('/portal/UpdatePercentProduct', dataform, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          //window.location.assign('/User/Confirm');
+          Swal.fire({
+            type: "success",
+            title: 'ویرایش موفق آمیز',
+            text: 'درصد مورد نظر با موفقیت ویرایش شد',
+            position: "top-right",
+            icon: 'success',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+          setTimeout(function () {
+            window.location.assign('/portal/PercentProduct');
+          }, 3000);
+        } else {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: 'مجددا تلاش کنید',
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        }
+      })["catch"](function (error) {
+        _this151.allerros = error.response.data.errors;
       });
     },
     EditProduct: function EditProduct(id) {
-      var _this148 = this;
+      var _this152 = this;
 
       var title = $('#titleProduct').val();
       var GroupProd = $('#GroupProd').find(':selected').val();
@@ -57791,11 +58465,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this148.allerros = error.response.data.errors;
+        _this152.allerros = error.response.data.errors;
       });
     },
     NewProduct: function NewProduct() {
-      var _this149 = this;
+      var _this153 = this;
 
       var title = $('#titleGroup').val();
       var GroupProd = $('#GroupProd').find(':selected').val();
@@ -57901,7 +58575,7 @@ var app = new Vue({
         }
       }).then(function (response) {
         if (response.data.status == 200) {
-          _this149.$loading(false); //window.location.assign('/User/Confirm');
+          _this153.$loading(false); //window.location.assign('/User/Confirm');
 
 
           Swal.fire({
@@ -57917,7 +58591,7 @@ var app = new Vue({
             window.location.assign('Product');
           }, 3000);
         } else {
-          _this149.$loading(false);
+          _this153.$loading(false);
 
           Swal.fire({
             type: "warning",
@@ -57929,13 +58603,13 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this149.$loading(false);
+        _this153.$loading(false);
 
-        _this149.allerros = error.response.data.errors;
+        _this153.allerros = error.response.data.errors;
       });
     },
     AddBasket: function AddBasket(ProdId) {
-      var _this150 = this;
+      var _this154 = this;
 
       var price = $('#price').val();
       var quantity = $('#quantity').find(':selected').val();
@@ -58036,13 +58710,13 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this150.$loading(false);
+        _this154.$loading(false);
 
-        _this150.allerros = error.response.data.errors;
+        _this154.allerros = error.response.data.errors;
       });
     },
     SendVerifyEmail: function SendVerifyEmail(userId) {
-      var _this151 = this;
+      var _this155 = this;
 
       //  var title = $('#titleGroup').val();
       var dataform = new FormData();
@@ -58074,13 +58748,13 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this151.$loading(false);
+        _this155.$loading(false);
 
-        _this151.allerros = error.response.data.errors;
+        _this155.allerros = error.response.data.errors;
       });
     },
     NewFactor: function NewFactor() {
-      var _this152 = this;
+      var _this156 = this;
 
       var userIdOrder = $('#userIdOrder').attr('data-id'); // var OrderStatus = $('#OrderStatus').find(':selected').val();
 
@@ -58148,11 +58822,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this152.allerros = error.response.data.errors;
+        _this156.allerros = error.response.data.errors;
       });
     },
     updateAboutPage: function updateAboutPage() {
-      var _this153 = this;
+      var _this157 = this;
 
       // var desc = $('#basic-conf').val();
       var titlePageAbout = $('#titlePageAbout').val();
@@ -58221,11 +58895,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this153.allerros = error.response.data.errors;
+        _this157.allerros = error.response.data.errors;
       });
     },
     updateContactPage: function updateContactPage() {
-      var _this154 = this;
+      var _this158 = this;
 
       // var desc = $('#basic-conf').val();
       var titlePageContact = $('#titlePageContact').val();
@@ -58293,7 +58967,7 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this154.allerros = error.response.data.errors;
+        _this158.allerros = error.response.data.errors;
       });
     },
     DeleteCartItem: function DeleteCartItem(cartId) {
@@ -58305,7 +58979,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this155 = this;
+        var _this159 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/DeleteCartItem', {
@@ -58335,7 +59009,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this155.error = 1;
+            _this159.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -58356,7 +59030,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this156 = this;
+        var _this160 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/ChangeStatusOrder', {
@@ -58382,7 +59056,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this156.error = 1;
+            _this160.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -58403,7 +59077,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this157 = this;
+        var _this161 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/DeleteFactor', {
@@ -58428,7 +59102,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this157.error = 1;
+            _this161.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -58441,7 +59115,7 @@ var app = new Vue({
       });
     },
     OrderProduct: function OrderProduct(PID) {
-      var _this158 = this;
+      var _this162 = this;
 
       var userId = $('select[name="userId"]').find(":selected").val();
       var qtyProduct = $("#qtyProduct".concat(PID)).val(); //  var qtyProduct = $('#qtyProduct').attr('value');
@@ -58535,11 +59209,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this158.allerros = error.response.data.errors;
+        _this162.allerros = error.response.data.errors;
       });
     },
     VerifySMSCode: function VerifySMSCode() {
-      var _this159 = this;
+      var _this163 = this;
 
       //alert($("#mobile_code").val());
       if (this.verify_code == '') {
@@ -58563,13 +59237,13 @@ var app = new Vue({
           swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
             button: "باشه"
           });
-          _this159.error = 1;
+          _this163.error = 1;
           console.log("error");
         });
       }
     },
     ForgotPassword: function ForgotPassword() {
-      var _this160 = this;
+      var _this164 = this;
 
       if (this.mobile_forgot == '') {
         swal("خطا", "شماره موبایل خود را وارد کنید", "info", {
@@ -58595,13 +59269,13 @@ var app = new Vue({
           swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
             button: "باشه"
           });
-          _this160.error = 1;
+          _this164.error = 1;
           console.log("error");
         });
       }
     },
     UpdatePasswordNew: function UpdatePasswordNew() {
-      var _this161 = this;
+      var _this165 = this;
 
       if (this.code_temp == '') {
         swal("خطا", "رمز عبور موقت را وارد کنید", "info", {
@@ -58632,13 +59306,13 @@ var app = new Vue({
           swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
             button: "باشه"
           });
-          _this161.error = 1;
+          _this165.error = 1;
           console.log("error");
         });
       }
     },
     EditRequest: function EditRequest(Id) {
-      var _this162 = this;
+      var _this166 = this;
 
       var Posselected = $("#Posselected").val();
       var estateSelected = $("#estateSelected").val();
@@ -58704,21 +59378,21 @@ var app = new Vue({
             toastr.info('مشتری گرامی قبلا درخواست شما ثبت شده در حال بررسی هستیم');
           }
         }, function (response) {
-          _this162.error = 1;
+          _this166.error = 1;
           console.log("error");
         });
       }
     },
     onImageChange: function onImageChange(e) {
-      var _this163 = this;
+      var _this167 = this;
 
       var files = e.target.files;
       Array.from(files).forEach(function (file) {
-        return _this163.addImage(file);
+        return _this167.addImage(file);
       });
     },
     addImage: function addImage(file) {
-      var _this164 = this;
+      var _this168 = this;
 
       if (!file.type.match('image.*')) {
         console.log("".concat(file.name, " is not an image"));
@@ -58730,13 +59404,13 @@ var app = new Vue({
           reader = new FileReader();
 
       reader.onload = function (e) {
-        return _this164.images.push(e.target.result);
+        return _this168.images.push(e.target.result);
       };
 
       reader.readAsDataURL(file);
     },
     CalculateRent: function CalculateRent() {
-      var _this165 = this;
+      var _this169 = this;
 
       var RentPrice = $("#RentPrice").val();
       var rahanPrice = $("#rahanPrice").val();
@@ -58756,12 +59430,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this165.error = 1;
+        _this169.error = 1;
         console.log("error");
       });
     },
     CalculateSale: function CalculateSale() {
-      var _this166 = this;
+      var _this170 = this;
 
       var number_under = $("#number_under").val();
       axios.post('CalculateSale', {
@@ -58785,7 +59459,7 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this166.error = 1;
+        _this170.error = 1;
         console.log("error");
       });
     },
@@ -58797,7 +59471,7 @@ var app = new Vue({
       return val;
     },
     UpdateinfoSite: function UpdateinfoSite() {
-      var _this167 = this;
+      var _this171 = this;
 
       var email = $('input[name="email_site"]').val();
       var phone_Sellerone = $('input[name="phone_Sellerone"]').val();
@@ -58825,12 +59499,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this167.error = 1;
+        _this171.error = 1;
         console.log("error");
       });
     },
     AddReport: function AddReport() {
-      var _this168 = this;
+      var _this172 = this;
 
       var descreport = $('textarea[name="descreport"]').val();
       var descresultreport = $('textarea[name="descresultreport"]').val();
@@ -58867,12 +59541,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this168.error = 1;
+        _this172.error = 1;
         console.log("error");
       });
     },
     SendVisitSMS: function SendVisitSMS(Id) {
-      var _this169 = this;
+      var _this173 = this;
 
       axios.post('/admin/SendVisitSMS', {
         Id: Id
@@ -58898,12 +59572,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this169.error = 1;
+        _this173.error = 1;
         console.log("error");
       });
     },
     AddReportOperator: function AddReportOperator() {
-      var _this170 = this;
+      var _this174 = this;
 
       var descreport = $('textarea[name="descreport"]').val();
       var descresultreport = $('textarea[name="descresultreport"]').val();
@@ -58936,12 +59610,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this170.error = 1;
+        _this174.error = 1;
         console.log("error");
       });
     },
     AddFavorite: function AddFavorite(estateId) {
-      var _this171 = this;
+      var _this175 = this;
 
       axios.post('/AddFavoriteEstate', {
         estateId: estateId
@@ -58962,12 +59636,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this171.error = 1;
+        _this175.error = 1;
         console.log("error");
       });
     },
     PublishTextAbout: function PublishTextAbout() {
-      var _this172 = this;
+      var _this176 = this;
 
       var titleAbout = CKEDITOR.instances['editor-demo3'].getData();
       var planAbout = CKEDITOR.instances['editor-demo2'].getData();
@@ -58991,7 +59665,7 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this172.error = 1;
+        _this176.error = 1;
         console.log("error");
       });
     },

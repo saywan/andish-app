@@ -17,7 +17,7 @@
     <link href="{{asset("Content/css/color-switcher-design.css")}}" rel="stylesheet">
 
     <!-- Color Themes -->
-    <link id="theme-color-file" href="{{asset("Content/css/color-themes/teal-theme.css")}}" rel="stylesheet">
+    <link id="theme-color-file" href="{{asset("Content/css/color-themes/default-theme.css")}}" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{asset("Content/images/favicon.png")}}" type="image/x-icon">
     <link rel="icon" href="{{asset("Content/images/favicon.png")}}" type="image/x-icon">

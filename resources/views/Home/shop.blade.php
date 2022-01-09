@@ -202,7 +202,7 @@
                                                     <span class="price">
                                                         <span class="amount"><span
                                                                 class="">تومان </span>
-                                                        {{  number_format(  $itemProd->price) }}
+                                                        {{    $itemProd->price }}
                                                         </span>
                                                     </span>
                                                 </div>

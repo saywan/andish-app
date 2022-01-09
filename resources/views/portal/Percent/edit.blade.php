@@ -17,7 +17,7 @@
                     <div class="page-title-box">
 
                         <h4 class="page-title">
-                            ویرایش کالا
+                           ویرایش درصد کالا
                         </h4>
                     </div>
                     <!--end page-title-box-->
@@ -29,7 +29,7 @@
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab">
                         <a class="nav-link active" id="step1-tab" data-bs-toggle="tab" href="#step1">
-                           ویرایش کالا
+                          ویرایش درصد کالا
                         </a>
 
                     </div>
@@ -41,78 +41,55 @@
                             <div class="col-md-3">
                                 <label for="txtFirstNameBilling"
                                        class="col-lg-3 col-form-label text-end">
-                                    عنوان  کالا
+                                   عنوان درصد
                                 </label>
 
-                                <input class="form-control" placeholder=" عنوان  کالا"
+                                <input class="form-control" placeholder=" عنوان  درصد"
                                        type="text"
-                                       id="titleProduct" value="{{$edit->title}}">
+                                       id="titlePercent" value="{{$edit->title}}">
+
 
                             </div>
                             <div class="col-md-3">
                                 <label for="txtLastNameBilling"
                                        class="col-lg-3 col-form-label text-end">
-                                       گروه کالا
+                                    مقدار درصد
                                 </label>
 
-                                <select name="GroupProd" id="GroupProd" class="form-control" required>
-                                    <option value="0" >
-                                        لطفا گروه بندی  کالا را مشخص کنید
-                                    </option>
-                                    @if(count($GroupProd) > 0)
-                                        @foreach($GroupProd as $itemcate)
-                                            <option value='{{$itemcate->id}}' {{(($edit->groupId==$itemcate->id)? 'selected' : '')}}>
-                                                {{$itemcate->title}}
-                                            </option>
-                                        @endforeach
-                                    @endif
-                                </select>
+                                <input class="form-control" placeholder="درصد  کالا"
+                                       type="text"
+                                       id="percentProduct" value="{{$edit->percent}}">
 
 
                             </div>
                             <div class="col-md-3">
                                 <label for="txtCompanyBilling"
-                                       class="col-lg-6 col-form-label text-end">
-                                    تعداد موجودی در انبار
+                                       class="col-lg-5 col-form-label text-end">
+                                  ارزش افزوده
                                 </label>
 
-                                <input class="form-control" placeholder="تعداد موجودی در انبار"
-                                       type="text" id="countProduct" value="{{$edit->count}}">
+                                <input class="form-control" placeholder="ارزش افزوده"
+                                       type="text" id="feeGroup" value="{{$edit->fee}}">
 
 
                             </div>
                             <div class="col-md-3">
 
-                                <label for="email" class="col-lg-6 col-form-label text-end">
-                                    واحد گروه کالا
+                                <label for="email" class="col-lg-3 col-form-label text-end">
+                                    واحد درصد
                                 </label>
 
-                                <input class="form-control" placeholder=" واحد  کالا"
-                                       type="text"
-                                       id="unitProduct" value="{{$edit->unit}}">
-                            </div>
-                            <div class="col-md-3">
-
-                                <label for="email"   class="col-lg-7 col-form-label text-end">
-                                    وزن
-                                </label>
-
-                                <input class="form-control" placeholder=" وزن  کالا"
-                                       type="text"
-                                       id="weightProduct" value="{{$edit->weight}}">
-
-
-
-                            </div>
-                            <div class="col-md-3">
-
-                                <label for="email"   class="col-lg-7 col-form-label text-end">
-                                    قیمت کالا
-                                </label>
-
-                                <input class="form-control" placeholder=" قیمت  کالا"
-                                       type="text"
-                                       id="priceProduct" value="{{$edit->price}}">
+                                <select class="form-control" id="unitPercent" name="unitPercent">
+                                    <option value="0" >
+                                        لطفا واحد را انتخاب کنید
+                                    </option>
+                                    <option value="kilo" {{(( 'kilo' ==$edit->unit)? 'selected' : '')}}>
+                                        کیلو
+                                    </option>
+                                    <option value="numberic" {{(( 'numberic' ==$edit->unit)? 'selected' : '')}}>
+                                        عدد
+                                    </option>
+                                </select>
 
 
 
@@ -121,8 +98,8 @@
 
                         <div class="text-center">
                             <button type="button" id="step4Finish" class="btn btn-danger float-end"
-                                    @click="EditProduct({{$edit->id}})">
-                                ویرایش  کالا
+                                    @click="EditPercentProduct({{$edit->id}})">
+                               ویرایش درصد کالای
                             </button>
                         </div>
                     </div>
@@ -174,6 +151,7 @@
                 </div><!--end /div-->
             </div>
         </div>
+
 
         <footer class="footer text-center text-sm-start">
             &copy;

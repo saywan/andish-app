@@ -1,11 +1,11 @@
 @extends('portal.layouts.adminMaster')
 @section('styles')
-
+    <link rel="stylesheet" href="{{asset("panel/plugins/select/selectr.min.css")}}">
 @endsection
 
 @section('main')
 
-    <div class="page-content-tab" >
+    <div class="page-content-tab">
 
         <div class="container-fluid">
             <!-- Page-Title -->
@@ -47,29 +47,40 @@
                                                     عنوان کالا
                                                 </label>
 
-                                                <input class="form-control" placeholder=" عنوان  کالا"
-                                                       type="text"
-                                                       id="titleGroup">
+                                                <select id="default" name="titleProduct" class="titleProduct">
+                                                    <option value="0">
+                                                        لطفا کالا مورد نظر را انتخاب کنید
+                                                    </option>
+                                                    @foreach($GroupProd as $itemGroup)
+                                                        <option value="{{$itemGroup->id}}">
+                                                            {{ $itemGroup->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                {{--  <input class="form-control" placeholder=" عنوان  کالا"
+                                                         type="text"
+                                                         id="titleGroup">--}}
 
 
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="txtLastNameBilling"
                                                        class="col-lg-7 col-form-label text-end">
-                                                    گروه بندی کالا
+                                                    دسته تخفیف
                                                 </label>
 
-                                                <select name="GroupProd" id="GroupProd" class="form-control" required>
-                                                    <option value="0" >
-                                                        لطفا گروه بندی  کالا را مشخص کنید
+                                                <select name="PercentGroup" id="PercentGroup" class="form-control"
+                                                        required>
+                                                    <option value="0">
+                                                        لطفا دسته تخفیف را انتخاب کنید
                                                     </option>
-                                                    @if(count($GroupProd) > 0)
-                                                        @foreach($GroupProd as $itemGorup)
+                                                    @if(count($ProdPercent) > 0)
+                                                        @foreach($ProdPercent as $itemGorup)
                                                             <option value="{{$itemGorup->id}}">
                                                                 {{$itemGorup->title}}
                                                             </option>
                                                         @endforeach
-                                                  @endif
+                                                    @endif
                                                 </select>
 
 
@@ -87,20 +98,19 @@
                                             </div>
                                             <div class="col-md-3">
 
-                                                <label for="email"   class="col-lg-7 col-form-label text-end">
+                                                <label for="email" class="col-lg-7 col-form-label text-end">
                                                     واحد کالا
                                                 </label>
 
                                                 <input class="form-control" placeholder=" واحد  کالا"
                                                        type="text"
-                                                       id="unitProduct">
-
+                                                       id="unitProduct" disabled>
 
 
                                             </div>
                                             <div class="col-md-3">
 
-                                                <label for="email"   class="col-lg-7 col-form-label text-end">
+                                                <label for="email" class="col-lg-7 col-form-label text-end">
                                                     وزن
                                                 </label>
 
@@ -109,32 +119,31 @@
                                                        id="weightProduct">
 
 
-
                                             </div>
                                             <div class="col-md-3">
 
-                                                <label for="email"   class="col-lg-7 col-form-label text-end">
+                                                <label for="email" class="col-lg-7 col-form-label text-end">
                                                     قیمت کالا
                                                 </label>
 
                                                 <input class="form-control" placeholder=" قیمت  کالا"
                                                        type="text"
-                                                       id="priceProduct">
-
+                                                       id="priceProduct" disabled>
 
 
                                             </div>
                                             <div class="col-md-6">
 
-                                                <label for="email"   class="col-lg-7 col-form-label text-end">
-                                                   بارگذاری تصویر کالا
+                                                <label for="email" class="col-lg-7 col-form-label text-end">
+                                                    بارگذاری تصویر کالا
                                                 </label>
 
                                                 <div class="input-group mb-3">
-                                                    <input type="file" class="form-control" id="inputGroupFile02"   v-on:change="onImageChangeFile">
-                                                    <label class="input-group-text" for="inputGroupFile02" >انتخاب تصویر کالا</label>
+                                                    <input type="file" class="form-control" id="inputGroupFile02"
+                                                           v-on:change="onImageChangeFile">
+                                                    <label class="input-group-text" for="inputGroupFile02">انتخاب تصویر
+                                                        کالا</label>
                                                 </div>
-
 
 
                                             </div>
@@ -144,21 +153,24 @@
                                             <div class="col-md-6">
                                                 <label for="txtFirstNameBilling"
                                                        class="col-lg-7 col-form-label text-end">
-                                                     توضیحات کالا
+                                                    توضیحات کالا
                                                 </label>
-                                                <textarea id="basic-conf" name="address" rows="4" dir="rtl" class="form-control">
+                                                <textarea id="basic-conf" name="address" rows="4" dir="rtl"
+                                                          class="form-control">
 
                                                         </textarea>
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="txtFirstNameBilling"
                                                        class="col-lg-7 col-form-label text-end">
-                                                  وضعیت نمایش کالا در فروشگاه
+                                                    وضعیت نمایش کالا در فروشگاه
                                                 </label>
 
                                                 <div class="form-check form-switch">
                                                     <div class="form-check form-switch form-switch-success font-30">
-                                                        <input id="statususer"   class="form-check-input" type="checkbox" id="customSwitchSuccess"  data-on="active" data-off="inactive"  >
+                                                        <input id="statususer" class="form-check-input" type="checkbox"
+                                                               id="customSwitchSuccess" data-on="active"
+                                                               data-off="inactive">
 
                                                     </div>
 
@@ -239,9 +251,9 @@
             </script>
             طراحی توسعه سیوان گنجی
             <span class="text-muted d-none d-sm-inline-block float-end">
-  <i class="mdi mdi-heart text-danger"></i>
-             کلیه حقوق مادی و معنوی برای شرکت اندیش گستر محففوظ می باشد
-                <i class="mdi mdi-heart text-danger"></i>
+
+             کلیه حقوق مادی و معنوی برای شرکت اندیش گستر محفوظ می باشد
+
 
             </span>
         </footer>
@@ -252,8 +264,70 @@
 
 @section('scripts')
     <script src="{{asset("panel/pages/form-wizard.js")}}"></script>
+    <script src="{{asset("panel/plugins/select/selectr.min.js")}}"></script>
+    <script src="{{asset("panel/pages/forms-advanced.js")}}"></script>
     <script src="{{asset("panel/plugins/tinymce/tinymce.min.js")}}"></script>
     <script src="{{asset("panel/pages/form-editor.init.js")}}"></script>
+    <script>
+
+        $("#PercentGroup").change(function () {
+
+            /*  var option = $(this).find('option:selected');
+              var value = option.val();
+              var text = option.text();*/
+
+            var PercentGroupId = $("#PercentGroup option").filter(":selected").val();
+            var ProductId = $('select[name="titleProduct"]').find(":selected").val();
+            if(ProductId == 0)
+            {
+                iziToast.error({
+                    title: 'کالا',
+                    message: 'لطفا کالا مورد نظر را انتخاب کنید',
+                    position: 'topLeft'
+                });
+                return  false;
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/portal/getPriceProduct',
+                data: {'action': 'getPriceProduct', 'ProductId': ProductId, 'PercentGroupId': PercentGroupId},
+                success: function (data) {
+                    if (data.status == 200) {
+                        /*   swal("وضعیت نمایش ", "وضعیت نمایش به روز رسانی شد", "success", {
+                               button: "باشه"
+                           });*/
+                        $("#priceProduct").val(data.result);
+                        $("#unitProduct").val(data.unit);
+                       /* Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'وضعیت حساب کاربری با موفقیت به روز رسانی شد',
+                            showConfirmButton: true,
+                        })*/
+
+                     /*   setTimeout(function () {
+                            window.location.reload();
+                        }, 3000);*/
+                    } else {
+                        swal(" خطا ", "خطا مجددا سعی کنید", "error", {
+                            button: "باشه"
+                        });
+                    }
+                }
+            });
+
+
+        });
+
+    </script>
 @endsection
 
 

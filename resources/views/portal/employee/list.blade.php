@@ -17,7 +17,7 @@
                     <div class="page-title-box">
 
                         <h4 class="page-title">
-                            لیست فاکتور های شرکت اندیش گستر
+                            لیست پرسنل  شرکت اندیش گستر
                         </h4>
                     </div>
                     <!--end page-title-box-->
@@ -30,7 +30,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>
-                              فاکتور های شرکت اندیش گستر
+                                پرسنل  اندیش گستر
                             </h4>
 
                             @if ( Session::has('error'))
@@ -75,140 +75,61 @@
                                     <thead>
                                     <tr>
                                         <th>ردیف</th>
-                                        <th> کد فاکتور </th>
-                                        <th> صدور کنند فاکتور </th>
-                                        <th> مشتری </th>
-                                        <th> وضعیت سفارش </th>
-                                        <th> شیوه پرداخت فاکتور </th>
-                                        <th> مبلغ فاکتور </th>
-                                        <th> تاریخ صدور فاکتور </th>
+                                        <th>نام و نام خانوادگی</th>
+                                        <th>سطح دسترسی</th>
+                                        <th>شماره موبایل</th>
+                                        <th>آدرس ایمیل</th>
+                                        <th>کد ملی</th>
+                                        <th>تاریخ ثبت نام</th>
+                                        <th> وضعیت حساب کاربری</th>
                                         <th>اطلاعات بیشتر</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if(count($Factor) > 0)
-                                        @foreach($Factor as $itemUser)
+                                    @if(count($listUser) > 0)
+                                        @foreach($listUser as $itemUser)
                                             <tr>
                                                 <td>  {{$itemUser->id}}   </td>
-                                                <td>  {{$itemUser->factorId}}   </td>
+                                                <td>  {{$itemUser->fullname}}   </td>
                                                 <td>  {{
-    \App\Helper\Helper::getInfoUser($itemUser->userIdOrdered)['fullname']
-}}   </td>
-                                                <td>  {{
-    \App\Helper\Helper::getInfoUser($itemUser->userId)['fullname']
-}}   </td>
-                                                <td>
 
-                                                    <button type="button" class="btn btn-@if($itemUser->factor_status == 'waitpay')warning @elseif($itemUser->factor_status == 'waitapprove')danger   @elseif($itemUser->factor_status == 'processStore') success  @elseif($itemUser->factor_status == 'processAccount')success @elseif($itemUser->factor_status == 'prepareSending')success @elseif($itemUser->factor_status == 'prepareSending')success   @elseif($itemUser->factor_status == 'prepareSending')success  @elseif($itemUser->factor_status == 'sent')success  @elseif($itemUser->factor_status == 'cancel')warning @endif dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+   \App\Helper\Helper::getUserInfoRole($itemUser->role_id)
 
-                                                        @if($itemUser->factor_status == 'waitpay')
-                                                            <span class="text-white">
-                                                                 <i data-feather="alert-triangle" ></i>
-                                                              منتظر پرداخت
-                                                            </span>
-                                                        @elseif($itemUser->factor_status == 'waitapprove')
-                                                            <span class="text-white">
-
-                                                              <i data-feather="alert-triangle" ></i>
-                                                              منتظر تایید سفارش
-                                                           </span>
-                                                        @elseif($itemUser->factor_status == 'processStore')
-                                                            <span class="text-white">
-                                                                 <i data-feather="alert-triangle" ></i>
-                                                              پردازش در انبار
-                                                           </span>
-                                                        @elseif($itemUser->factor_status == 'processAccount')
-                                                            <span class="text-white">
-                                                                 <i data-feather="alert-triangle" ></i>
-                                                             در حال پردازش
-                                                           </span>
-                                                        @elseif($itemUser->factor_status == 'prepareSending')
-                                                            <span class="text-white">
-                                                                 <i data-feather="alert-triangle" ></i>
-                                                           آماده ارسال
-                                                           </span>
-                                                        @elseif($itemUser->factor_status == 'sent')
-                                                            <span class="text-white">
-                                                                 <i data-feather="check" ></i>
-                                                            ارسال شد
-                                                           </span>
-                                                        @elseif($itemUser->factor_status == 'cancel')
-                                                            <span class="text-white">
-                                                                 <i data-feather="alert-triangle" ></i>
-                                                              لغو شد
-                                                           </span>
-                                                        @endif
-                                                        <i class="mdi mdi-chevron-down"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-
-                                                        <a class="dropdown-item" @click="ChangeStatusOrder('waitpay',{{$itemUser->id}})">
-                                                            منتظر پرداخت
-                                                        </a>
-                                                        <a class="dropdown-item" @click="ChangeStatusOrder('waitapprove',{{$itemUser->id}})">
-                                                            منتظر تایید سفارش
-                                                        </a>
-                                                        <a class="dropdown-item" @click="ChangeStatusOrder('processStore',{{$itemUser->id}})">
-                                                          پردازش در انبار
-                                                        </a>
-                                                        <a class="dropdown-item" @click="ChangeStatusOrder('processAccount',{{$itemUser->id}})">
-                                                         پردازش حسابداری
-                                                        </a>
-                                                        <a class="dropdown-item" @click="ChangeStatusOrder('sent',{{$itemUser->id}})">
-                                                          ارسال شده
-                                                        </a>
-                                                        <a class="dropdown-item" @click="ChangeStatusOrder('cancel',{{$itemUser->id}})">
-                                                           لغو سفارش
-                                                        </a>
-
-                                                    </div>
-
-
-
-
+}}
                                                 </td>
-                                                <td>
-                                                    @if($itemUser->pay_status == 'Card')
-                                                        <span class="text-primary">
-                                                               <i data-feather="credit-card" ></i>
-                                                            پرداخت از طریق کارت
-                                                            </span>
-                                                    @elseif($itemUser->pay_status == 'cheque')
-                                                        <span class="text-danger">
-
-                                                              <i data-feather="alert-triangle" ></i>
-                                                            بصورت چک
-                                                           </span>
-                                                    @elseif($itemUser->pay_status == 'paperpay')
-                                                        <span class="text-primary">
-                                                               <i data-feather="alert-triangle" ></i>
-                                                          فیش بانکی
-                                                           </span>
-
-                                                    @endif
-
-                                                </td>
-                                                <td>
-                                                    {{$itemUser->grandTotal}}
-                                                </td>
-
+                                                <td>  {{$itemUser->mobile}}   </td>
+                                                <td>  {{$itemUser->email}}   </td>
+                                                <td>  {{$itemUser->codemeli}}   </td>
                                                 <td>  {{$itemUser->datereg}}   </td>
                                                 <td>
-                                                    <a href="{{url('portal/User/edit/'.$itemUser->id)}}" title="ویرایش فاکتور">
+                                                   @if($itemUser->status =='active')
+                                                       <span class="badge badge-outline-success font-14">
+                                                           فعال
+                                                       </span>
+                                                    @else
+                                                        <span class="badge badge-outline-warning font-14">
+                                                           غیرفعال
+                                                       </span>
+                                                    @endif
+
+                                                       <div class="form-check form-switch form-switch-success font-16">
+                                                           <input id="statususer"  data-id="{{$itemUser->id}}" class="form-check-input" type="checkbox" id="customSwitchSuccess"  data-on="active" data-off="inactive" @if($itemUser->status =='active')checked @endif>
+
+                                                       </div>
+                                                </td>
+                                                <td>
+                                                    <a href="{{url('portal/Employee/edit/'.$itemUser->id)}}" title="ویرایش مشتری">
                                                         <i data-feather="edit"></i>
                                                     </a>
-                                                    <a @click="DeleteFactor({{$itemUser->id}})" title="حذف فاکتور">
+                                                    <a @click="DeleteEmployee({{$itemUser->id}})" title="حذف مشتری">
                                                         <i data-feather="trash"></i>
-                                                    </a>
-                                                    <a  href="{{url('portal/Factor/show/'.$itemUser->id)}}" title="مشاهده فاکتور ">
-                                                        <i data-feather="eye"></i>
                                                     </a>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     @else
                                         <tr>
-                                          <td>فاکتوری یافت نشد</td>
+                                          <td>  لیست پرسنل  خالی می باشد</td>
                                         </tr>
                                     @endif
 
@@ -278,7 +199,6 @@
 
             </span>
     </footer>
-
     </div>
 
 @endsection
@@ -307,6 +227,8 @@
 
                 var card_id = $(this).data('id');
 
+                alert(card_id);
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('input[name="_token"]').val()
@@ -316,8 +238,8 @@
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: '/portal/ChangeStatusUser',
-                    data: {'action': 'ChangeStatusUser', 'status': status, 'card_id': card_id},
+                    url: '/portal/ChangeStatusEmployee',
+                    data: {'action': 'ChangeStatusEmployee', 'status': status, 'card_id': card_id},
                     success: function (data) {
                         if (data.status == 200) {
                          /*   swal("وضعیت نمایش ", "وضعیت نمایش به روز رسانی شد", "success", {

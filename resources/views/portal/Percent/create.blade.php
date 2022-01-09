@@ -5,24 +5,22 @@
 
 @section('main')
 
-    <div class="page-content-tab">
+    <div class="page-content-tab" >
 
-        <div class="container-fluid"  id="app">
+        <div class="container-fluid">
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-title-box">
 
-                        <h4 class="page-title">
-                            ثبت گروه بندی کالای
-                        </h4>
+                        <h4 class="page-title">ثبت درصد  جدید</h4>
                     </div>
                     <!--end page-title-box-->
                 </div>
                 <!--end col-->
             </div>
             <!-- end page title end breadcrumb -->
-            <div class="row">
+            <div class="row" id="app">
                 <div class="col-12">
                     <div class="card">
 
@@ -31,16 +29,14 @@
                         </div>
                         <div class="card-body">
                             <form action="#" method="post" id="custom-step">
-                                <div class="alert alert-success" id="alert" style="display: none">
-
-                                </div>
-                                <div class="alert alert-info" id="alertnumberic" style="display: none">
-
-                                </div>
                                 <nav>
+                                    <div class="alert alert-danger" id="alert" style="display: none">
+
+
+                                    </div>
                                     <div class="nav nav-tabs" id="nav-tab">
                                         <a class="nav-link active" id="step1-tab" data-bs-toggle="tab" href="#step1">
-                                            اطلاعات گروه بندی کالا
+                                            اطلاعات درصد  کالا
                                         </a>
 
                                     </div>
@@ -49,27 +45,60 @@
                                     <div class="tab-pane active" id="step1">
 
                                         <div class="form-group mb-3 row">
-
                                             <div class="col-md-3">
                                                 <label for="txtFirstNameBilling"
                                                        class="col-lg-4 col-form-label text-end">
-                                                    عنوان گروه کالا
+                                                        عنوان درصد
                                                 </label>
 
-                                                    <input class="form-control" placeholder=" عنوان گروه کالا"
+                                                    <input class="form-control" placeholder=" عنوان  درصد "
                                                            type="text"
-                                                           id="titleGroup">
-                                                    <span v-if="allerros.titleGroup"
+                                                           id="titlePercent">
+                                                    <span v-if="allerros.titlePercent"
                                                           class="badge badge-danger topM">
-                                                @{{ allerros.titleGroup[0] }}
+                                                @{{ allerros.titlePercent[0] }}
                                                         </span>
 
                                             </div>
+                                            <div class="col-md-3">
+                                                <label for="txtLastNameBilling"
+                                                       class="col-lg-4 col-form-label text-end">
+                                                  مقدار درصد
+                                                </label>
 
+                                                    <input class="form-control currency1" placeholder="  مقدار درصد"
+                                                           type="text"
+                                                           id="percentProduct" >
+                                                <div id="demo_out1"></div>
+                                                    <span v-if="allerros.percentProduct"
+                                                          class="badge badge-danger topM">
+                                                @{{ allerros.percentProduct[0] }}
+                                            </span>
+
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="txtCompanyBilling"
+                                                       class="col-lg-7 col-form-label text-end">
+                                                 ارزش افزوده
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <div class="input-group-text">%</div>
+                                                    <input class="form-control" placeholder="ارزش افزوده"
+                                                           type="text" id="feeGroup" v-model="feeGroup">
+                                                    <span v-if="allerros.feeGroup"
+                                                          class="badge badge-danger topM">
+                                                @{{ allerros.feeGroup[0] }}
+                                            </span>
+
+                                                </div>
+
+
+                                            </div>
                                             <div class="col-md-3">
 
                                                 <label for="email" class="col-lg-6 col-form-label text-end">
-                                                    واحد کالا
+                                                   واحد درصد
                                                 </label>
 
                                                 <select class="form-control" id="unitPercent" name="unitPercent">
@@ -77,81 +106,45 @@
                                                     <option value="0">
                                                         لطفا واحد را انتخاب کنید
                                                     </option>
-                                                    <option value="meter" >
-                                                        متر
+                                                    <option value="kilo" >
+                                                         کیلو
                                                     </option>
-                                                    <option value="numerical" >
+                                                    <option value="numberic" >
                                                         عدد
-                                                    </option>
-                                                    <option value="numerical" >
-                                                        عدد
-                                                    </option>
-                                                    <option value="kilogarm" >
-                                                        کیلوگرم
-                                                    </option>
-                                                    <option value="roll" >
-                                                        رول
-                                                    </option>
-                                                    <option value="liter" >
-                                                        لیتر
                                                     </option>
                                                 </select>
-
-                                                </span>
-
-
-                                            </div>
-
-                                            <div class="col-md-3" style="display: none" id="weight">
-                                                <label for="txtCompanyBilling"
-                                                       class="col-lg-8 col-form-label text-end">
-                                                   وزن کالا
-                                                </label>
-
-                                                <input class="form-control" placeholder="وزن کالا را وارد کنید"
-                                                       type="text" id="weightProduct">
-                                                <span v-if="allerros.weightProduct"
-                                                      class="badge badge-danger topM">
-                                                @{{ allerros.weightProduct[0] }}
-                                            </span>
-
-                                            </div>
-
-                                            <div class="col-md-3" style="display: none" id="pricepart">
-
-                                                <label for="priceproduct" class="col-lg-6 col-form-label text-end">
-                                                   قیمت کالا
-                                                </label>
-
-                                                <input class="form-control currency1" placeholder="قیمت کالا را وارد کنید"
+                                               {{-- <input class="form-control" placeholder=" واحد گروه کالا"
                                                        type="text"
-                                                       id="priceproduct">
-                                                <span v-if="allerros.priceproduct"
+                                                       id="unitGroup" >
+                                                <span v-if="allerros.unitGroup"
                                                       class="badge badge-danger topM">
-                                                @{{ allerros.priceproduct[0] }}
+                                                @{{ allerros.unitGroup[0] }}--}}
                                             </span>
 
 
                                             </div>
+                                           {{-- <div class="col-md-3">
 
-                                            <div class="col-md-3">
-                                                <label for="txtLastNameBilling"
-                                                       class="col-lg-8 col-form-label text-end">
-                                                    وضعیت انتشار گروه کالای
+                                                <label for="email" class="col-lg-6 col-form-label text-end">
+                                                    جمع کل درصد
                                                 </label>
 
-                                                <div class="form-check form-switch form-switch-success font-30">
-                                                    <input id="statususer"   class="form-check-input" type="checkbox" id="customSwitchSuccess"  data-on="active" data-off="inactive"  >
+                                                <input class="form-control" placeholder=" جمع کل "
+                                                       type="text"
+                                                       id="TotalPercent" v-model="TotalPercent" disabled>
+                                                <span v-if="allerros.TotalPercent"
+                                                      class="badge badge-danger topM">
+                                                @{{ allerros.TotalPercent[0] }}
+                                            </span>--}}
 
-                                                </div>
 
                                             </div>
                                         </div>
 
                                         <div class="text-center">
                                             <button type="button" id="step4Finish" class="btn btn-danger float-end"
-                                                    @click="NewProductGroup()">
-                                                ثبت گروه کالا
+                                                    @click="NewProductPercent()">
+                                             ثبت درصد جدید
                                             </button>
                                         </div>
                                     </div>
@@ -162,9 +155,9 @@
                         </div><!--end card-body-->
                     </div><!--end card-->
                 </div><!--end col-->
-            </div><!--end row-->
+            </div>
 
-        </div>
+        </div><!-- container -->
 
         <!--Start Rightbar-->
         <!--Start Rightbar/offcanvas-->
@@ -233,36 +226,32 @@
 @section('scripts')
     <script src="{{asset("panel/pages/form-wizard.js")}}"></script>
     <script>
+        var e1 = document.getElementById('percentProduct');
+        e1.oninput = myHandler1;
+        e1.onpropertychange = e1.oninput; // for IE8
+        function myHandler1() {
+            document.getElementById('demo_out1').innerHTML = e1.value.toPersianLetter()+ "  تومان ";
+        }
+
         var cleaveC = new Cleave('.currency1', {
             numeral: true,
             numeralThousandsGroupStyle: 'thousand'
         });
+
         $("#unitPercent").change(function(){
-            var value=$("#unitPercent option").filter(":selected").val();
+           var value=$("#unitPercent option").filter(":selected").val();
+           if(value ==0){
 
-            if(value =='meter'){
-
-                $("#alert").fadeIn();
-                $("#weight").show();
-                $("#alert").html("فرمول محاسبه قیمت گروه کالای برحسب متر : درصد تخفیف با احتساب درصد با افرزش افزوده * وزن  می باشد ")
-            }else if(value =='numerical'){
-
-                $("#alert").fadeOut();
-                $("#weight").hide();
-
-                $("#pricepart").show();
-                $("#alertnumberic").fadeIn();
-                $("#alertnumberic").html("فرمول محاسبه قیمت گروه کالای برحسب عدد :لیست قیمت * درصد + لیست قیمت محاسبه خواهد شد ");
-
-
-            }else{
-                $("#alert").fadeOut();
-                $("#alertnumberic").fadeOut();
-                $("#weight").hide();
-                $("#pricepart").hide();
-            }
+           }else if(value =='kilo'){
+               $("#alert").fadeIn();
+               $("#alert").html("فرمول محاسبه برحسب کیلو : درصد * ارزش افزوده می باشد ")
+           }else{
+               $("#alert").fadeOut();
+           }
 
         });
+
+
     </script>
 @endsection
 
