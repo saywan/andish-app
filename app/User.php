@@ -2,9 +2,11 @@
 
 namespace App;
 
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -36,12 +38,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function roles(){
+    /*public function roles(){
 
         return $this->belongsTo('App\Models\roles');
-    }
+    }*/
     public  function getIsAdminAttribute(){
         return $this->roles()->where('id',1)->exists();
     }
+   /* protected $with =[
+        'permissions',
+        'roles'
+    ];
+
+    public function getPermissionAttribute()
+    {
+        return $this->getAllPermissions();
+    }*/
 
 }

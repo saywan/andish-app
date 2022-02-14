@@ -99,7 +99,7 @@
 }}   </td>
                                                 <td>
 
-                                                    <button type="button" class="btn btn-@if($itemUser->factor_status == 'waitpay')warning @elseif($itemUser->factor_status == 'waitapprove')danger   @elseif($itemUser->factor_status == 'processStore') success  @elseif($itemUser->factor_status == 'processAccount')success @elseif($itemUser->factor_status == 'prepareSending')success @elseif($itemUser->factor_status == 'prepareSending')success   @elseif($itemUser->factor_status == 'prepareSending')success  @elseif($itemUser->factor_status == 'sent')success  @elseif($itemUser->factor_status == 'cancel')warning @endif dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <button type="button" class="btn btn-@if($itemUser->factor_status == 'waitpay')warning @elseif($itemUser->factor_status == 'waitapprove')danger  @elseif($itemUser->factor_status == 'processStore')success  @elseif($itemUser->factor_status == 'processAccount')success @elseif($itemUser->factor_status == 'prepareSending')success @elseif($itemUser->factor_status == 'prepareSending')success   @elseif($itemUser->factor_status == 'prepareSending')success  @elseif($itemUser->factor_status == 'sent')success  @elseif($itemUser->factor_status == 'cancel')warning @endif dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 
                                                         @if($itemUser->factor_status == 'waitpay')
                                                             <span class="text-white">
@@ -194,7 +194,7 @@
 
                                                 <td>  {{$itemUser->datereg}}   </td>
                                                 <td>
-                                                    <a href="{{url('portal/User/edit/'.$itemUser->id)}}" title="ویرایش فاکتور">
+                                                    <a href="{{url('portal/Factor/edit/'.$itemUser->id)}}" title="ویرایش فاکتور">
                                                         <i data-feather="edit"></i>
                                                     </a>
                                                     <a @click="DeleteFactor({{$itemUser->id}})" title="حذف فاکتور">

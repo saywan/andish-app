@@ -108,7 +108,7 @@
 
 
                                             </div>
-                                            <div class="col-md-3">
+                                            {{--<div class="col-md-3">
 
                                                 <label for="email" class="col-lg-7 col-form-label text-end">
                                                     وزن
@@ -119,7 +119,7 @@
                                                        id="weightProduct">
 
 
-                                            </div>
+                                            </div>--}}
                                             <div class="col-md-3">
 
                                                 <label for="email" class="col-lg-7 col-form-label text-end">
@@ -150,7 +150,7 @@
                                         </div>
                                         <div class="form-group mb-3 row">
 
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <label for="txtFirstNameBilling"
                                                        class="col-lg-7 col-form-label text-end">
                                                     توضیحات کالا
@@ -162,7 +162,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="txtFirstNameBilling"
-                                                       class="col-lg-7 col-form-label text-end">
+                                                       class="col-lg-12 col-form-label text-end">
                                                     وضعیت نمایش کالا در فروشگاه
                                                 </label>
 

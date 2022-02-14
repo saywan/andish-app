@@ -49,9 +49,8 @@
                                 <nav>
                                     <div class="nav nav-tabs" id="nav-tab">
                                         <a class="nav-link active " id="step1-tab" data-bs-toggle="tab" href="#step1">
-                                          نمایش و چاپ فاکتور
+                                            نمایش و چاپ فاکتور
                                         </a>
-
 
 
                                     </div>
@@ -118,7 +117,8 @@
                                                         </div><!--end row-->
                                                     </div><!--end card-body-->
                                                     <div class="card-body">
-
+                                                        <a href="{{url('portal/Factor/PrintPreview/'.$id)}}" target="_blank"
+                                                           class="btn btn-primary btn-lg">چاپ فاکتور</a>
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="table-responsive project-invoice">
@@ -150,13 +150,13 @@
                                                                                 </td>
                                                                                 <td>  {{$itemCart->productQty }}</td>
                                                                                 <td>
-                                                                                    {{number_format( $itemCart->prodPrice) }}
+                                                                                    {{ $itemCart->prodPrice }}
                                                                                     <span>تومان</span>
 
                                                                                 </td>
                                                                                 <td>
                                                                                     {{
-   number_format( $itemCart->prodPrice * $itemCart->productQty  )
+   $itemCart->productQty * str_replace(',','',$itemCart->prodPrice)
     }}
                                                                                     <span>تومان</span>
                                                                                 </td>
@@ -209,36 +209,37 @@
                                                                 <h5 class="mt-4">موارد قابل ملاحظه فاکتور :</h5>
                                                                 <ul class="ps-3">
                                                                     <li>
-                                                                        <small class="text-danger font-12" >
-                                                                            <i data-feather="alert-triangle" ></i>
+                                                                        <small class="text-danger font-12">
+                                                                            <i data-feather="alert-triangle"></i>
                                                                             مدت اعتبار این پیش فاکتور 1 روز میباشد.
 
                                                                         </small>
                                                                     </li>
                                                                     <li>
                                                                         <small class="font-12">
-                                                                            <i data-feather="shopping-cart" ></i>
-                                                                            محل تحویل درب کارخانه و هزینه حمل به عهده خریدار میباشد.
+                                                                            <i data-feather="shopping-cart"></i>
+                                                                            محل تحویل درب کارخانه و هزینه حمل به عهده
+                                                                            خریدار میباشد.
 
                                                                         </small>
                                                                     </li>
 
                                                                     <li>
                                                                         <small class="font-12 text-dark">
-                                                                            <i data-feather="send" ></i>
+                                                                            <i data-feather="send"></i>
                                                                             زمان تحویل 3 روز بعد از تایید پیش فاکتور
                                                                         </small>
                                                                     </li>
                                                                     <li>
                                                                         <small class="font-12 text-danger">
-                                                                            <i data-feather="alert-triangle" ></i>
+                                                                            <i data-feather="alert-triangle"></i>
                                                                             نحوه پرداخت نقدی میباشد.
 
                                                                         </small>
                                                                     </li>
                                                                     <li>
                                                                         <small class="font-12 text-danger">
-                                                                            <i data-feather="search" ></i>
+                                                                            <i data-feather="search"></i>
                                                                             هزینه های بازرسی به عهده خریدار میباشد.
 
 
@@ -246,8 +247,10 @@
                                                                     </li>
                                                                     <li>
                                                                         <small class="font-12 text-primary">
-                                                                            " شماره حساب بانک تجارت   1111050496  بنام ارسلان لطف یار شماره کارت  :
-                                                                            5859831003255956  شماره شبا : IR 0601 8000 0000 0011 1105 0496"
+                                                                            " شماره حساب بانک تجارت 1111050496 بنام
+                                                                            ارسلان لطف یار شماره کارت :
+                                                                            5859831003255956 شماره شبا : IR 0601 8000
+                                                                            0000 0011 1105 0496"
 
                                                                         </small>
                                                                     </li>
@@ -257,7 +260,7 @@
                                                                 <div class="float-none float-md-end"
                                                                      style="width: 30%;">
                                                                     <small>
-                                                                      مدیر فروش شرکت : آقای ارسلان لطف یار
+                                                                        مدیر فروش شرکت : آقای ارسلان لطف یار
                                                                     </small>
                                                                     <img src="assets/images/signature.png" alt=""
                                                                          class="mt-2 mb-1" height="20">
@@ -311,8 +314,6 @@
                                                                   </div>--}}
 
 
-
-
                                                             </div>
 
 
@@ -321,7 +322,8 @@
                                                             <div class="col-lg-12 col-xl-4 ms-auto align-self-center">
                                                                 <div class="text-center">
                                                                     <small class="font-12">
-                                                                        کل حقوق مادی و معنوی برای شرکت اندیش گستر محفوظ می باشد .
+                                                                        کل حقوق مادی و معنوی برای شرکت اندیش گستر محفوظ
+                                                                        می باشد .
                                                                     </small>
                                                                 </div>
                                                             </div>
@@ -332,15 +334,18 @@
                                                                 <div class="float-end d-print-none mt-2 mt-md-0">
 
 
+                                                                    <a href="{{url('portal/Factor/PrintPreview/'.$id)}}" target="_blank"
+                                                                       class="btn btn-primary btn-lg">چاپ فاکتور</a>
 
-                                                                      <a href="javascript:window.print()"
-                                                                         class="btn btn-de-info btn-sm">چاپ فاکتور</a>
 
-                                                                  {{--  <a  @click="NewFactor()"
-                                                                        class="btn btn-de-primary btn-sm">ثبت نهایی فاکتور</a>
-                                                                    <button type="button" id="step2Prev" class="btn btn-de-danger btn-sm">
-                                                                        ویرایش فاکتور
-                                                                    </button>--}}
+                                                                    {{--   <a href="javascript:window.print()"
+                                                                            class="btn btn-de-info btn-sm">چاپ فاکتور</a>--}}
+
+                                                                    {{--  <a  @click="NewFactor()"
+                                                                          class="btn btn-de-primary btn-sm">ثبت نهایی فاکتور</a>
+                                                                      <button type="button" id="step2Prev" class="btn btn-de-danger btn-sm">
+                                                                          ویرایش فاکتور
+                                                                      </button>--}}
 
                                                                 </div>
                                                             </div><!--end col-->
@@ -349,7 +354,6 @@
                                                 </div><!--end card-->
                                             </div>
                                         </div>
-
 
 
                                         <div class="">

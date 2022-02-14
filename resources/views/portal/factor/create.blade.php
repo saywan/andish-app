@@ -191,9 +191,9 @@
                                                         <th> تعداد موحودی انبار</th>
                                                         <th>وزن کالا</th>
                                                         <th>قیمت کالا</th>
-                                                        <th> درصد گروه بندی کالا</th>
-                                                        <th> ارزش افزوده کالا</th>
-                                                        <th> واحد کالا</th>
+                                                      {{--  <th> درصد گروه بندی کالا</th>--}}
+                                                    {{--    <th> ارزش افزوده کالا</th>
+                                                        <th> واحد کالا</th>--}}
                                                         <th> وضعیت سفارش کالا</th>
                                                         <th>اطلاعات بیشتر</th>
                                                     </tr>
@@ -230,15 +230,15 @@
                                                                 <td>  {{$itemUser->Pweight}}    </td>
                                                                 <td>
                                                                     @if(!empty($itemUser->Pprice))
-                                                                        {{number_format($itemUser->Pprice)}}
+                                                                        {{$itemUser->Pprice}}
                                                                     @else
 
                                                                         {{$itemUser->Pprice}}
                                                                     @endif
                                                                 </td>
-                                                                <td> % {{$itemUser->Gpercent}}    </td>
-                                                                <td> % {{$itemUser->Gfee}}    </td>
-                                                                <td>  {{$itemUser->Gunit}}   </td>
+                                                             {{--   <td> % {{$itemUser->Gpercent}}    </td>
+                                                                <td> % {{$itemUser->Gfee}}    </td>--}}
+                                                          {{--      <td>  {{$itemUser->Gunit}}   </td>--}}
                                                                 <td>
                                                                     <input type="text"
                                                                            class="form-control text-center text-danger"
@@ -373,17 +373,17 @@
                                                                                 </td>
                                                                                 <td>  {{$itemCart['qty']}}</td>
                                                                                 <td>
-                                                                                    {{number_format( $itemCart['product']['price']) }}
+                                                                                    {{ $itemCart['product']['price'] }}
                                                                                     <span>تومان</span>
 
                                                                                 </td>
                                                                                 <td>
                                                                                     {{
-   number_format( $itemCart['product']['price'] * $itemCart['qty'])
+    str_replace(',','',$itemCart['product']['price']) * $itemCart['qty']
     }}
                                                                                     <span>تومان</span>
                                                                                 </td>
-                                                                                @php $total_price=$total_price +( $itemCart['product']['price'] * $itemCart['qty']) @endphp
+                                                                                @php $total_price=$total_price +( str_replace(',','',$itemCart['product']['price']) * $itemCart['qty']) @endphp
                                                                             </tr>
                                                                         @endforeach
 

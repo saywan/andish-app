@@ -8,16 +8,16 @@
 
 @section('main')
 
-    <div class="page-content-tab" id="app">
+    <div class="page-content-tab" >
 
-        <div class="container-fluid">
+        <div class="container-fluid" id="app">
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-title-box">
 
                         <h4 class="page-title">
-                            لیست فاکتور های ثبت شده شرکت اندیش گستر
+                            ویرایش فاکتور مشتری »
                         </h4>
                     </div>
                     <!--end page-title-box-->
@@ -25,138 +25,120 @@
                 <!--end col-->
             </div>
             <!-- end page title end breadcrumb -->
-            <div class="row">
-                <div  class="col-md-8 alert alert-info" v-for="list in allerros">
-                    @{{ list }}
+            <form action="#" method="post" id="custom-step">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab">
+                        <a class="nav-link active" id="step1-tab" data-bs-toggle="tab" href="#step1">
+                            ویرایش فاکتور مشتری »
+
+                            <b class="text text-danger">
+                                {{ \App\Helper\Helper::getInfoUser($factor->userId)['fullname']  }}
+                            </b>
+                        </a>
+
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane active" id="step1">
+
+                        <div class="form-group mb-3 row">
+                            <div class="col-md-6">
+                                <label for="txtFirstNameBilling"
+                                       class="col-lg-3 col-form-label text-end">
+                                    شناسه فاکتور
+                                </label>
+
+                                <input class="form-control" placeholder=" شناسه فاکتور  "
+                                       type="text"
+                                       id="titleProduct" value="{{$factor->factorId}}" disabled>
+
+                            </div>
+                            <div class="col-md-6">
+                                <label for="txtLastNameBilling"
+                                       class="col-lg-3 col-form-label text-end">
+                                    مبلغ فاکتور
+                                </label>
+
+                                <input type="text" value="{{$factor->subtotal}}" class="form-control" id="totalfactor">
+
+
+                            </div>
+                            <div class="col-md-6">
+                                <label for="txtLastNameBilling"
+                                       class="col-lg-3 col-form-label text-end">
+                                    تاریخ
+                                </label>
+
+                                <input type="text" value="{{$factor->datereg}}" class="form-control" id="totalfactor">
+
+
+                            </div>
+
+                        </div>
+                        <hr>
+                        <div class="form-row">
+                            <b class="text-center text-danger">
+
+                                مشخصات کالا سفارش شده
+                                :
+                                <span class="text-dark">
+                                     تعداد کل کالا
+                                {{count($FactorItem)}}
+                                </span>
+                            </b>
+
+                                @foreach($FactorItem as $itemFact)
+                                <div class="form-group mb-3 row">
+                                    <div class="col-md-3">
+                                        <label for="txtFirstNameBilling"
+                                               class="col-lg-3 col-form-label text-end">
+                                            عنوان کالا
+                                        </label>
+
+                                        <input class="form-control" placeholder="{{$itemFact->prodname}}"
+                                               type="text"
+                                               id="titleProduct" value="{{$itemFact->prodname}}" disabled>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="txtLastNameBilling"
+                                               class="col-lg-3 col-form-label text-end">
+                                        قیمت واحد کالا
+                                        </label>
+
+                                        <input type="text" value="{{$itemFact->prodPrice}}" class="form-control" >
+
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="txtLastNameBilling"
+                                               class="col-lg-3 col-form-label text-end">
+                                       تعداد سفارش
+                                        </label>
+
+                                        <input type="text" value="{{$itemFact->productQty}}" class="form-control" id="QtyOrder{{$itemFact->id}}">
+                                        <button type="button"  class="btn btn-primary float-end"
+                                                @click="EditCountItemFactor({{$itemFact->id}})">
+                                            ویرایش تعداد کالا
+                                        </button>
+                                    </div>
+
+                                </div>
+                                @endforeach
+
+                        </div>
+
+                        <div class="text-center">
+                            <button type="button" id="step4Finish" class="btn btn-info float-end"
+                                    @click="EditFactor({{$factor->id}})">
+                                ویرایش فاکتور
+                            </button>
+                        </div>
+                    </div>
+
+
                 </div>
-                <div class="col-12 col-md-8 mx-auto">
-                    <div class="card">
-
-                        <div class="card-body">
-
-
-                                <div class="form-group mb-3 row">
-                                    <div class="col-md-4">
-                                        <label for="firstname" >
-                                            نام و نام خانوادگی:
-                                        </label>
-                                            <input class="form-control" id="firstname" name="firstname"
-                                                   placeholder="نام مشتری را وارد کنید" required="" type="text" value="{{$user->fullname}}">
-
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="codemeli" >
-                                            کد ملی:
-                                        </label>
-
-                                            <input class="form-control" id="codemeli" name="codemeli"
-                                                   placeholder=" کد ملی مشتری را وارد کنید" required="" type="text" value="{{$user->codemeli}}">
-
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="mobile" >
-                                            شماره همراه
-                                        </label>
-                                        <input class="form-control" id="mobile" name="mobile"
-                                               placeholder=" شماره همراه را وارد کنید" required="" type="text" value="{{$user->mobile}}">
-                                    </div>
-                                </div>
-
-                                <div class="form-group mb-3 row">
-                                    <div class="col-md-4">
-                                        <label for="email" >
-                                            آدرس ایمیل
-                                        </label>
-                                        <input class="form-control" id="email" name="email"
-                                               placeholder=" آدرس ایمیل  را وارد کنید" required="" type="email" value="{{$user->email}}">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="job" >
-                                            شغل
-                                        </label>
-                                        <input class="form-control" id="job" name="job"
-                                               placeholder="  شغل را وارد کنید"
-                                               required="" type="text" value="{{$user->job}}">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="telephone" >
-                                            تلفن ثابت
-                                        </label>
-                                        <input class="form-control" id="telephone" name="telephone"
-                                               placeholder=" تلفن ثابت را وارد کنید" required="" type="text" value="{{$user->phone}}">
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3 row">
-                                    <div class="col-md-4">
-                                        <label for="datebirth" >
-                                            تاریخ تولد
-                                        </label>
-                                        <input class="form-control" id="datebirth" name="datebirth"
-                                               placeholder=" تاریخ تولد را وارد کنید" required="" type="text" value="{{$user->brithday}}">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="accountno" >
-                                            شماره حساب
-                                        </label>
-                                        <input class="form-control" id="accountno" name="accountno"
-                                               placeholder=" شماره حساب را وارد کنید" required="" type="text" value="{{$user->accountno}}">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="cardno" >
-                                            شماره کارت
-                                        </label>
-                                        <input class="form-control" id="cardno" name="cardnumber"
-                                               placeholder="شماره کارت را وارد کنید" required="" type="text" value="{{$user->cardnumber}}">
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3 row">
-                                    <div class="col-md-6">
-                                        <label for="cardtitle" >
-                                            صاحب کارت بانک
-                                        </label>
-                                        <input class="form-control" id="cardtitle" name="cardtitle"
-                                               placeholder="دارنده کارت   را وارد کنید" required="" type="text" value="{{$user->namecard}}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="cardtitle" >
-                                            شماره شبا
-                                        </label>
-                                        <input class="form-control" id="shebacard" name="shebacard"
-                                               placeholder="شماره شبا  را وارد کنید" required="" type="text" maxlength="24" value="{{$user->sheba}}">
-                                    </div>
-
-
-                                </div>
-                                <div class="form-group mb-3 row">
-
-                                    <div class="col-md-12">
-                                        <label for="cardtitle" >
-                                            نوع حساب کاربری
-                                        </label>
-                                        <select class="form-control" id="typeuser" name="typeuser">
-                                            <option value="buyer">
-                                                خریدار
-                                            </option>
-                                            <option value="seller">
-                                                فروشنده
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="datebirth" >
-                                        آدرس محل تولد
-                                    </label>
-
-                                    <textarea  id="address" name="address" rows="5" placeholder="About Me..." class="form-control">{{$user->address}} </textarea>
-                                    <button class="btn btn-de-primary btn-sm text-light px-4 mt-3 mb-0" @click="EditCustomer({{$user->id}})">به روز رسانی حساب کاربری</button>
-                                    <button class="btn btn-de-danger btn-sm text-light px-4 mt-3 mb-0">برگشت به لیست مشتریان</button>
-                                </div>
-
-                        </div> <!--end card-body-->
-                    </div><!--end card-->
-                </div>
-            </div><!--end row-->
+            </form>
 
         </div><!-- container -->
 
@@ -202,7 +184,6 @@
             </div>
         </div>
 
-
         <footer class="footer text-center text-sm-start">
             &copy;
             <script>
@@ -216,6 +197,7 @@
 
             </span>
         </footer>
+
     </div>
 
 @endsection

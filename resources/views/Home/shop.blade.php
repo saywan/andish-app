@@ -16,7 +16,7 @@
     <link href="{{asset("Content/css/color-switcher-design.css")}}" rel="stylesheet">
 
     <!-- Color Themes -->
-    <link id="theme-color-file" href="{{asset("Content/css/color-themes/teal-theme.css")}}" rel="stylesheet">
+    <link id="theme-color-file" href="{{asset("Content/css/color-themes/default-theme.css")}}" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{asset("Content/images/favicon.png")}}" type="image/x-icon">
     <link rel="icon" href="{{asset("Content/images/favicon.png")}}" type="image/x-icon">
@@ -271,57 +271,7 @@
         </div>
     </div>
 
-    <!-- Info Section -->
-    <section class="info-section" style="background-image: url(images/background/6.jpg)">
-        <div class="auto-container">
-            <div class="row clearfix">
 
-                <!-- Logo Column -->
-                <div class="logo-column col-lg-3 col-md-6 col-sm-12">
-                    <div class="inner-column">
-                        <div class="logo">
-                            <a href="index.html"><img src="images/logo-2.png" alt=""/></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Info Column -->
-                <div class="info-column col-lg-3 col-md-6 col-sm-12">
-                    <div class="inner-column">
-                        <div class="icon-box"><span class="flaticon-pin"></span></div>
-                        <ul>
-                            <li><strong>آدرس </strong></li>
-                            <li>ایران، ارومیه، شاهین دژ</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Info Column -->
-                <div class="info-column col-lg-3 col-md-6 col-sm-12">
-                    <div class="inner-column">
-                        <div class="icon-box"><span class="flaticon-phone-call"></span></div>
-                        <ul>
-                            <li><strong>تلفن </strong></li>
-                            <li>+ 786 875 864 75</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Info Column -->
-                <div class="info-column col-lg-3 col-md-6 col-sm-12">
-                    <div class="inner-column">
-                        <div class="icon-box"><span class="flaticon-email-1"></span></div>
-                        <ul>
-                            <li><strong>ایمیل </strong></li>
-                            <li>support@globex.com</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!-- End Info Section -->
 
     <!-- Main Footer -->
     @include('Home.footer')

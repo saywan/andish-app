@@ -9120,7 +9120,7 @@ const app = new Vue({
             var titlePercent = $('#titlePercent').val();
             var percentProduct = $('#percentProduct').val();
             var feeGroup = $('#feeGroup').val();
-         //   var unitGroup = $('#unitGroup').val();
+            //   var unitGroup = $('#unitGroup').val();
             var unitPercent = $('#unitPercent :selected').val();
 
 
@@ -9182,13 +9182,12 @@ const app = new Vue({
             }*/
 
 
-
             let dataform = new FormData();
             dataform.append('titlePercent', titlePercent);
             dataform.append('percentProduct', percentProduct);
             dataform.append('feeGroup', feeGroup);
             dataform.append('unitPercent', unitPercent);
-           // dataform.append('TotalPercent', this.TotalPercent);
+            // dataform.append('TotalPercent', this.TotalPercent);
 
 
             axios.post('/portal/storePercentProduct',
@@ -9217,11 +9216,11 @@ const app = new Vue({
                     setTimeout(function () {
                         window.location.assign('PercentProduct');
                     }, 3000);
-                }else if (response.data.status == 419) {
+                } else if (response.data.status == 419) {
 
                     iziToast.error({
                         title: 'عنوان تخفیف',
-                        message:response.data.message,
+                        message: response.data.message,
                         position: 'topLeft'
                     });
                     setTimeout(function () {
@@ -9286,8 +9285,7 @@ const app = new Vue({
                 return false;
             }
 
-            if(unitPercent =='meter')
-            {
+            if (unitPercent == 'meter') {
                 if (weightProduct == '') {
                     Swal.fire({
                         type: "info",
@@ -9300,7 +9298,7 @@ const app = new Vue({
                     });
                     return false;
                 }
-            }else if(unitPercent =='numerical'){
+            } else if (unitPercent == 'numerical') {
 
                 if (priceproduct == '') {
                     Swal.fire({
@@ -9494,10 +9492,10 @@ const app = new Vue({
             var unitPercent = $('#unitPercent :selected').val();
 
 
-          /*  var titleGroup = $('#titleGroup').val();
-            var percentGroup = $('#percentGroup').val();
-            var feeGroup = $('#feeGroup').val();
-            var unitGroup = $('#unitGroup').val();*/
+            /*  var titleGroup = $('#titleGroup').val();
+              var percentGroup = $('#percentGroup').val();
+              var feeGroup = $('#feeGroup').val();
+              var unitGroup = $('#unitGroup').val();*/
 
 
             if (titlePercent == '') {
@@ -9545,7 +9543,6 @@ const app = new Vue({
                 });
                 return false;
             }
-
 
 
             let dataform = new FormData();
@@ -9611,7 +9608,7 @@ const app = new Vue({
             var GroupProd = $('#GroupProd').find(':selected').val();
             var countProduct = $('#countProduct').val();
             var unitProduct = $('#unitProduct').val();
-            var weightProduct = $('#weightProduct').val();
+            /*  var weightProduct = $('#weightProduct').val();*/
             var priceProduct = $('#priceProduct').val();
 
 
@@ -9659,7 +9656,7 @@ const app = new Vue({
                     confirmButtonText: 'متوجه شدم',
                 });
                 return false;
-            } else if (weightProduct == '') {
+            } /*else if (weightProduct == '') {
                 Swal.fire({
                     type: "info",
                     icon: 'warning',
@@ -9670,7 +9667,7 @@ const app = new Vue({
                     confirmButtonText: 'متوجه شدم',
                 });
                 return false;
-            } else if (priceProduct == '') {
+            }*/ else if (priceProduct == '') {
                 Swal.fire({
                     type: "info",
                     icon: 'warning',
@@ -9743,21 +9740,171 @@ const app = new Vue({
 
         },
 
+        EditFactor: function (id) {
+
+
+            var totalfactor = $('#totalfactor').val();
+
+
+            if (totalfactor == '') {
+                Swal.fire({
+                    type: "info",
+                    title: 'قیمت کل فاکتور   الزامیست ',
+                    text: 'قیمت کل فاکتور را وارد کنید ',
+                    position: "top-right",
+                    icon: 'warning',
+                    confirmButtonClass: 'btn btn-success',
+                    confirmButtonText: 'متوجه شدم',
+                });
+                return false;
+            }
+
+
+            let dataform = new FormData();
+            dataform.append('totalfactor', totalfactor);
+            dataform.append('id', id);
+
+
+
+            axios.post('/portal/UpdateFactor',
+                dataform,
+                {
+                    headers: {
+
+                        'Content-Type': 'multipart/form-data'
+                    }
+
+                }).then(response => {
+
+
+                if (response.data.status == 200) {
+
+                    //window.location.assign('/User/Confirm');
+                    Swal.fire({
+                        type: "success",
+                        title: 'قیمت فاکتور',
+                        text: ' مبلغ فاکتور با موفقیت بروز رسانی شد',
+                        position: "top-right",
+                        icon: 'success',
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 3000);
+                } else {
+
+                    Swal.fire({
+                        type: "warning",
+                        title: 'خطا ',
+                        text: 'مجددا تلاش کنید',
+                        position: "top-left",
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                }
+
+
+            }).catch((error) => {
+
+
+                this.allerros = error.response.data.errors;
+
+            });
+
+
+        },
+        EditCountItemFactor: function (id) {
+
+
+            var QtyOrder = $(`#QtyOrder${id}`).val();
+
+            if (QtyOrder == '') {
+                Swal.fire({
+                    type: "info",
+                    title: 'قیمت کل فاکتور   الزامیست ',
+                    text: 'قیمت کل فاکتور را وارد کنید ',
+                    position: "top-right",
+                    icon: 'warning',
+                    confirmButtonClass: 'btn btn-success',
+                    confirmButtonText: 'متوجه شدم',
+                });
+                return false;
+            }
+
+
+            let dataform = new FormData();
+            dataform.append('QtyOrder', QtyOrder);
+            dataform.append('id', id);
+
+
+
+            axios.post('/portal/UpdateItemFactor',
+                dataform,
+                {
+                    headers: {
+
+                        'Content-Type': 'multipart/form-data'
+                    }
+
+                }).then(response => {
+
+
+                if (response.data.status == 200) {
+
+                    //window.location.assign('/User/Confirm');
+                    Swal.fire({
+                        type: "success",
+                        title: 'تعداد سفارش کالا',
+                        text: ' تعداد سفارش کالا با موفقیت به روز رسانی شد',
+                        position: "top-right",
+                        icon: 'success',
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 3000);
+                } else {
+
+                    Swal.fire({
+                        type: "warning",
+                        title: 'خطا ',
+                        text: 'مجددا تلاش کنید',
+                        position: "top-left",
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                }
+
+
+            }).catch((error) => {
+
+
+                this.allerros = error.response.data.errors;
+
+            });
+
+
+        },
+
 
         NewProduct: function () {
 
 
-            var title = $('#titleGroup').val();
-            var GroupProd = $('#GroupProd').find(':selected').val();
+            //var title = $('#titleProduct').val();
+
+            var titleProduct = $('select[name="titleProduct"]').find(":selected").val();
+            var PercentGroup = $('#PercentGroup').find(':selected').val();
             var countProduct = $('#countProduct').val();
             var unitProduct = $('#unitProduct').val();
-            var weightProduct = $('#weightProduct').val();
+            /*   var weightProduct = $('#weightProduct').val();*/
             var priceProduct = $('#priceProduct').val();
             var desc = tinyMCE.get('basic-conf').getContent();
             var statusProduct = $("#statususer").prop('checked') == true ? 'active' : 'inactive';
 
 
-            if (title == '') {
+            if (titleProduct == '') {
                 Swal.fire({
                     type: "info",
                     title: 'عنوان  کالای الزامیست ',
@@ -9768,7 +9915,7 @@ const app = new Vue({
                     confirmButtonText: 'متوجه شدم',
                 });
                 return false;
-            } else if (GroupProd == '') {
+            } else if (PercentGroup == '') {
                 Swal.fire({
                     type: "info",
                     icon: 'warning',
@@ -9801,7 +9948,7 @@ const app = new Vue({
                     confirmButtonText: 'متوجه شدم',
                 });
                 return false;
-            } else if (weightProduct == '') {
+            } /*else if (weightProduct == '') {
                 Swal.fire({
                     type: "info",
                     icon: 'warning',
@@ -9812,7 +9959,7 @@ const app = new Vue({
                     confirmButtonText: 'متوجه شدم',
                 });
                 return false;
-            } else if (priceProduct == '') {
+            }*/ else if (priceProduct == '') {
                 Swal.fire({
                     type: "info",
                     icon: 'warning',
@@ -9827,11 +9974,11 @@ const app = new Vue({
 
 
             let dataform = new FormData();
-            dataform.append('title', title);
-            dataform.append('GroupProd', GroupProd);
+            dataform.append('titleProduct', titleProduct);
+            dataform.append('PercentGroup', PercentGroup);
             dataform.append('count', countProduct);
             dataform.append('unit', unitProduct);
-            dataform.append('weight', weightProduct);
+            /*  dataform.append('weight', weightProduct);*/
             dataform.append('price', priceProduct);
             dataform.append('desc', desc);
             dataform.append('statusProduct', statusProduct);
@@ -9876,6 +10023,22 @@ const app = new Vue({
                     });
                     setTimeout(function () {
                         window.location.assign('Product');
+                    }, 3000);
+                } else if (response.data.status == 419) {
+
+                    this.$loading(false);
+                    //window.location.assign('/User/Confirm');
+                    Swal.fire({
+                        type: "info",
+                        title: 'خطا',
+                        text: 'گروه کالای یافت نشد',
+                        position: "top-right",
+                        icon: 'info',
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                    setTimeout(function () {
+                        window.location.assign('CreateProduct');
                     }, 3000);
                 } else {
                     this.$loading(false);
@@ -10153,7 +10316,7 @@ const app = new Vue({
                         confirmButtonText: 'باشه',
                     });
                     setTimeout(function () {
-                        window.location.assign('CreateFactor');
+                        window.location.assign('Factor');
                     }, 3000);
                 } else {
 

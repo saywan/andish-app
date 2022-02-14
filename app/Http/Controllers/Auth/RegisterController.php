@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use Ipecompany\Smsirlaravel\Smsirlaravel;
 use Morilog\Jalali\Jalalian;
+use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -69,10 +71,11 @@ class RegisterController extends Controller
         $inputType = filter_var($data['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
 
 
+
         return Validator::make($data, [
-            'fullname' => ['required', 'string', 'max:255'],
-            $inputType => ['required', 'string', 'max:255', 'unique:users'],
-            'passwordregister' => ['required', 'string', 'min:8'],
+             'fullname' => ['required', 'string', 'max:255'],
+              'email' => ['required', 'string', 'max:255', 'unique:users'],
+             'passwordregister' => ['required', 'string', 'min:8'],
         ], $messages);
 
     }
@@ -86,42 +89,77 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $inputType = filter_var($data['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
-        //  dd($inputType);
-
-        $token = Str::random(32);
-
-        $user = User::create([
-            'email' => $data['email'],
-            'fullname' => $data['fullname'],
-            'role_id' => '6',
-            'password' => Hash::make($data['passwordregister']),
-            'status' => 'pending',
-            'datereg' => Jalalian::fromCarbon(Carbon::now())->format('H:i:s | %A  %d %B %Y '),
-            'email_verification_token' => $token,
-            'email_verified' => 0,
-            'mobile_encode' => base64_encode($data['email']),
-        ]);
-
-        $username = "تایید حساب کاربری";
-        $code_activite = base64_encode($data['email']);
-        $_email_user = $data['email'];
-        $_title_site = 'شرکت اندیش گستر';
-        $_email_noreply = 'support@andishgostar.com';
 
 
-        Mail::send('page.verifyEmail', array('confirmation_code' => $code_activite, 'token' => $token, 'title_site' => $_title_site),
-             function ($message) use (
-                 $code_activite,
-                 $_email_user,
-                 $_title_site,
-                 $username,
-                 $_email_noreply
-             ) {
-                 $message->from($_email_noreply, $_title_site);
-                 $message->subject('تایید حساب کاربری');
-                 $message->to($_email_user, $username);
-             });
 
+
+
+        if($inputType=='email')
+        {
+            $token = Str::random(32);
+            $user = User::create([
+                'email' => ($inputType == 'email') ? $data['email'] : null,
+                'fullname' => $data['fullname'],
+                'role_id' => '6',
+                'password' => Hash::make($data['passwordregister']),
+                'status' => 'pending',
+                'datereg' => Jalalian::fromCarbon(Carbon::now())->format('H:i:s | %A  %d %B %Y '),
+                'email_verification_token' => $token,
+                'email_verified' => 0,
+                'mobile_encode' => base64_encode( $data['email']),
+            ]);
+
+            $username = "تایید حساب کاربری";
+            $code_activite = base64_encode($data['email']);
+            $_email_user = $data['email'];
+            $_title_site = 'شرکت اندیش گستر';
+            $_email_noreply = 'support@andishgostar.com';
+
+
+            /*Mail::send('page.verifyEmail', array('confirmation_code' => $code_activite, 'token' => $token, 'title_site' => $_title_site),
+                function ($message) use (
+                    $code_activite,
+                    $_email_user,
+                    $_title_site,
+                    $username,
+                    $_email_noreply
+                ) {
+                    $message->from($_email_noreply, $_title_site);
+                    $message->subject('تایید حساب کاربری');
+                    $message->to($_email_user, $username);
+                });*/
+        }
+        elseif ($inputType=='mobile')
+        {
+            $digits = 6;
+            $codeMobile = rand(pow(10, $digits - 1), pow(10, $digits) - 1);
+
+            $token = Str::random(32);
+            $user = User::create([
+                'mobile' => ($inputType == 'mobile') ? $data['email'] : null,
+                'fullname' => $data['fullname'],
+                'role_id' => '',
+                'password' => Hash::make($data['passwordregister']),
+                'status' => 'pending',
+                'datereg' => Jalalian::fromCarbon(Carbon::now())->format('H:i:s | %A  %d %B %Y '),
+                'email_verification_token' => '',
+                'email_verified' => 0,
+                'confirmation_mobile_code' => $codeMobile,
+                'mobile_encode' => base64_encode($data['email']),
+            ]);
+            //Role::create(['name' => 'User']);
+            $user->assignRole('Employee');
+
+           /* Smsirlaravel::ultraFastSend([
+                'VerificationCode' => $codeMobile
+            ], 45481, $data['email']);*/
+
+        }
+
+
+
+
+        Session::put('inputtype', $inputType);
         Session::put('Confirm', true);
 
         return $user;

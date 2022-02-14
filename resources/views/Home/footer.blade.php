@@ -2,7 +2,7 @@
 <?php
 $setting=\App\Models\AdminSettings::find(1);
 ?>
-<section class="info-section" style="background-image: url(images/background/6.jpg)">
+<section class="info-section" style="background-image: url({{asset("Content/images/background/6.jpg")}})">
     <div class="auto-container">
         <div class="row clearfix">
 

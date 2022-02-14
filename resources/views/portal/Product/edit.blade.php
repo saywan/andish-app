@@ -91,7 +91,7 @@
                                        type="text"
                                        id="unitProduct" value="{{$edit->unit}}">
                             </div>
-                            <div class="col-md-3">
+                           {{-- <div class="col-md-3">
 
                                 <label for="email"   class="col-lg-7 col-form-label text-end">
                                     وزن
@@ -103,7 +103,7 @@
 
 
 
-                            </div>
+                            </div>--}}
                             <div class="col-md-3">
 
                                 <label for="email"   class="col-lg-7 col-form-label text-end">

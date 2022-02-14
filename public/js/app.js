@@ -58356,7 +58356,8 @@ var app = new Vue({
       var GroupProd = $('#GroupProd').find(':selected').val();
       var countProduct = $('#countProduct').val();
       var unitProduct = $('#unitProduct').val();
-      var weightProduct = $('#weightProduct').val();
+      /*  var weightProduct = $('#weightProduct').val();*/
+
       var priceProduct = $('#priceProduct').val();
 
       if (title == '') {
@@ -58403,18 +58404,20 @@ var app = new Vue({
           confirmButtonText: 'متوجه شدم'
         });
         return false;
-      } else if (weightProduct == '') {
+      }
+      /*else if (weightProduct == '') {
         Swal.fire({
-          type: "info",
-          icon: 'warning',
-          title: 'وزن  کالا الزامیست ',
-          text: 'وزن  کالا را وارد کنید ',
-          position: "top-right",
-          confirmButtonClass: 'btn btn-success',
-          confirmButtonText: 'متوجه شدم'
+            type: "info",
+            icon: 'warning',
+            title: 'وزن  کالا الزامیست ',
+            text: 'وزن  کالا را وارد کنید ',
+            position: "top-right",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'متوجه شدم',
         });
         return false;
-      } else if (priceProduct == '') {
+      }*/
+      else if (priceProduct == '') {
         Swal.fire({
           type: "info",
           icon: 'warning',
@@ -58468,19 +58471,129 @@ var app = new Vue({
         _this152.allerros = error.response.data.errors;
       });
     },
-    NewProduct: function NewProduct() {
+    EditFactor: function EditFactor(id) {
       var _this153 = this;
 
-      var title = $('#titleGroup').val();
-      var GroupProd = $('#GroupProd').find(':selected').val();
+      var totalfactor = $('#totalfactor').val();
+
+      if (totalfactor == '') {
+        Swal.fire({
+          type: "info",
+          title: 'قیمت کل فاکتور   الزامیست ',
+          text: 'قیمت کل فاکتور را وارد کنید ',
+          position: "top-right",
+          icon: 'warning',
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      }
+
+      var dataform = new FormData();
+      dataform.append('totalfactor', totalfactor);
+      dataform.append('id', id);
+      axios.post('/portal/UpdateFactor', dataform, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          //window.location.assign('/User/Confirm');
+          Swal.fire({
+            type: "success",
+            title: 'قیمت فاکتور',
+            text: ' مبلغ فاکتور با موفقیت بروز رسانی شد',
+            position: "top-right",
+            icon: 'success',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+          setTimeout(function () {
+            window.location.reload();
+          }, 3000);
+        } else {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: 'مجددا تلاش کنید',
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        }
+      })["catch"](function (error) {
+        _this153.allerros = error.response.data.errors;
+      });
+    },
+    EditCountItemFactor: function EditCountItemFactor(id) {
+      var _this154 = this;
+
+      var QtyOrder = $("#QtyOrder".concat(id)).val();
+
+      if (QtyOrder == '') {
+        Swal.fire({
+          type: "info",
+          title: 'قیمت کل فاکتور   الزامیست ',
+          text: 'قیمت کل فاکتور را وارد کنید ',
+          position: "top-right",
+          icon: 'warning',
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      }
+
+      var dataform = new FormData();
+      dataform.append('QtyOrder', QtyOrder);
+      dataform.append('id', id);
+      axios.post('/portal/UpdateItemFactor', dataform, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          //window.location.assign('/User/Confirm');
+          Swal.fire({
+            type: "success",
+            title: 'تعداد سفارش کالا',
+            text: ' تعداد سفارش کالا با موفقیت به روز رسانی شد',
+            position: "top-right",
+            icon: 'success',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+          setTimeout(function () {
+            window.location.reload();
+          }, 3000);
+        } else {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: 'مجددا تلاش کنید',
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        }
+      })["catch"](function (error) {
+        _this154.allerros = error.response.data.errors;
+      });
+    },
+    NewProduct: function NewProduct() {
+      var _this155 = this;
+
+      //var title = $('#titleProduct').val();
+      var titleProduct = $('select[name="titleProduct"]').find(":selected").val();
+      var PercentGroup = $('#PercentGroup').find(':selected').val();
       var countProduct = $('#countProduct').val();
       var unitProduct = $('#unitProduct').val();
-      var weightProduct = $('#weightProduct').val();
+      /*   var weightProduct = $('#weightProduct').val();*/
+
       var priceProduct = $('#priceProduct').val();
       var desc = tinyMCE.get('basic-conf').getContent();
       var statusProduct = $("#statususer").prop('checked') == true ? 'active' : 'inactive';
 
-      if (title == '') {
+      if (titleProduct == '') {
         Swal.fire({
           type: "info",
           title: 'عنوان  کالای الزامیست ',
@@ -58491,7 +58604,7 @@ var app = new Vue({
           confirmButtonText: 'متوجه شدم'
         });
         return false;
-      } else if (GroupProd == '') {
+      } else if (PercentGroup == '') {
         Swal.fire({
           type: "info",
           icon: 'warning',
@@ -58524,18 +58637,20 @@ var app = new Vue({
           confirmButtonText: 'متوجه شدم'
         });
         return false;
-      } else if (weightProduct == '') {
+      }
+      /*else if (weightProduct == '') {
         Swal.fire({
-          type: "info",
-          icon: 'warning',
-          title: 'وزن  کالا الزامیست ',
-          text: 'وزن  کالا را وارد کنید ',
-          position: "top-right",
-          confirmButtonClass: 'btn btn-success',
-          confirmButtonText: 'متوجه شدم'
+            type: "info",
+            icon: 'warning',
+            title: 'وزن  کالا الزامیست ',
+            text: 'وزن  کالا را وارد کنید ',
+            position: "top-right",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'متوجه شدم',
         });
         return false;
-      } else if (priceProduct == '') {
+      }*/
+      else if (priceProduct == '') {
         Swal.fire({
           type: "info",
           icon: 'warning',
@@ -58549,11 +58664,12 @@ var app = new Vue({
       }
 
       var dataform = new FormData();
-      dataform.append('title', title);
-      dataform.append('GroupProd', GroupProd);
+      dataform.append('titleProduct', titleProduct);
+      dataform.append('PercentGroup', PercentGroup);
       dataform.append('count', countProduct);
       dataform.append('unit', unitProduct);
-      dataform.append('weight', weightProduct);
+      /*  dataform.append('weight', weightProduct);*/
+
       dataform.append('price', priceProduct);
       dataform.append('desc', desc);
       dataform.append('statusProduct', statusProduct);
@@ -58575,7 +58691,7 @@ var app = new Vue({
         }
       }).then(function (response) {
         if (response.data.status == 200) {
-          _this153.$loading(false); //window.location.assign('/User/Confirm');
+          _this155.$loading(false); //window.location.assign('/User/Confirm');
 
 
           Swal.fire({
@@ -58590,8 +58706,24 @@ var app = new Vue({
           setTimeout(function () {
             window.location.assign('Product');
           }, 3000);
+        } else if (response.data.status == 419) {
+          _this155.$loading(false); //window.location.assign('/User/Confirm');
+
+
+          Swal.fire({
+            type: "info",
+            title: 'خطا',
+            text: 'گروه کالای یافت نشد',
+            position: "top-right",
+            icon: 'info',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+          setTimeout(function () {
+            window.location.assign('CreateProduct');
+          }, 3000);
         } else {
-          _this153.$loading(false);
+          _this155.$loading(false);
 
           Swal.fire({
             type: "warning",
@@ -58603,13 +58735,13 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this153.$loading(false);
+        _this155.$loading(false);
 
-        _this153.allerros = error.response.data.errors;
+        _this155.allerros = error.response.data.errors;
       });
     },
     AddBasket: function AddBasket(ProdId) {
-      var _this154 = this;
+      var _this156 = this;
 
       var price = $('#price').val();
       var quantity = $('#quantity').find(':selected').val();
@@ -58710,13 +58842,13 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this154.$loading(false);
+        _this156.$loading(false);
 
-        _this154.allerros = error.response.data.errors;
+        _this156.allerros = error.response.data.errors;
       });
     },
     SendVerifyEmail: function SendVerifyEmail(userId) {
-      var _this155 = this;
+      var _this157 = this;
 
       //  var title = $('#titleGroup').val();
       var dataform = new FormData();
@@ -58748,13 +58880,13 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this155.$loading(false);
+        _this157.$loading(false);
 
-        _this155.allerros = error.response.data.errors;
+        _this157.allerros = error.response.data.errors;
       });
     },
     NewFactor: function NewFactor() {
-      var _this156 = this;
+      var _this158 = this;
 
       var userIdOrder = $('#userIdOrder').attr('data-id'); // var OrderStatus = $('#OrderStatus').find(':selected').val();
 
@@ -58809,7 +58941,7 @@ var app = new Vue({
             confirmButtonText: 'باشه'
           });
           setTimeout(function () {
-            window.location.assign('CreateFactor');
+            window.location.assign('Factor');
           }, 3000);
         } else {
           Swal.fire({
@@ -58822,11 +58954,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this156.allerros = error.response.data.errors;
+        _this158.allerros = error.response.data.errors;
       });
     },
     updateAboutPage: function updateAboutPage() {
-      var _this157 = this;
+      var _this159 = this;
 
       // var desc = $('#basic-conf').val();
       var titlePageAbout = $('#titlePageAbout').val();
@@ -58895,11 +59027,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this157.allerros = error.response.data.errors;
+        _this159.allerros = error.response.data.errors;
       });
     },
     updateContactPage: function updateContactPage() {
-      var _this158 = this;
+      var _this160 = this;
 
       // var desc = $('#basic-conf').val();
       var titlePageContact = $('#titlePageContact').val();
@@ -58967,7 +59099,7 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this158.allerros = error.response.data.errors;
+        _this160.allerros = error.response.data.errors;
       });
     },
     DeleteCartItem: function DeleteCartItem(cartId) {
@@ -58979,7 +59111,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this159 = this;
+        var _this161 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/DeleteCartItem', {
@@ -59009,7 +59141,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this159.error = 1;
+            _this161.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -59030,7 +59162,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this160 = this;
+        var _this162 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/ChangeStatusOrder', {
@@ -59056,7 +59188,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this160.error = 1;
+            _this162.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -59077,7 +59209,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this161 = this;
+        var _this163 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/DeleteFactor', {
@@ -59102,7 +59234,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this161.error = 1;
+            _this163.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -59115,7 +59247,7 @@ var app = new Vue({
       });
     },
     OrderProduct: function OrderProduct(PID) {
-      var _this162 = this;
+      var _this164 = this;
 
       var userId = $('select[name="userId"]').find(":selected").val();
       var qtyProduct = $("#qtyProduct".concat(PID)).val(); //  var qtyProduct = $('#qtyProduct').attr('value');
@@ -59209,11 +59341,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this162.allerros = error.response.data.errors;
+        _this164.allerros = error.response.data.errors;
       });
     },
     VerifySMSCode: function VerifySMSCode() {
-      var _this163 = this;
+      var _this165 = this;
 
       //alert($("#mobile_code").val());
       if (this.verify_code == '') {
@@ -59237,13 +59369,13 @@ var app = new Vue({
           swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
             button: "باشه"
           });
-          _this163.error = 1;
+          _this165.error = 1;
           console.log("error");
         });
       }
     },
     ForgotPassword: function ForgotPassword() {
-      var _this164 = this;
+      var _this166 = this;
 
       if (this.mobile_forgot == '') {
         swal("خطا", "شماره موبایل خود را وارد کنید", "info", {
@@ -59269,13 +59401,13 @@ var app = new Vue({
           swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
             button: "باشه"
           });
-          _this164.error = 1;
+          _this166.error = 1;
           console.log("error");
         });
       }
     },
     UpdatePasswordNew: function UpdatePasswordNew() {
-      var _this165 = this;
+      var _this167 = this;
 
       if (this.code_temp == '') {
         swal("خطا", "رمز عبور موقت را وارد کنید", "info", {
@@ -59306,13 +59438,13 @@ var app = new Vue({
           swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
             button: "باشه"
           });
-          _this165.error = 1;
+          _this167.error = 1;
           console.log("error");
         });
       }
     },
     EditRequest: function EditRequest(Id) {
-      var _this166 = this;
+      var _this168 = this;
 
       var Posselected = $("#Posselected").val();
       var estateSelected = $("#estateSelected").val();
@@ -59378,21 +59510,21 @@ var app = new Vue({
             toastr.info('مشتری گرامی قبلا درخواست شما ثبت شده در حال بررسی هستیم');
           }
         }, function (response) {
-          _this166.error = 1;
+          _this168.error = 1;
           console.log("error");
         });
       }
     },
     onImageChange: function onImageChange(e) {
-      var _this167 = this;
+      var _this169 = this;
 
       var files = e.target.files;
       Array.from(files).forEach(function (file) {
-        return _this167.addImage(file);
+        return _this169.addImage(file);
       });
     },
     addImage: function addImage(file) {
-      var _this168 = this;
+      var _this170 = this;
 
       if (!file.type.match('image.*')) {
         console.log("".concat(file.name, " is not an image"));
@@ -59404,13 +59536,13 @@ var app = new Vue({
           reader = new FileReader();
 
       reader.onload = function (e) {
-        return _this168.images.push(e.target.result);
+        return _this170.images.push(e.target.result);
       };
 
       reader.readAsDataURL(file);
     },
     CalculateRent: function CalculateRent() {
-      var _this169 = this;
+      var _this171 = this;
 
       var RentPrice = $("#RentPrice").val();
       var rahanPrice = $("#rahanPrice").val();
@@ -59430,12 +59562,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this169.error = 1;
+        _this171.error = 1;
         console.log("error");
       });
     },
     CalculateSale: function CalculateSale() {
-      var _this170 = this;
+      var _this172 = this;
 
       var number_under = $("#number_under").val();
       axios.post('CalculateSale', {
@@ -59459,7 +59591,7 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this170.error = 1;
+        _this172.error = 1;
         console.log("error");
       });
     },
@@ -59471,7 +59603,7 @@ var app = new Vue({
       return val;
     },
     UpdateinfoSite: function UpdateinfoSite() {
-      var _this171 = this;
+      var _this173 = this;
 
       var email = $('input[name="email_site"]').val();
       var phone_Sellerone = $('input[name="phone_Sellerone"]').val();
@@ -59499,12 +59631,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this171.error = 1;
+        _this173.error = 1;
         console.log("error");
       });
     },
     AddReport: function AddReport() {
-      var _this172 = this;
+      var _this174 = this;
 
       var descreport = $('textarea[name="descreport"]').val();
       var descresultreport = $('textarea[name="descresultreport"]').val();
@@ -59541,12 +59673,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this172.error = 1;
+        _this174.error = 1;
         console.log("error");
       });
     },
     SendVisitSMS: function SendVisitSMS(Id) {
-      var _this173 = this;
+      var _this175 = this;
 
       axios.post('/admin/SendVisitSMS', {
         Id: Id
@@ -59572,12 +59704,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this173.error = 1;
+        _this175.error = 1;
         console.log("error");
       });
     },
     AddReportOperator: function AddReportOperator() {
-      var _this174 = this;
+      var _this176 = this;
 
       var descreport = $('textarea[name="descreport"]').val();
       var descresultreport = $('textarea[name="descresultreport"]').val();
@@ -59610,12 +59742,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this174.error = 1;
+        _this176.error = 1;
         console.log("error");
       });
     },
     AddFavorite: function AddFavorite(estateId) {
-      var _this175 = this;
+      var _this177 = this;
 
       axios.post('/AddFavoriteEstate', {
         estateId: estateId
@@ -59636,12 +59768,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this175.error = 1;
+        _this177.error = 1;
         console.log("error");
       });
     },
     PublishTextAbout: function PublishTextAbout() {
-      var _this176 = this;
+      var _this178 = this;
 
       var titleAbout = CKEDITOR.instances['editor-demo3'].getData();
       var planAbout = CKEDITOR.instances['editor-demo2'].getData();
@@ -59665,7 +59797,7 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this176.error = 1;
+        _this178.error = 1;
         console.log("error");
       });
     },

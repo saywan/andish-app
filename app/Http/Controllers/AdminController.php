@@ -16,7 +16,16 @@ use Morilog\Jalali\Jalalian;
 
 class AdminController extends Controller
 {
+    function __construct()
+    {
 
+      //  $this->authorize('index');
+       // abort_if(\Gate::denies('index'),403);
+      //  $this->middleware('permission:index', ['only' => ['index']]);
+      /*    $this->middleware('permission:product-create', ['only' => ['create','store']]);
+        $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:product-delete', ['only' => ['destroy']]);*/
+    }
     public function index()
     {
 

@@ -177,8 +177,8 @@ class LoginController extends Controller
                 // return
                 $status = Auth::user()->status;
                 //dd(Auth::user()->email);
-              //  Session::flush('UserEmail', base64_encode(Auth::user()->email));
-             //   Session::put('UserEmail',base64_encode(Auth::user()->email));
+                //  Session::flush('UserEmail', base64_encode(Auth::user()->email));
+                //   Session::put('UserEmail',base64_encode(Auth::user()->email));
                 Session::put('Confirm', Auth::user()->id);
 
                 Auth::logout();
@@ -186,7 +186,7 @@ class LoginController extends Controller
 
                 // return redirect(url('login'))->withInput()->with('errorMsg', 'حساب کاربری شما هنوز فعال نشده است');
                 return back()->with('warning','حساب کاربری شما هنوز فعال نشده است');
-              //  return redirect(url('login'));
+                //  return redirect(url('login'));
 
 
                 /*return redirect()->back()->withErrors([

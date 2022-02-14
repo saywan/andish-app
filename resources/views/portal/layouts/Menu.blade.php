@@ -44,6 +44,23 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#sidebarLevel" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="sidebarLevel">
+                       سطح دسترسی
+                    </a>
+                    <div class="collapse " id="sidebarLevel">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('portal.createRole')}}" class="nav-link ">ثبت سطح جدید</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('portal.Role')}}" class="nav-link ">لیست نقش و سطح ها</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#sidebarEmployement" data-bs-toggle="collapse" role="button"
                        aria-expanded="false" aria-controls="sidebarEmployement">
                       پرسنل

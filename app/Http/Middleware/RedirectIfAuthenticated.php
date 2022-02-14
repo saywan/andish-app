@@ -43,7 +43,18 @@ class RedirectIfAuthenticated
             return $next($request);
 
         }
-      /*  if (Auth::guard($guard)->check()) {
+
+
+      /*  if (Auth::guard($guard)->check() && auth()->user()->hasAnyRole(['Admin'] )) {
+            return redirect()->route('portal.index');
+
+        }else if (Auth::guard($guard)->check() && auth()->user()->hasAnyRole(['User'] )) {
+            return redirect()->route('portal.User');
+        } else{
+            return $next($request);
+        }*/
+       // return redirect('/home');
+     /*   if (Auth::guard($guard)->check()) {
             return redirect(RouteServiceProvider::HOME);
         }
 

@@ -41,10 +41,10 @@ class FactorController extends Controller
     {
         //
         $existProd = DB::table('product')
-            ->select('product.id as PID', 'product.title as Ptitle', 'product.userid as PUserId', 'product.groupId as PgroupId', 'product.count as Pcount', 'product.unit as Punit', 'product.price as Pprice', 'product.weight as Pweight', 'product.datereg as Pdatereg', 'Group.id as GID', 'Group.title as Gtitle', 'Group.percent as Gpercent', 'Group.userId as GuserId', 'Group.fee as Gfee', 'Group.unit as Gunit', 'Group.datereg as Gdatereg')
+            ->select('product.id as PID', 'product.title as Ptitle', 'product.userid as PUserId', 'product.groupId as PgroupId', 'product.count as Pcount', 'product.unit as Punit', 'product.price as Pprice', 'product.weight as Pweight', 'product.datereg as Pdatereg', 'Group.id as GID', 'Group.title as Gtitle', 'Group.userId as GuserId', 'Group.datereg as Gdatereg')
             ->join('product_group as Group', 'Group.id', '=', 'product.groupId')->get();
-        //  dd($existProd);
-        $AllUser = User::where('role_id', 3)->get();
+
+        $AllUser = User::where('role_id', '!=', 1)->get();
         $userCartItems = CartShop::userCartItems();
         // dd($userCartItems);
         return view('portal.factor.create', compact('existProd', 'AllUser', 'userCartItems'));
@@ -171,7 +171,8 @@ class FactorController extends Controller
      */
     public function show($id)
     {
-        //
+
+
     }
 
     /**
@@ -183,6 +184,18 @@ class FactorController extends Controller
     public function edit($id)
     {
         //
+        $factor = FactorUser::where('id', $id)->first();
+        if ($factor) {
+
+            $FactorItem = FactorOrderUser::where('FactorId', $factor->id)->get();
+            return view('portal.factor.edit', ['factor' => $factor, 'FactorItem' => $FactorItem]);
+
+        } else {
+
+            return redirect()->back();
+
+        }
+
     }
 
     public function NewFactor(Request $request)
@@ -234,12 +247,14 @@ class FactorController extends Controller
 
             if ($order_id) {
 
-                Smsirlaravel::ultraFastSend(['username' => Helper::getInfoUser($data['userIdOrder'])['fullname'], 'OrderNo' => $factorId, 'visitsite' => 'http://andishgostar.com'], 45480, Helper::getInfoUser($data['userIdOrder'])['mobile']);
+                // sms send order user
 
-                $userInfo = User::where('role_id', 1)->first();
-                if ($userInfo) {
-                    Smsirlaravel::ultraFastSend(['OrderNo' => $factorId], 45486, $userInfo->mobile);
-                }
+                /*  Smsirlaravel::ultraFastSend(['username' => Helper::getInfoUser($data['userIdOrder'])['fullname'], 'OrderNo' => $factorId, 'visitsite' => 'http://andishgostar.com'], 45480, Helper::getInfoUser($data['userIdOrder'])['mobile']);
+
+                  $userInfo = User::where('role_id', 1)->first();
+                  if ($userInfo) {
+                      Smsirlaravel::ultraFastSend(['OrderNo' => $factorId], 45486, $userInfo->mobile);
+                  }*/
 
 
                 CartShop::where('user_id', $data['userIdOrder'])->delete();
@@ -260,7 +275,17 @@ class FactorController extends Controller
         if ($Factor) {
             // dd($Factor);
             $ProductOrder = FactorOrderUser::where('FactorId', $id)->get();
-            return view('portal.factor.show', ['Factor' => $Factor, 'ProductOrder' => $ProductOrder]);
+            return view('portal.factor.show', ['Factor' => $Factor, 'ProductOrder' => $ProductOrder, 'id' => $id]);
+        }
+    }
+
+    public function PrintPreview($id)
+    {
+        $Factor = FactorUser::find($id);
+        if ($Factor) {
+            // dd($Factor);
+            $ProductOrder = FactorOrderUser::where('FactorId', $id)->get();
+            return view('portal.factor.PrintPerview', ['Factor' => $Factor, 'ProductOrder' => $ProductOrder, 'id' => $id]);
         }
     }
 
@@ -287,9 +312,46 @@ class FactorController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $article = FactorUser::findOrFail($request->id);
+
+        $article->update([
+            'grandTotal' => number_format($request->totalfactor),
+            'subtotal' => number_format($request->totalfactor),
+        ]);
+
+        return response()->json(['status' => 200]);
+    }
+
+    public function UpdateItemFactor(Request $request)
+    {
+
+        $FactItem = FactorOrderUser::findOrFail($request->id);
+        $FactItem->update([
+            'productQty' => $request->QtyOrder,
+        ]);
+
+        $factor = FactorUser::where('id', $FactItem->FactorId)->first();
+
+        if ($factor) {
+
+            // $newTotal = str_replace(',', '', $article->prodPrice) * $request->QtyOrder;
+            $getAllItemFactor = FactorOrderUser::select('prodPrice', 'productQty')->where('FactorId', $FactItem->FactorId)->get();
+
+            $total = 0;
+            foreach ($getAllItemFactor as $itemFactor) {
+                $total += str_replace(',', '', $itemFactor->prodPrice) * $itemFactor->productQty;
+            }
+
+            // $FactorItem = FactorOrderUser::where('FactorId', $FactItem->id)->get()->sum('');
+            $factor->update([
+                'grandTotal' => number_format($total),
+                'subtotal' => number_format($total),
+            ]);
+        }
+        return response()->json(['status' => 200]);
     }
 
     /**

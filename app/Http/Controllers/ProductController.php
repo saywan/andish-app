@@ -14,6 +14,15 @@ use Morilog\Jalali\Jalalian;
 
 class ProductController extends Controller
 {
+    function __construct()
+    {
+       /* $this->middleware('permission:Product|CreateProduct|storeProduct|getPriceProduct','ChangeStatusProduct','ShowEditProduct','UpdateProduct','DeleteProduct',['only' => ['index', 'show']]);
+
+        $this->middleware('permission:CreateProduct|storeProduct', ['only' => ['create', 'store']]);
+        $this->middleware('permission:UpdateProduct|ShowEditProduct', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:DeleteProduct', ['only' => ['destroy']]);*/
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -49,20 +58,20 @@ class ProductController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'GroupProd' => 'required',
+            'titleProduct' => 'required',
+            'PercentGroup' => 'required',
             'count' => 'required',
             'unit' => 'required',
             'price' => 'required',
-            'weight' => 'required',
+
 
         ], [
-            'title.required' => 'عنوان  کالای را وارد کنید',
-            'GroupProd.required' => ' گروه کالای را وارد کنید',
+            'titleProduct.required' => 'گروه کالای را انتخاب کنید',
+            'PercentGroup.required' => ' درصد کالای را انتخاب کنید',
             'count.required' => 'موجودی کالا را وارد کنید',
             'unit.required' => 'واحد کالا را وارد کنید',
             'price.required' => 'قیمت کالا را وارد کنید',
-            'weight.required' => 'وزن کالا را وارد کنید',
+           /* 'weight.required' => 'وزن کالا را وارد کنید',*/
 
         ]);
 
@@ -73,17 +82,24 @@ class ProductController extends Controller
         //  $AKC = 'AG-' . time() . date('Ymd');
 
 
+        $getinfoProductGroup = ProductGroup::find($request->titleProduct);
+        if ($getinfoProductGroup == null) {
+            return response()->json(['status' => 419, 'message' => 'گروه کالا یافت نشد']);
+        }
+
         $user = new Products();
         $user->userId = \Auth::user()->id;
         //  $user->AKC = $AKC;
-        $user->title = $request->title;
-        $user->slug = Helper::url_slug($request->title);
+        $user->title = $getinfoProductGroup->title;
+        $user->groupId = $request->titleProduct;
+        $user->percentId = $request->PercentGroup;
+        $user->slug = Helper::url_slug($getinfoProductGroup->title);
         $user->price = $request->price;
         $user->description = $request->desc;
-        $user->groupId = $request->GroupProd;
+
         $user->count = $request->count;
         $user->unit = $request->unit;
-        $user->weight = $request->weight;
+      /*  $user->weight = $request->weight;*/
         $user->view = 0;
         $user->is_running_out = 0;
         $user->status = is_null($request->statusProduct) ? 'inactive' : $request->statusProduct;
@@ -184,32 +200,28 @@ class ProductController extends Controller
             $getProductGroup = ProductGroup::where('id', $productGroupId)->first()->toArray();
             $getPercentProduct = ProductPercent::where('id', $PercentGroupId)->first()->toArray();
 
-            $unit=$getProductGroup['unit_producte'];
-            if($unit =='meter')
-            {
-                $unit='متر';
-            }elseif($unit =='numerical')
-            {
-                $unit='عدد';
-            }elseif($unit =='kilogarm')
-            {
-                $unit='کیلوگرم';
-            }elseif($unit =='roll')
-            {
-                $unit='رول';
+            $unit = $getProductGroup['unit_producte'];
+            if ($unit == 'meter') {
+                $unit = 'متر';
+            } elseif ($unit == 'numerical') {
+                $unit = 'عدد';
+            } elseif ($unit == 'kilogarm') {
+                $unit = 'کیلوگرم';
+            } elseif ($unit == 'roll') {
+                $unit = 'رول';
             }
+
             if ($getProductGroup['unit_producte'] == 'meter') {
 
 
                 $calc = (float)$getProductGroup['weight'] * $getPercentProduct['total'];
-                return response()->json(['status' => 200, 'result' => number_format($calc) ,'unit'=>$unit]);
+                return response()->json(['status' => 200, 'result' => number_format($calc), 'unit' => $unit]);
             }
             if ($getProductGroup['unit_producte'] == 'numerical') {
 
-                $calc = (float)$getProductGroup['price'] * ($getPercentProduct['total'] / 100) + (float)$getProductGroup['price'] ;
-                return response()->json(['status' => 200, 'result' => number_format($calc),'unit'=>$unit]);
+                $calc = (float)$getProductGroup['price'] * ($getPercentProduct['total'] / 100) + (float)$getProductGroup['price'];
+                return response()->json(['status' => 200, 'result' => number_format($calc), 'unit' => $unit]);
             }
-
 
 
         }

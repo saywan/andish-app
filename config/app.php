@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Ipecompany\Smsirlaravel\SmsirlaravelServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
         /*
          * Package Service Providers...
          */

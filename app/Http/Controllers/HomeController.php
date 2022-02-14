@@ -173,6 +173,20 @@ class HomeController extends Controller
         }
 
     }
+    public function ShowConfirmMobile($mobile)
+    {
+
+        $user = User::where('mobile_encode', $mobile)->first();
+        if ($user) {
+            return view('Home.auth.ConfirmMobile');
+        } else {
+            Session::get('status', 'دستور غیر مجاز و منقضی شده است');
+
+            return redirect()->back();
+
+        }
+
+    }
 
     public function VerifyAccount($token)
     {

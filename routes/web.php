@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/Confirm/{email}', 'HomeController@ShowConfirm')->name('ShowConfirm');
+Route::get('/ConfirmMobile/{mobile}', 'HomeController@ShowConfirmMobile')->name('ShowConfirmMobile');
 Route::post('SendVerifyEmail', 'HomeController@SendVerifyEmail')->name('SendVerifyEmail');
 Route::get('VerifyAccount/{token}', 'HomeController@VerifyAccount')->name('VerifyAccount');
 Route::get('/contactUs', 'HomeController@contactUs')->name('contactUs');
@@ -38,9 +40,32 @@ Route::post('checkCodeSMS', 'AdminController@checkCodeSMS')->name('checkCodeSMS'
 Route::post('checklogin', 'AdminController@checklogin')->name('portal.checklogin');
 Route::get('portal/auth-recover-pw', 'AdminController@showlogin')->name('portal.auth-recover-pw');
 Route::get('/logout', 'AdminController@logout')->name('portal.logout');*/
+Route::get('/cc', function () {
+    Artisan::call('cache:clear');
+    echo '<script>alert("cache clear Success")</script>';
+});
+Route::get('/ccc', function () {
+    Artisan::call('config:cache');
+    echo '<script>alert("config cache Success")</script>';
+});
+Route::get('/vc', function () {
+    Artisan::call('view:clear');
+    echo '<script>alert("view clear Success")</script>';
+});
+Route::get('/cr', function () {
+    Artisan::call('route:cache');
+    echo '<script>alert("route clear Success")</script>';
+});
+Route::get('/coc', function () {
+    Artisan::call('config:clear');
+    echo '<script>alert("config clear Success")</script>';
+});
+Route::get('/storage123', function () {
+    Artisan::call('storage:link');
+    echo '<script>alert("linked")</script>';
+});
 
-
-Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['admin']], function () {
+Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['auth']], function () {
 
 
     Route::get('/cc', function () {
@@ -78,9 +103,19 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['admin']
 
 
 
+   // Route::resource('roles',RoleController::class);
+
     Route::get('/', 'AdminController@index')->name('index');
     Route::get('/index', 'AdminController@index')->name('portal.index');
     Route::post('logout', 'AdminController@logout')->name('logout');
+
+
+    //Role
+    Route::get('Role', 'RoleController@index')->name('Role');
+    Route::get('CreateRole', 'RoleController@create')->name('createRole');
+    Route::post('ChangeStatusUser', 'RoleController@ChangeStatusUser')->name('ChangeStatusUser');
+    Route::get('Role/edit/{id}', 'RoleController@ShowEditUser')->name('portal.ShowEditUser');
+
 
 
     //User
@@ -137,8 +172,10 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['admin']
     Route::post('NewFactor', 'FactorController@NewFactor')->name('NewFactor');
     Route::post('ChangeStatusOrder', 'FactorController@ChangeStatusOrder')->name('ChangeStatusOrder');
     Route::get('Factor/show/{id}', 'FactorController@showFactor')->name('showFactor');
-    Route::get('GroupProduct/edit/{id}', 'FactorController@edit')->name('EditGroupProduct');
-    Route::post('UpdateProductGroup', 'FactorController@update')->name('UpdateProductGroup');
+    Route::get('Factor/PrintPreview/{id}', 'FactorController@PrintPreview')->name('PrintPreview');
+    Route::get('Factor/edit/{id}', 'FactorController@edit')->name('EditFactor');
+    Route::post('UpdateFactor', 'FactorController@update')->name('UpdateFactor');
+    Route::post('UpdateItemFactor', 'FactorController@UpdateItemFactor')->name('UpdateItemFactor');
     Route::post('DeleteFactor', 'FactorController@destroy')->name('DeleteFactor');
 
 

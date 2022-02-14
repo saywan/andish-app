@@ -19,7 +19,7 @@ $setting = \App\Models\AdminSettings::find(1);
     <link href="{{asset("Content/css/color-switcher-design.css")}}" rel="stylesheet">
 
     <!-- Color Themes -->
-    <link id="theme-color-file" href="{{asset("Content/css/color-themes/teal-theme.css")}}" rel="stylesheet">
+    <link id="theme-color-file" href="{{asset("Content/css/color-themes/default-theme.css")}}" rel="stylesheet">
     <link id="theme-color-file" href="{{asset("Content/js/sweet-alert2/sweetalert2.min.css")}}" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{asset("Content/images/favicon.png")}}" type="image/x-icon">
@@ -125,13 +125,15 @@ $setting = \App\Models\AdminSettings::find(1);
                                 <span class="adon-icon">
                                     <span class="fa fa-unlock-alt"></span>
                                 </span>
-                                <input id="userpasswordlogin" type="password" class="form-control"
+                              <input id="userpasswordlogin" type="password" class="form-control"
                                        name="userpasswordlogin" autocomplete="current-password" autocomplete="password"
                                        autofocus oninvalid="this.setCustomValidity('گذرواژه را وارد کنید')"
                                        oninput="this.setCustomValidity('')" tabindex="2" required
                                        placeholder="رمز عبور خود را وارد کنید">
 
-                                @error('userpasswordlogin')
+
+
+                                @error('password')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
