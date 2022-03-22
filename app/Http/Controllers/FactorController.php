@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helper\Helper;
+use App\Models\AdminSettings;
 use App\Models\CartShop;
 use App\Models\FactorOrderUser;
 use App\Models\FactorUser;
@@ -46,8 +47,12 @@ class FactorController extends Controller
 
         $AllUser = User::where('role_id', '!=', 1)->get();
         $userCartItems = CartShop::userCartItems();
-        // dd($userCartItems);
-        return view('portal.factor.create', compact('existProd', 'AllUser', 'userCartItems'));
+        $orderUserId = Session::get('orderUserId');
+
+        // Session::forget('orderUserId');
+
+
+        return view('portal.factor.create', compact('existProd', 'AllUser', 'userCartItems', 'orderUserId'));
     }
 
     public function DeleteCartItem(Request $request)
@@ -64,6 +69,33 @@ class FactorController extends Controller
         }
     }
 
+    public function DeleteCartItemFactor(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            $FactorId = $data['FactorId'];
+            $FactorCheck = FactorOrderUser::where('id', $FactorId)->first();
+            if ($FactorCheck) {
+                $priceFactorExist = $FactorCheck->prodPrice;
+                $priceFactorExist = str_replace(',', '', $priceFactorExist);
+
+                $factorInfo = FactorUser::select('grandTotal')->find($FactorCheck->FactorId);
+                $totalPriceFactor = $factorInfo->grandTotal - $priceFactorExist;
+                $factorInfo->update([
+                    'grandTotal' => $totalPriceFactor,
+                ]);
+
+                // Delete Item Factor
+                $FactorCheck->delete();
+
+
+                return response()->json(['status' => 200, 'message' => 'کالا مورد نظر با موفقیت حذف شد']);
+            }
+
+
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -76,8 +108,19 @@ class FactorController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
 
+            /* if (empty($data['userId'])) {
+                 return response()->json(['status' => 401, 'message' => 'لطفا مشتری مورد نظر را انتخاب کنید']);
+
+             } else {
+
+             }*/
+
+
             //echo "<pre>";print_r($data);die;
             //Check Product
+
+            Session::put('orderUserId', $data['userId']);
+
             $getProductStock = Products::where('id', $data['PID'])->first()->toArray();
 
             if ($getProductStock['count'] < $data['qtyProduct']) {
@@ -146,9 +189,10 @@ class FactorController extends Controller
                         'user_id' => $data['userId'],
                         'product_id' => $data['PID'],
                         'qty' => $data['qtyProduct'],
-                        'price' => $getProductStock['price'],
+                        'price' => str_replace(',', '', $getProductStock['price']),
                         'datereg' => Jalalian::fromCarbon(Carbon::now())->format('H:i:s |  %A  %d %B %y ')
                     ]);
+
                     $message = "محصول با موفقیت به سبد خرید اضافه شد";
                     return response()->json(['status' => 304, 'message' => $message]);
                     //   Session::flash('success_message', $message);
@@ -156,6 +200,74 @@ class FactorController extends Controller
                 }
 
 
+            }
+
+
+        }
+
+    }
+
+
+    public function AddItemFactor(Request $request)
+    {
+        //
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+
+
+            $getProductStock = Products::where('id', $data['PID'])->first()->toArray();
+
+            if ($getProductStock['count'] < $data['qtyProduct']) {
+
+                $message = "تعداد درخواستی کالا بیش از حد موجودی انبار می باشد";
+                return response()->json(['status' => 302, 'message' => $message]);
+            }
+
+            $priceItemFactor = str_replace(',', '', $getProductStock['price']);
+
+            $checkExistProdcutInFactor = FactorOrderUser::where('prodId', $data['PID'])->first();
+            if ($checkExistProdcutInFactor) {
+
+                $totalQty = $checkExistProdcutInFactor->productQty + $data['qtyProduct'];
+                $checkExistProdcutInFactor->update([
+                    'productQty' => $totalQty,
+                    'prodPrice' => $priceItemFactor * $totalQty,
+                ]);
+
+                $infoCurrentFactor = FactorUser::where('id', $data['factorId'])->first();
+                $infoCurrentFactor->update([
+                    'subtotal' => $priceItemFactor + $infoCurrentFactor['subtotal'],
+                    'grandTotal' => $priceItemFactor + $infoCurrentFactor['grandTotal']
+                ]);
+                return response()->json(['status' => 200, 'message' => 'اقلام مورد نظر با موفقیت ثبت شد']);
+
+            } else {
+
+                // Add New Item Factor Current Factor
+                $cartItem = new  FactorOrderUser();
+                $cartItem->FactorId = $data['factorId'];
+                $cartItem->userId = $data['userId'];
+                $cartItem->prodId = $data['PID'];
+                $cartItem->prodname = $getProductStock['title'];
+                $cartItem->prodPrice = $priceItemFactor;
+                $cartItem->productQty = $data['qtyProduct'];
+                $cartItem->datereg = Jalalian::fromCarbon(Carbon::now())->format('H:i:s |  %A  %d %B %Y ');
+                if ($cartItem->save()) {
+
+                    // updating Price Total Product
+                    $infoCurrentFactor = FactorUser::where('id', $data['factorId'])->first();
+                    $infoCurrentFactor->update([
+                        'subtotal' => $priceItemFactor + $infoCurrentFactor['subtotal'],
+                        'grandTotal' => $priceItemFactor + $infoCurrentFactor['grandTotal']
+                    ]);
+
+
+                    return response()->json(['status' => 200, 'message' => 'اقلام مورد نظر با موفقیت ثبت شد']);
+
+                } else {
+
+                    return response()->json(['status' => 401, 'message' => 'خطا مجدد تلاش کنید']);
+                }
             }
 
 
@@ -175,6 +287,7 @@ class FactorController extends Controller
 
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -187,8 +300,20 @@ class FactorController extends Controller
         $factor = FactorUser::where('id', $id)->first();
         if ($factor) {
 
+
             $FactorItem = FactorOrderUser::where('FactorId', $factor->id)->get();
-            return view('portal.factor.edit', ['factor' => $factor, 'FactorItem' => $FactorItem]);
+
+
+            $existProd = DB::table('product')
+                ->select('product.id as PID', 'product.title as Ptitle', 'product.userid as PUserId', 'product.groupId as PgroupId', 'product.count as Pcount', 'product.unit as Punit', 'product.price as Pprice', 'product.weight as Pweight', 'product.datereg as Pdatereg', 'Group.id as GID', 'Group.title as Gtitle', 'Group.userId as GuserId', 'Group.datereg as Gdatereg')
+                ->join('product_group as Group', 'Group.id', '=', 'product.groupId')->get();
+
+            $userCartItems = CartShop::userCartItems();
+            $orderUserId = Session::get('orderUserId');
+
+            // Session::forget('orderUserId');
+
+            return view('portal.factor.edit', ['factor' => $factor, 'FactorItem' => $FactorItem, 'existProd' => $existProd, 'userCartItems' => $userCartItems, 'orderUserId' => $orderUserId]);
 
         } else {
 
@@ -204,7 +329,24 @@ class FactorController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
 
-            //  dd($data);
+
+            if ($data['extraValue'] != 0) {
+                $extraValue = $data['extraValue'];
+
+                //   $totalPriceUser = str_replace(',', '', $data['totalPriceUser']) + (($data['extraValue'] / 109) * 100);
+                $totalValueExtra = str_replace(',', '', $data['totalPriceUser']) * ($data['extraValue'] / 100);
+
+
+            } else {
+                $extraValue = 0;
+                $totalValueExtra = 0;
+            }
+
+            // dd((int)$totalValueExtra);
+
+
+            //  dd('ExtraValue: ' . $extraValue . '  Total : ' . $totalPriceUser . ' Price ' . $data['totalPriceUser']);
+
 
             DB::beginTransaction();
             $factorId = $data['userIdOrder'] . Helper::GenerateTrackingCode(5);
@@ -215,8 +357,16 @@ class FactorController extends Controller
             $order->factor_status = 'waitapprove';
             $order->pay_status = $data['Paymethod'];
             $order->NoteOrder = $data['messageNote'];
-            $order->subtotal = $data['totalPriceUser'];
-            $order->grandTotal = $data['totalPriceUser'];
+            $order->subtotal = str_replace(',', '', $data['totalPriceUser']);
+            $order->grandTotal = str_replace(',', '', $data['totalPriceUser']);
+
+            $order->address = $data['Address'];
+            $order->taxcode = $data['codetax'];
+            $order->projectname = $data['nameproject'];
+            $order->number_paiman = $data['number_paiman'];
+            $order->extraValue = (int)$totalValueExtra;
+            $order->extra_percent = $data['extraValue'];
+
             $order->IP = $request->ip();
             $order->datereg = Jalalian::fromCarbon(Carbon::now())->format('%A  %d %B %Y | H:i:s ');
             $order->save();
@@ -234,7 +384,7 @@ class FactorController extends Controller
 
                 $cartItem->prodId = $item['product_id'];
                 $cartItem->prodname = $getProductDetails['title'];
-                $cartItem->prodPrice = $getProductDetails['price'];
+                $cartItem->prodPrice = str_replace(',', '', $getProductDetails['price']);
                 $cartItem->productQty = $item['qty'];
                 $cartItem->datereg = Jalalian::fromCarbon(Carbon::now())->format('H:i:s |  %A  %d %B %Y ');
                 $cartItem->save();
@@ -259,6 +409,9 @@ class FactorController extends Controller
 
                 CartShop::where('user_id', $data['userIdOrder'])->delete();
                 Session::put('order_id', $order_id);
+
+                Session::forget('orderUserId', $order_id);
+
                 DB::commit();
                 return response()->json(['status' => 200]);
             } else {
@@ -283,9 +436,10 @@ class FactorController extends Controller
     {
         $Factor = FactorUser::find($id);
         if ($Factor) {
-            // dd($Factor);
+            $admin = AdminSettings::find(1);
+
             $ProductOrder = FactorOrderUser::where('FactorId', $id)->get();
-            return view('portal.factor.PrintPerview', ['Factor' => $Factor, 'ProductOrder' => $ProductOrder, 'id' => $id]);
+            return view('portal.factor.PrintPerview', ['Factor' => $Factor, 'ProductOrder' => $ProductOrder, 'id' => $id, 'admin' => $admin]);
         }
     }
 
@@ -317,9 +471,29 @@ class FactorController extends Controller
         //
         $article = FactorUser::findOrFail($request->id);
 
+
+        // dd($request->all());
+
+
+        if ($request->extra_percent == 0) {
+            $extraValue = 0;
+            $totalAmount = $article->grandTotal;
+        } else {
+            $extraValue = (str_replace(',', '', $request->totalfactor) * ($request->extra_percent / 100));
+            $totalAmount = str_replace(',', '', $article->grandTotal) + (int)$extraValue;
+        }
+
+
         $article->update([
-            'grandTotal' => number_format($request->totalfactor),
-            'subtotal' => number_format($request->totalfactor),
+            'grandTotal' => $totalAmount,
+            'subtotal' => $totalAmount,
+            'taxcode' => $request->taxcode,
+            'number_paiman' => $request->number_paiman,
+            'address' => $request->address,
+            'projectname' => $request->projectname,
+            'extraValue' => (int)$extraValue,
+            'extra_percent' => $request->extra_percent,
+            'datereg' => $request->datefactore,
         ]);
 
         return response()->json(['status' => 200]);
@@ -328,30 +502,32 @@ class FactorController extends Controller
     public function UpdateItemFactor(Request $request)
     {
 
-        $FactItem = FactorOrderUser::findOrFail($request->id);
-        $FactItem->update([
-            'productQty' => $request->QtyOrder,
+        $itemFactorId = $request->id;
+        $qtyOrder = $request->QtyOrder;
+        $factorItem = FactorOrderUser::find($itemFactorId);
+        $factorItem->update([
+            'productQty' => $qtyOrder,
         ]);
-
-        $factor = FactorUser::where('id', $FactItem->FactorId)->first();
-
+        $factor = FactorUser::where('id', $factorItem->FactorId)->first();
         if ($factor) {
-
-            // $newTotal = str_replace(',', '', $article->prodPrice) * $request->QtyOrder;
-            $getAllItemFactor = FactorOrderUser::select('prodPrice', 'productQty')->where('FactorId', $FactItem->FactorId)->get();
-
+            $getAllItemFactor = FactorOrderUser::select('prodPrice', 'productQty')
+                ->where('FactorId', $factorItem->FactorId)->get();
             $total = 0;
             foreach ($getAllItemFactor as $itemFactor) {
-                $total += str_replace(',', '', $itemFactor->prodPrice) * $itemFactor->productQty;
+                $total += $itemFactor->prodPrice * $itemFactor->productQty;
             }
-
-            // $FactorItem = FactorOrderUser::where('FactorId', $FactItem->id)->get()->sum('');
             $factor->update([
-                'grandTotal' => number_format($total),
-                'subtotal' => number_format($total),
+                'grandTotal' => $total,
+                'subtotal' => $total,
             ]);
+            return response()->json(['status' => 200]);
+
+        } else {
+
+            return response()->json(['status' => 422, 'message' => 'خطا']);
         }
-        return response()->json(['status' => 200]);
+
+
     }
 
     /**

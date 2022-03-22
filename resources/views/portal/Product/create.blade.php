@@ -130,6 +130,9 @@
                                                        type="text"
                                                        id="priceProduct" disabled>
 
+                                                <span id="numberToWord">
+
+                                                </span>
 
                                             </div>
                                             <div class="col-md-6">
@@ -268,7 +271,8 @@
     <script src="{{asset("panel/pages/forms-advanced.js")}}"></script>
     <script src="{{asset("panel/plugins/tinymce/tinymce.min.js")}}"></script>
     <script src="{{asset("panel/pages/form-editor.init.js")}}"></script>
-    <script>
+    <script src="{{asset("panel/js/persian-tools.umd.js")}}"></script>
+    <script type="text/javascript">
 
         $("#PercentGroup").change(function () {
 
@@ -304,7 +308,25 @@
                         /*   swal("وضعیت نمایش ", "وضعیت نمایش به روز رسانی شد", "success", {
                                button: "باشه"
                            });*/
-                        $("#priceProduct").val(data.result);
+                      //  $("#priceProduct").val(data.result);
+                       // $("#priceProduct").val(PersianJs(data.result).digitsToWords());
+
+                      /*  let sign = prompt("Number ");
+
+                        if (sign) {
+                            alert(PersianTools.numberToWords(sign));
+                        }*/
+
+                       // console.log(PersianTools.numberToWords("3720497501"));
+
+                        $("#priceProduct").val(data.result );
+
+                        if(data.unit !='متر')
+                        {
+                            $("#numberToWord").append(PersianTools.numberToWords(data.result) + ' تومان ');
+                        }
+
+
                         $("#unitProduct").val(data.unit);
                        /* Swal.fire({
                             position: 'top-end',

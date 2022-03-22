@@ -50,11 +50,11 @@
                                             ثبت و رزرو سفارش کالا
                                         </a>
                                         <a class="nav-link " id="step2-tab" data-bs-toggle="tab" href="#step2">
-                                          پیش نمایش و ثبت فاکتور
+                                            پیش نمایش و ثبت فاکتور
                                         </a>
-                                       {{-- <a class="nav-link" id="step3-tab" data-bs-toggle="tab" href="#step3">
-                                           چاپ و نمایش فاکتور
-                                        </a>--}}
+                                        {{-- <a class="nav-link" id="step3-tab" data-bs-toggle="tab" href="#step3">
+                                            چاپ و نمایش فاکتور
+                                         </a>--}}
 
 
                                     </div>
@@ -73,13 +73,12 @@
                                                     </div><!--end card-header-->
                                                     <div class="card-body">
 
-
                                                         <select id="default" name="userId">
                                                             <option value="0">
                                                                 لطفا مشتری مورد نظر را انتخاب کنید
                                                             </option>
                                                             @foreach($AllUser as $itemuser)
-                                                                <option value="{{$itemuser->id}}">
+                                                                <option value="{{$itemuser->id}}" {{(( $orderUserId ==$itemuser->id)? 'selected' : '')}}>
                                                                     {{$itemuser->fullname}}
                                                                     | کدملی :
                                                                     {{$itemuser->codemeli}}
@@ -88,12 +87,11 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
-
+                                                        <input type="hidden"
+                                                               value="{{\Illuminate\Support\Facades\Session::has('orderUserId') ? \Illuminate\Support\Facades\Session::get('orderUserId') : 0}}" id="orderUserId" name="orderUserId" disabled>
 
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="card">
@@ -152,10 +150,10 @@
                                                                                 {{$itemCart['datereg']}}
                                                                             </td>
                                                                             <td class="text-end">
-                                                                                <a href="#">
+                                                                               {{-- <a href="#">
                                                                                     <i
                                                                                         class="las la-pen text-secondary font-16"></i>
-                                                                                </a>
+                                                                                </a>--}}
                                                                                 <a href="#"
                                                                                    @click="DeleteCartItem( {{$itemCart['id']}})"><i
                                                                                         class="las la-trash-alt text-secondary font-16"></i></a>
@@ -177,6 +175,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="row">
 
                                             <div class="table-responsive">
@@ -191,9 +190,9 @@
                                                         <th> تعداد موحودی انبار</th>
                                                         <th>وزن کالا</th>
                                                         <th>قیمت کالا</th>
-                                                      {{--  <th> درصد گروه بندی کالا</th>--}}
-                                                    {{--    <th> ارزش افزوده کالا</th>
-                                                        <th> واحد کالا</th>--}}
+                                                        {{--  <th> درصد گروه بندی کالا</th>--}}
+                                                        {{--    <th> ارزش افزوده کالا</th>
+                                                            <th> واحد کالا</th>--}}
                                                         <th> وضعیت سفارش کالا</th>
                                                         <th>اطلاعات بیشتر</th>
                                                     </tr>
@@ -203,6 +202,7 @@
                                                         @foreach($existProd as $itemUser)
                                                             <tr>
                                                                 <td>  {{$itemUser->PID}}   </td>
+
                                                                 <td>
 
                                                                     @if(is_null(\App\Helper\Helper::getInfoUser($itemUser->PUserId)['fullname']))
@@ -236,9 +236,9 @@
                                                                         {{$itemUser->Pprice}}
                                                                     @endif
                                                                 </td>
-                                                             {{--   <td> % {{$itemUser->Gpercent}}    </td>
-                                                                <td> % {{$itemUser->Gfee}}    </td>--}}
-                                                          {{--      <td>  {{$itemUser->Gunit}}   </td>--}}
+                                                                {{--   <td> % {{$itemUser->Gpercent}}    </td>
+                                                                   <td> % {{$itemUser->Gfee}}    </td>--}}
+                                                                {{--      <td>  {{$itemUser->Gunit}}   </td>--}}
                                                                 <td>
                                                                     <input type="text"
                                                                            class="form-control text-center text-danger"
@@ -253,10 +253,10 @@
                                                                        @click="OrderProduct({{$itemUser->PID}})">
                                                                         <i data-feather="shopping-cart"></i>
                                                                     </a>
-                                                                    <a @click="DeleteProduct({{$itemUser->PID}})"
+                                                                 {{--   <a @click="DeleteProduct({{$itemUser->PID}})"
                                                                        title="">
                                                                         <i data-feather="trash"></i>
-                                                                    </a>
+                                                                    </a>--}}
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -359,7 +359,13 @@
                                                                         @foreach($userCartItems as $itemCart)
                                                                             <tr>
                                                                                 <td>
-                                                                                    <input type="text" value="{{\App\Helper\Helper::getInfoUser($itemCart['user_id'])['fullname']}}" class="form-control text-danger font-14" name="userIdOrder" id="userIdOrder" data-id="{{$itemCart['user_id']}}" disabled>
+                                                                                    <input type="text"
+                                                                                           value="{{\App\Helper\Helper::getInfoUser($itemCart['user_id'])['fullname']}}"
+                                                                                           class="form-control text-danger font-14"
+                                                                                           name="userIdOrder"
+                                                                                           id="userIdOrder"
+                                                                                           data-id="{{$itemCart['user_id']}}"
+                                                                                           disabled>
                                                                                 </td>
                                                                                 <td>
 
@@ -392,17 +398,18 @@
                                                                             <td colspan="2" class="border-0"></td>
                                                                             <td class="border-0 font-14 text-dark"><b>
                                                                                     جمع فاکتور
-                                                                                    </b>
+                                                                                </b>
                                                                             </td>
                                                                             <td class="border-0 font-14 text-dark"><b>
-                                                                                    {{ (empty($userCartItems)) ? 0 :  number_format($total_price)}} تومان
+                                                                                    {{ (empty($userCartItems)) ? 0 :  number_format($total_price)}}
+                                                                                    تومان
                                                                                 </b>
                                                                             </td>
                                                                         </tr><!--end tr-->
                                                                         <tr>
                                                                             <th colspan="2" class="border-0"></th>
                                                                             <td class="border-0 font-14 text-dark"><b>
-                                                                                   ارزش افزوده
+                                                                                    ارزش افزوده
                                                                                 </b></td>
                                                                             <td class="border-0 font-14 text-dark"><b>
                                                                                     0
@@ -417,7 +424,11 @@
                                                                             <td class="border-0 font-14">
                                                                                 <b>
                                                                                     {{ (empty($userCartItems)) ? 0 :  number_format($total_price)}}
-                                                                                    <input type="hidden" class="form-control" name="totalPriceUser" id="totalPriceUser" value="{{ (empty($userCartItems)) ? 0 :  number_format($total_price)}}">
+                                                                                    <input type="hidden"
+                                                                                           class="form-control"
+                                                                                           name="totalPriceUser"
+                                                                                           id="totalPriceUser"
+                                                                                           value="{{ (empty($userCartItems)) ? 0 :  number_format($total_price)}}">
                                                                                     <span>تومان</span>
                                                                                 </b>
                                                                             </td>
@@ -433,36 +444,37 @@
                                                                 <h5 class="mt-4">موارد قابل ملاحظه فاکتور :</h5>
                                                                 <ul class="ps-3">
                                                                     <li>
-                                                                        <small class="text-danger font-12" >
-                                                                            <i data-feather="alert-triangle" ></i>
+                                                                        <small class="text-danger font-12">
+                                                                            <i data-feather="alert-triangle"></i>
                                                                             مدت اعتبار این پیش فاکتور 1 روز میباشد.
 
                                                                         </small>
                                                                     </li>
                                                                     <li>
                                                                         <small class="font-12">
-                                                                            <i data-feather="shopping-cart" ></i>
-                                                                            محل تحویل درب کارخانه و هزینه حمل به عهده خریدار میباشد.
+                                                                            <i data-feather="shopping-cart"></i>
+                                                                            محل تحویل درب کارخانه و هزینه حمل به عهده
+                                                                            خریدار میباشد.
 
                                                                         </small>
                                                                     </li>
 
                                                                     <li>
                                                                         <small class="font-12 text-dark">
-                                                                            <i data-feather="send" ></i>
+                                                                            <i data-feather="send"></i>
                                                                             زمان تحویل 3 روز بعد از تایید پیش فاکتور
                                                                         </small>
                                                                     </li>
                                                                     <li>
                                                                         <small class="font-12 text-danger">
-                                                                            <i data-feather="alert-triangle" ></i>
+                                                                            <i data-feather="alert-triangle"></i>
                                                                             نحوه پرداخت نقدی میباشد.
 
                                                                         </small>
                                                                     </li>
                                                                     <li>
                                                                         <small class="font-12 text-danger">
-                                                                            <i data-feather="search" ></i>
+                                                                            <i data-feather="search"></i>
                                                                             هزینه های بازرسی به عهده خریدار میباشد.
 
 
@@ -470,8 +482,10 @@
                                                                     </li>
                                                                     <li>
                                                                         <small class="font-12 text-primary">
-                                                                            " شماره حساب بانک تجارت   1111050496  بنام ارسلان لطف یار شماره کارت  :
-                                                                            5859831003255956  شماره شبا : IR 0601 8000 0000 0011 1105 0496"
+                                                                            " شماره حساب بانک تجارت 1111050496 بنام
+                                                                            ارسلان لطف یار شماره کارت :
+                                                                            5859831003255956 شماره شبا : IR 0601 8000
+                                                                            0000 0011 1105 0496"
 
                                                                         </small>
                                                                     </li>
@@ -490,65 +504,120 @@
                                                         <hr>
                                                         <div class="row d-flex justify-content-center">
                                                             <div class="form-group mb-3 row">
-                                                              {{--  <div class="col-md-3">
-                                                                    <label for="txtFirstNameBilling"
-                                                                           class="col-lg-7 col-form-label text-end">
-                                                                        وضعیت  سفارش
-                                                                    </label>
+                                                                {{--  <div class="col-md-3">
+                                                                      <label for="txtFirstNameBilling"
+                                                                             class="col-lg-7 col-form-label text-end">
+                                                                          وضعیت  سفارش
+                                                                      </label>
 
-                                                                    <select name="OrderStatus" id="OrderStatus" class="form-control" required>
-                                                                        <option value="0" >
-                                                                            لطفا وضعیت سفارش را مشخص کنید
-                                                                        </option>
-                                                                        <option value="waitapprove">
-                                                                            منتظر پرداخت
-                                                                        </option>
-                                                                        <option value="approved">
-                                                                          تایید و پرداخت شده
-                                                                        </option>
-                                                                        <option value="waitpay">
-                                                                         منتظر پرداخت
-                                                                        </option>
-                                                                        <option value="processStore">
+                                                                      <select name="OrderStatus" id="OrderStatus" class="form-control" required>
+                                                                          <option value="0" >
+                                                                              لطفا وضعیت سفارش را مشخص کنید
+                                                                          </option>
+                                                                          <option value="waitapprove">
+                                                                              منتظر پرداخت
+                                                                          </option>
+                                                                          <option value="approved">
+                                                                            تایید و پرداخت شده
+                                                                          </option>
+                                                                          <option value="waitpay">
+                                                                           منتظر پرداخت
+                                                                          </option>
+                                                                          <option value="processStore">
 
-                                                                            در حال پردازش
-                                                                        </option>
-                                                                        <option value="processAccount">
-                                                                           پردازش در حسابداری
-                                                                        </option>
-                                                                        <option value="prepareSending">
-                                                                           آماده ارسال و تحویل به مشتری
-                                                                        </option>
-                                                                        <option value="sent">
-                                                                          ارسال و تحویل داده شده
-                                                                        </option>
-                                                                        <option value="cancel">
+                                                                              در حال پردازش
+                                                                          </option>
+                                                                          <option value="processAccount">
+                                                                             پردازش در حسابداری
+                                                                          </option>
+                                                                          <option value="prepareSending">
+                                                                             آماده ارسال و تحویل به مشتری
+                                                                          </option>
+                                                                          <option value="sent">
+                                                                            ارسال و تحویل داده شده
+                                                                          </option>
+                                                                          <option value="cancel">
 
-                                                                          لغو سفارش
-                                                                        </option>
+                                                                            لغو سفارش
+                                                                          </option>
 
-                                                                    </select>
+                                                                      </select>
 
 
-                                                                </div>--}}
+                                                                  </div>--}}
                                                                 <div class="col-md-6">
                                                                     <label for="txtFirstNameBilling"
                                                                            class="col-lg-7 col-form-label text-end">
-                                                                     شیوه پرداخت
+                                                                        عنوان پروژه
                                                                     </label>
 
-                                                                    <select name="Paymethod" id="Paymethod" class="form-control" required>
-                                                                        <option value="0" >
-                                                                          لطفا شیوه پرداخت را انتخاب کنید
+                                                                    <input type="text" class="form-control"
+                                                                           name="nameproject" id="nameproject"
+                                                                           placeholder="لطفا عنوان پروژه را وارد کنید">
+
+
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="txtFirstNameBilling"
+                                                                           class="col-lg-7 col-form-label text-end">
+                                                                        کد اقتصادی
+                                                                    </label>
+
+                                                                    <input type="text" class="form-control"
+                                                                           name="codetax" id="codetax"
+                                                                           placeholder="لطفا کد اقتصادی  را وارد کنید">
+
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="txtFirstNameBilling"
+                                                                           class="col-lg-7 col-form-label text-end">
+                                                                        شماره پیمان
+                                                                    </label>
+
+                                                                    <input type="text" class="form-control"
+                                                                           name="number_paiman" id="number_paiman"
+                                                                           placeholder="لطفا شماره پیمان   را وارد کنید">
+
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="txtFirstNameBilling"
+                                                                           class="col-lg-7 col-form-label text-end">
+                                                                       درصد ارزش افزوده
+                                                                    </label>
+
+                                                                    <input type="text" class="form-control"
+                                                                           name="extraValue" id="extraValue"
+                                                                           placeholder="لطفا درصد ارزش افزوده را وارد کنید">
+
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="txtFirstNameBilling"
+                                                                           class="col-lg-7 col-form-label text-end">
+                                                                        آدرس
+                                                                    </label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="Address" id="Address"
+                                                                           placeholder="لطفا آدرس را وارد کنید">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="txtFirstNameBilling"
+                                                                           class="col-lg-7 col-form-label text-end">
+                                                                        شیوه پرداخت
+                                                                    </label>
+
+                                                                    <select name="Paymethod" id="Paymethod"
+                                                                            class="form-control" required>
+                                                                        <option value="0">
+                                                                            لطفا شیوه پرداخت را انتخاب کنید
                                                                         </option>
                                                                         <option value="Card">
-                                                                           پرداخت با کارت بانکی
+                                                                            پرداخت با کارت بانکی
                                                                         </option>
                                                                         <option value="cheque">
-                                                                           چک
+                                                                            چک
                                                                         </option>
                                                                         <option value="paperpay">
-                                                                          فیش بانکی
+                                                                            فیش بانکی
                                                                         </option>
 
 
@@ -562,12 +631,11 @@
                                                                         یادداشت های سفارش
                                                                     </label>
 
-                                                                    <textarea class="form-control" rows="5" id="messageNote" placeholder="یادداشت سفارش (اختیاری)"></textarea>
+                                                                    <textarea class="form-control" rows="5"
+                                                                              id="messageNote"
+                                                                              placeholder="یادداشت سفارش (اختیاری)"></textarea>
 
                                                                 </div>
-
-
-
 
 
                                                             </div>
@@ -578,7 +646,8 @@
                                                             <div class="col-lg-12 col-xl-4 ms-auto align-self-center">
                                                                 <div class="text-center">
                                                                     <small class="font-12">
-                                                                        کل حقوق مادی و معنوی برای شرکت اندیش گستر محفوظ می باشد .
+                                                                        کل حقوق مادی و معنوی برای شرکت اندیش گستر محفوظ
+                                                                        می باشد .
                                                                     </small>
                                                                 </div>
                                                             </div>
@@ -589,12 +658,13 @@
                                                                 <div class="float-end d-print-none mt-2 mt-md-0">
 
 
-
-                                                                  {{--  <a href="javascript:window.print()"
-                                                                       class="btn btn-de-info btn-sm">چاپ فاکتور</a>--}}
-                                                                    <a  @click="NewFactor()"
-                                                                       class="btn btn-de-primary btn-sm">ثبت نهایی فاکتور</a>
-                                                                    <button type="button" id="step2Prev" class="btn btn-de-danger btn-sm">
+                                                                    {{--  <a href="javascript:window.print()"
+                                                                         class="btn btn-de-info btn-sm">چاپ فاکتور</a>--}}
+                                                                    <a @click="NewFactor()"
+                                                                       class="btn btn-de-primary btn-sm">ثبت نهایی
+                                                                        فاکتور</a>
+                                                                    <button type="button" id="step2Prev"
+                                                                            class="btn btn-de-danger btn-sm">
                                                                         ویرایش فاکتور
                                                                     </button>
 

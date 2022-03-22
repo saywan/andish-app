@@ -36,7 +36,7 @@ class RedirectIfAuthenticated
 
         }else if (Auth::guard($guard)->check()  && Auth::user()->role_id == 6) {
 
-            return redirect()->route('portal.index');
+            return redirect()->route('User.index');
 
         }else{
 

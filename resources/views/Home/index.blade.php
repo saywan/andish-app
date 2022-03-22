@@ -7,7 +7,12 @@
     <title>
         صفحه اصلی - شرکت اندیش گستر
     </title>
-    <!-- Stylesheets -->
+
+    <meta name="keywords"  content="شرکت اندیش گستر">
+    <meta name="description" content="شرکت اندیش گستر">
+    <meta name="CreativeLayers" content="ATFN">
+
+
     <link href="{{asset("Content/css/bootstrap.css")}}" rel="stylesheet">
     <link href="{{asset("Content/css/style.css")}}" rel="stylesheet">
     <link href="{{asset("Content/css/responsive.css")}}" rel="stylesheet">
@@ -20,7 +25,7 @@
     <link id="theme-color-file" href="{{asset("Content/css/color-themes/default-theme.css")}}" rel="stylesheet">
 
     <link rel="shortcut icon" href="{{asset("Content/images/favicon.png")}}" type="image/x-icon">
-    <link rel="icon" href="{{asset("Content/images/favicon.png")}}" type="image/x-icon">
+    <link rel="icon" href="{{asset("Content/images/favicon.ico")}}" type="image/x-icon">
 
     <!-- Responsive -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

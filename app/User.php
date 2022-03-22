@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'role_id', 'fullname', 'mobile',  'email', 'codemeli', 'job', 'phone', 'brithday', 'accountno', 'cardnumber', 'namecard', 'sheba', 'password', 'status', 'datereg', 'two_auth', 'two_auth_action', 'email_verified', 'email_verification_token', 'mobile_encode','confirmation_mobile_code','lock_num','time_lock', 'number_send', 'email_subscription','address'
+        'role_id', 'fullname', 'mobile',  'email', 'codemeli', 'job', 'phone', 'brithday', 'accountno', 'cardnumber', 'namecard', 'sheba', 'password', 'status', 'datereg', 'two_auth', 'two_auth_action', 'email_verified', 'email_verification_token', 'mobile_encode','confirmation_mobile_code','lock_num','time_lock', 'number_send', 'email_subscription','address','debat_bill'
     ];
 
     /**

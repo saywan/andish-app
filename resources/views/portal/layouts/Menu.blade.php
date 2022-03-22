@@ -43,7 +43,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
+               {{-- <li class="nav-item">
                     <a class="nav-link" href="#sidebarLevel" data-bs-toggle="collapse" role="button"
                        aria-expanded="false" aria-controls="sidebarLevel">
                        سطح دسترسی
@@ -59,7 +59,8 @@
 
                         </ul>
                     </div>
-                </li>
+                </li>--}}
+
                 <li class="nav-item">
                     <a class="nav-link" href="#sidebarEmployement" data-bs-toggle="collapse" role="button"
                        aria-expanded="false" aria-controls="sidebarEmployement">

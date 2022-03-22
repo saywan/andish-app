@@ -22,6 +22,13 @@ class HomeController extends Controller
         return view('Home.index');
     }
 
+    public function template(){
+
+        $token='2323';
+        return view('page.template',['token'=>$token]);
+
+    }
+
     public function contactUs()
     {
 
@@ -138,7 +145,7 @@ class HomeController extends Controller
                         'user_id' => Auth::check() ? Auth::user()->id : 0,
                         'product_id' => $data['ProdId'],
                         'qty' => $data['quantity'],
-                        'price' => $data['price'],
+                        'price' => str_replace(',','',$data['price']),
                         'datereg' => Jalalian::fromCarbon(Carbon::now())->format('H:i:s |  %A  %d %B %y ')
                     ]);
                     return response()->json(['status' => 200]);

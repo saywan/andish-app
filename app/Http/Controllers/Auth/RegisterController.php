@@ -116,7 +116,7 @@ class RegisterController extends Controller
             $_email_noreply = 'support@andishgostar.com';
 
 
-            /*Mail::send('page.verifyEmail', array('confirmation_code' => $code_activite, 'token' => $token, 'title_site' => $_title_site),
+            Mail::send('page.VerifyAccount', array('confirmation_code' => $code_activite, 'token' => $token, 'title_site' => $_title_site),
                 function ($message) use (
                     $code_activite,
                     $_email_user,
@@ -127,7 +127,7 @@ class RegisterController extends Controller
                     $message->from($_email_noreply, $_title_site);
                     $message->subject('تایید حساب کاربری');
                     $message->to($_email_user, $username);
-                });*/
+                });
         }
         elseif ($inputType=='mobile')
         {
@@ -138,7 +138,7 @@ class RegisterController extends Controller
             $user = User::create([
                 'mobile' => ($inputType == 'mobile') ? $data['email'] : null,
                 'fullname' => $data['fullname'],
-                'role_id' => '',
+                'role_id' => '6',
                 'password' => Hash::make($data['passwordregister']),
                 'status' => 'pending',
                 'datereg' => Jalalian::fromCarbon(Carbon::now())->format('H:i:s | %A  %d %B %Y '),
@@ -148,16 +148,13 @@ class RegisterController extends Controller
                 'mobile_encode' => base64_encode($data['email']),
             ]);
             //Role::create(['name' => 'User']);
-            $user->assignRole('Employee');
+          //  $user->assignRole('Employee');
 
            /* Smsirlaravel::ultraFastSend([
                 'VerificationCode' => $codeMobile
             ], 45481, $data['email']);*/
 
         }
-
-
-
 
         Session::put('inputtype', $inputType);
         Session::put('Confirm', true);

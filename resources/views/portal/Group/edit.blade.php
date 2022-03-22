@@ -8,16 +8,16 @@
 
 @section('main')
 
-    <div class="page-content-tab" id="app">
+    <div class="page-content-tab">
 
-        <div class="container-fluid">
+        <div class="container-fluid" id="app">
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
                     <div class="page-title-box">
 
                         <h4 class="page-title">
-                         ویرایش گروه بندی کالا
+                            ویرایش گروه بندی کالا
                         </h4>
                     </div>
                     <!--end page-title-box-->
@@ -56,33 +56,75 @@
                                     درصد گروه کالا
                                 </label>
 
-                                <input class="form-control" placeholder="درصد گروه کالا"
-                                       type="text"
-                                       id="percentGroup" value="{{$edit->percent}}">
+                                <select class="form-control" id="unitPercent" name="unitPercent">
+
+                                    <option value="0">
+                                        لطفا واحد را انتخاب کنید
+                                    </option>
+                                    <option value="meter" {{(( 'meter' ==$edit->unit_producte)? 'selected' : '')}}>
+                                        متر
+                                    </option>
+                                    <option
+                                        value="numerical" {{(( 'numerical' ==$edit->unit_producte)? 'selected' : '')}}>
+                                        عدد
+                                    </option>
+                                    <option
+                                        value="kilogarm" {{(( 'kilogarm' ==$edit->unit_producte)? 'selected' : '')}}>
+                                        کیلوگرم
+                                    </option>
+                                    <option value="roll" {{(( 'roll' ==$edit->unit_producte)? 'selected' : '')}}>
+                                        رول
+                                    </option>
+                                    <option value="liter" {{(( 'liter' ==$edit->unit_producte)? 'selected' : '')}}>
+                                        لیتر
+                                    </option>
+                                </select>
 
 
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3" style="display: none" id="weight">
                                 <label for="txtCompanyBilling"
-                                       class="col-lg-5 col-form-label text-end">
-                                    ارزش افزوده گروه کالا
+                                       class="col-lg-8 col-form-label text-end">
+                                    وزن کالا
                                 </label>
 
-                                <input class="form-control" placeholder="ارزش افزوده گروه کالا"
-                                       type="text" id="feeGroup" value="{{$edit->fee}}">
+                                <input class="form-control" placeholder="وزن کالا را وارد کنید"
+                                       type="text" id="weightProduct">
+                                <span v-if="allerros.weightProduct"
+                                      class="badge badge-danger topM">
+                                                @{{ allerros.weightProduct[0] }}
+                                            </span>
+
+                            </div>
+
+                            <div class="col-md-3" style="display: none" id="pricepart">
+
+                                <label for="priceproduct" class="col-lg-6 col-form-label text-end">
+                                    قیمت کالا
+                                </label>
+
+                                <input class="form-control currency1" placeholder="قیمت کالا را وارد کنید"
+                                       type="text"
+                                       id="priceproduct">
+                                <span v-if="allerros.priceproduct"
+                                      class="badge badge-danger topM">
+                                                @{{ allerros.priceproduct[0] }}
+                                            </span>
 
 
                             </div>
-                            <div class="col-md-3">
 
-                                <label for="email" class="col-lg-3 col-form-label text-end">
-                                    واحد گروه کالا
+                            <div class="col-md-3">
+                                <label for="txtLastNameBilling"
+                                       class="col-lg-8 col-form-label text-end">
+                                    وضعیت انتشار گروه کالای
                                 </label>
 
-                                <input class="form-control" placeholder=" واحد گروه کالا"
-                                       type="text"   id="unitGroup" value="{{$edit->unit}}">
+                                <div class="form-check form-switch form-switch-success font-30">
+                                    <input id="statususer" class="form-check-input" type="checkbox"
+                                           id="customSwitchSuccess" data-on="active" data-off="inactive">
 
-
+                                </div>
 
                             </div>
                         </div>
@@ -168,7 +210,67 @@
        <script src="{{asset("panel/plugins/tabulator/xlsx.full.min.js")}}"></script>
        <script src="{{asset("panel/plugins/tabulator/jspdf.plugin.autotable.js")}}"></script>
        <script src="{{asset("panel/pages/datatable.init.js")}}"></script>--}}
+    <script>
+        var cleaveC = new Cleave('.currency1', {
+            numeral: true,
+            numeralThousandsGroupStyle: 'thousand'
+        });
+        $("#unitPercent").change(function () {
+            var value = $("#unitPercent option").filter(":selected").val();
 
+            if (value == 'meter') {
+
+                $("#alert").fadeIn();
+                $("#weight").show();
+                $("#alert").html("فرمول محاسبه قیمت گروه کالای برحسب متر : درصد تخفیف با احتساب درصد با افرزش افزوده * وزن  می باشد ")
+            } else if (value == 'numerical') {
+
+                $("#alert").fadeOut();
+                $("#weight").hide();
+
+                $("#pricepart").show();
+                $("#alertnumberic").fadeIn();
+                $("#alertnumberic").html("فرمول محاسبه قیمت گروه کالای برحسب عدد :لیست قیمت * درصد + لیست قیمت محاسبه خواهد شد ");
+
+
+            } else {
+                $("#alert").fadeOut();
+                $("#alertnumberic").fadeOut();
+                $("#weight").hide();
+                $("#pricepart").hide();
+            }
+
+        });
+
+
+        $(function () {
+           /* setTimeout(function () {
+
+            }, 3000);*/
+
+            ChooseUnitProduct('{{$edit->unit_producte}}');
+
+            function ChooseUnitProduct(typeunit) {
+
+                if (typeunit == 'meter') {
+                    $("#alert").fadeIn();
+                    $("#weight").show();
+                    $("#alert").html("فرمول محاسبه قیمت گروه کالای برحسب متر : درصد تخفیف با احتساب درصد با افرزش افزوده * وزن  می باشد ")
+                } else if (typeunit == 'numerical') {
+                    $("#alert").fadeOut();
+                    $("#weight").hide();
+
+                    $("#pricepart").show();
+                    $("#alertnumberic").fadeIn();
+                    $("#alertnumberic").html("فرمول محاسبه قیمت گروه کالای برحسب عدد :لیست قیمت * درصد + لیست قیمت محاسبه خواهد شد ");
+                }
+            }
+
+
+        });
+
+
+    </script>
 
 @endsection
 

@@ -332,7 +332,7 @@
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="#"><i class="ti ti-user font-16 me-1 align-text-bottom"></i> پروفایل</a>
+                 {{--   <a class="dropdown-item" href="#"><i class="ti ti-user font-16 me-1 align-text-bottom"></i> پروفایل</a>--}}
 
                     <div class="dropdown-divider mb-0"></div>
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

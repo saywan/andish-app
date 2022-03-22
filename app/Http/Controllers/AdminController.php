@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Ipecompany\Smsirlaravel\Smsirlaravel;
+use Milon\Barcode\DNS1D;
 use Morilog\Jalali\Jalalian;
 
 class AdminController extends Controller
@@ -28,7 +29,6 @@ class AdminController extends Controller
     }
     public function index()
     {
-
         return view('portal.index');
     }
 

@@ -215,7 +215,7 @@
                             </div>
                             <div class="tab-pane p-3" id="settings" role="tabpanel">
                                 <p class="text-muted mb-0">
-                                    Trust fund seitan letterpress, keytar raw denim keffiyeh etsy.
+
                                 </p>
                             </div>
                         </div>

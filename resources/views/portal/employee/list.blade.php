@@ -227,7 +227,7 @@
 
                 var card_id = $(this).data('id');
 
-                alert(card_id);
+
 
                 $.ajaxSetup({
                     headers: {

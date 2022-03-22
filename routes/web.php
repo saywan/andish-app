@@ -27,6 +27,7 @@ Route::get('/aboutUs', 'HomeController@aboutUs')->name('aboutUs');
 Route::get('/shop', 'HomeController@showshop')->name('shop');
 Route::post('/NewCart', 'HomeController@NewCart')->name('NewCart');
 Route::get('/Cart', 'HomeController@showCart')->name('showCart');
+Route::get('/template', 'HomeController@template')->name('template');
 //Route::get('/auth/user', 'HomeController@showAuthForm')->name('showAuthForm');
 Route::get('/Product/{slug}/{id}', 'HomeController@showSingleProduct')->name('showSingleProduct');
 
@@ -168,7 +169,10 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['auth']]
     Route::get('Factor', 'FactorController@index')->name('Factor');
     Route::get('CreateFactor', 'FactorController@create')->name('CreateFactor');
     Route::post('storeFactor', 'FactorController@store')->name('storeFactor');
+    Route::post('AddItemFactor', 'FactorController@AddItemFactor')->name('AddItemFactor');
+
     Route::post('DeleteCartItem', 'FactorController@DeleteCartItem')->name('DeleteCartItem');
+    Route::post('DeleteCartItemFactor', 'FactorController@DeleteCartItemFactor')->name('DeleteCartItemFactor');
     Route::post('NewFactor', 'FactorController@NewFactor')->name('NewFactor');
     Route::post('ChangeStatusOrder', 'FactorController@ChangeStatusOrder')->name('ChangeStatusOrder');
     Route::get('Factor/show/{id}', 'FactorController@showFactor')->name('showFactor');
@@ -190,6 +194,89 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['auth']]
     Route::get('GroupProduct/edit/{id}', 'SettingController@edit')->name('EditGroupProduct');
     Route::post('UpdateProductGroup', 'SettingController@update')->name('UpdateProductGroup');
     Route::post('DeleteGroupProduct', 'SettingController@destroy')->name('DeleteGroupProduct');*/
+
+
+
+});
+
+
+Route::group(['prefix' => 'User', 'as' => 'User.', 'middleware' => ['auth']], function () {
+
+
+    Route::get('/cc', function () {
+        Artisan::call('cache:clear');
+        echo '<script>alert("cache clear Success")</script>';
+    });
+    Route::get('/ccc', function () {
+        Artisan::call('config:cache');
+        echo '<script>alert("config cache Success")</script>';
+    });
+    Route::get('/vc', function () {
+        Artisan::call('view:clear');
+        echo '<script>alert("view clear Success")</script>';
+    });
+    Route::get('/cr', function () {
+        Artisan::call('route:cache');
+        echo '<script>alert("route clear Success")</script>';
+    });
+    Route::get('/coc', function () {
+        Artisan::call('config:clear');
+        echo '<script>alert("config clear Success")</script>';
+    });
+    Route::get('/storage123', function () {
+        Artisan::call('storage:link');
+        echo '<script>alert("linked")</script>';
+    });
+
+    Route::match(['get', 'post', 'put'], 'ActionServer', 'AdminController@ActionServer')->name('ActionServer');
+
+    Route::match(['get', 'post', 'put'], 'UserActionServer', 'UserController@UserActionServer')->name('UserActionServer');
+
+
+    Route::match(['get', 'post', 'put'], 'EmployeeActionServer', 'EmployeeController@EmployeeActionServer')->name('EmployeeActionServer');
+
+
+
+
+    // Route::resource('roles',RoleController::class);
+
+    Route::get('/', 'UserPanelController@index')->name('index');
+    Route::get('/index', 'UserPanelController@index')->name('portal.index');
+    Route::post('logout', 'UserPanelController@logout')->name('logout');
+
+
+    //Role
+    Route::get('Role', 'RoleController@index')->name('Role');
+    Route::get('CreateRole', 'RoleController@create')->name('createRole');
+    Route::post('ChangeStatusUser', 'RoleController@ChangeStatusUser')->name('ChangeStatusUser');
+    Route::get('Role/edit/{id}', 'RoleController@ShowEditUser')->name('portal.ShowEditUser');
+
+
+
+    //User
+    Route::get('User', 'UserPanelController@listUser')->name('User');
+    Route::get('CreateUser', 'UserPanelController@createuser')->name('createuser');
+    Route::post('ChangeStatusUser', 'UserPanelController@ChangeStatusUser')->name('ChangeStatusUser');
+    Route::get('User/edit/{id}', 'UserPanelController@ShowEditUser')->name('portal.ShowEditUser');
+
+
+    //Employment
+    Route::get('Employee', 'UserPanelController@listEmployee')->name('Employee');
+    Route::get('createEmployee', 'UserPanelController@createEmployee')->name('createEmployee');
+    Route::post('ChangeStatusEmployee', 'UserPanelController@ChangeStatusEmployee')->name('ChangeStatusEmployee');
+    Route::get('Employee/edit/{id}', 'UserPanelController@ShowEditEmployee')->name('portal.ShowEditEmployee');
+
+
+
+
+
+    //Factor
+    Route::get('Factor', 'UserPanelController@listFactor')->name('Factor');
+    Route::get('Factor/show/{id}', 'UserPanelController@showFactor')->name('showFactor');
+    Route::get('Factor/PrintPreview/{id}', 'UserPanelController@PrintPreview')->name('PrintPreview');
+
+
+
 
 
 

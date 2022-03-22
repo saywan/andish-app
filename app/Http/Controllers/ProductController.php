@@ -161,7 +161,8 @@ class ProductController extends Controller
                     return response()->json($message);
                 }
 
-            } else {
+            }
+            else {
 
                 $message = [
                     'status' => 200,
@@ -215,12 +216,12 @@ class ProductController extends Controller
 
 
                 $calc = (float)$getProductGroup['weight'] * $getPercentProduct['total'];
-                return response()->json(['status' => 200, 'result' => number_format($calc), 'unit' => $unit]);
+                return response()->json(['status' => 200, 'result' => $calc, 'unit' => $unit]);
             }
             if ($getProductGroup['unit_producte'] == 'numerical') {
 
                 $calc = (float)$getProductGroup['price'] * ($getPercentProduct['total'] / 100) + (float)$getProductGroup['price'];
-                return response()->json(['status' => 200, 'result' => number_format($calc), 'unit' => $unit]);
+                return response()->json(['status' => 200, 'result' => $calc, 'unit' => $unit]);
             }
 
 

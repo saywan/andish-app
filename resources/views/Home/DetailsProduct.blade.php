@@ -181,7 +181,7 @@
                                                                 0
                                                             @else
                                                                 <div class="item-price">قیمت:
-                                    {{number_format($product->price)}}
+                                    {{$product->price}}
                                     تومان</div>
                                                             @endif
 

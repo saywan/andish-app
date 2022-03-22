@@ -145,7 +145,7 @@
                                             </h6>
                                         </div>
                                     </td>
-                                    <td class="price"> {{number_format($itemCart['product']['price'])}} تومان</td>
+                                    <td class="price"> {{$itemCart['product']['price']}} تومان</td>
                                     <td class="qty">
                                         {{--<input class="quantity-spinner" type="text" value="2"
                                                            name="quantity">--}}
@@ -164,11 +164,12 @@
                                                 -
                                             </div>
                                     </td>
-                                    <td class="sub-total">  {{  number_format($itemCart['product']['price'] * $itemCart['qty']  )  }} تومان</td>
+                                    <td class="sub-total">  {{ str_replace(',','',$itemCart['product']['price']) * $itemCart['qty']    }} تومان</td>
+
                                     <td class="remove"><a href="#" class="remove-btn"><span
                                                 class="flaticon-multiply"></span></a></td>
                                 </tr>
-                                @php $total_price=$total_price +( $itemCart['product']['price'] * $itemCart['qty']) @endphp
+                                @php $total_price=$total_price +(str_replace(',','', $itemCart['product']['price']) * $itemCart['qty']) @endphp
                             @endforeach
                             </tbody>
                         </table>

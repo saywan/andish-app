@@ -92,9 +92,11 @@
                                 </thead>
                                 <tbody>
                                 @if(count($GProuct) > 0)
+                                    @php  $i=1;  @endphp
+
                                     @foreach($GProuct as $itemUser)
                                         <tr class="text-center">
-                                            <td>  {{$itemUser->id}}   </td>
+                                            <td>  {{$i++}}   </td>
                                             <td>  {{$itemUser->title}}   </td>
                                             <td>
                                                 @if($itemUser->unit =='kilo')

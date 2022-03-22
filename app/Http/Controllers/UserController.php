@@ -44,12 +44,12 @@ class UserController extends Controller
             $validator = Validator::make($request->all(), [
                 'firstname' => 'required',
                 'codemeli' => ['required', new Nationalcode()],
-                'datebirth' => 'required',
-                'job' => 'required',
-                'password' => 'required',
+             //   'datebirth' => 'required',
+             //   'job' => 'required',
+               // 'password' => 'required',
                 'mobile' => 'required|regex:/(09)[0-9]{9}/|digits:11|numeric|unique:users',
                 'email' => 'required|unique:users',
-                'accountno' => 'required',
+              //  'accountno' => 'required',
                 'cardno' => 'required',
                 'cardtitle' => 'required',
                 'shebacard' => 'required|digits:24',
@@ -58,19 +58,19 @@ class UserController extends Controller
             ], [
                 'firstname.required' => 'نام و نام خانوادگی مشتری را وارد کنید',
                 'codemeli.required' => 'کد ملی مشتری را وارد کنید',
-                'datebirth.required' => 'تاریخ تولد مشتری را وارد کنید',
-                'job.required' => 'شغل مشتری را وارد کنید',
-                'password.required' => 'رمز عبور را انتخاب کنید',
+              //  'datebirth.required' => 'تاریخ تولد مشتری را وارد کنید',
+             //   'job.required' => 'شغل مشتری را وارد کنید',
+               // 'password.required' => 'رمز عبور را انتخاب کنید',
                 'city.required' => 'شهرستان مشتری را انتخاب کنید',
                 'mobile.required' => 'موبایل مشتری را وارد کنید',
                 'mobile.numeric' => 'موبایل مشتری بصورت عدد وارد   کنید',
                 'mobile.digits' => 'موبایل مشتری بصورت عدد وارد   کنید',
                 'mobile.regex' => 'فرمت وارد شده صحیح نمی باشد',
                 'mobile.unique' => 'شماره موبایل تکراری هست',
-                'telephone.required' => 'شماره موبایل مشتری را وارد کنید',
+              //  'telephone.required' => 'شماره موبایل مشتری را وارد کنید',
                 'email.required' => 'آدرس ایمیل مشتری را وارد کنید',
                 'email.unique' => 'آدرس ایمیل تکراری   می باشد',
-                'accountno.required' => 'شماره حساب مشتری را وارد کنید',
+             //   'accountno.required' => 'شماره حساب مشتری را وارد کنید',
                 'cardno.required' => 'شماره کارت  مشتری را وارد کنید',
                 'cardtitle.required' => 'عنوان کارت  مشتری را وارد کنید',
                 'shebacard.required' => ' شماره شبا  مشتری را وارد کنید',
@@ -234,10 +234,9 @@ class UserController extends Controller
     public function listUser()
     {
 
+
         $listUser = User::where('role_id', '!=', 1)
-            ->Orwhere('role_id','=',2)
-            ->where('role_id','=',3)
-            ->Orwhere('role_id','=',6)
+            ->where('role_id','=',6)
             ->orderBy('id', 'DESC')->get();
 
         return view('portal.user.list', ['listUser' => $listUser]);

@@ -8,9 +8,9 @@
 
 @section('main')
 
-    <div class="page-content-tab" id="app">
+    <div class="page-content-tab">
 
-        <div class="container-fluid">
+        <div class="container-fluid" id="app">
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
@@ -31,7 +31,6 @@
                         <a class="nav-link active" id="step1-tab" data-bs-toggle="tab" href="#step1">
                            ویرایش کالا
                         </a>
-
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -118,7 +117,6 @@
 
                             </div>
                         </div>
-
                         <div class="text-center">
                             <button type="button" id="step4Finish" class="btn btn-danger float-end"
                                     @click="EditProduct({{$edit->id}})">

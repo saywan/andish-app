@@ -83,9 +83,6 @@
                                                     <option value="numerical" >
                                                         عدد
                                                     </option>
-                                                    <option value="numerical" >
-                                                        عدد
-                                                    </option>
                                                     <option value="kilogarm" >
                                                         کیلوگرم
                                                     </option>
@@ -97,7 +94,7 @@
                                                     </option>
                                                 </select>
 
-                                                </span>
+
 
 
                                             </div>
@@ -245,7 +242,8 @@
                 $("#alert").fadeIn();
                 $("#weight").show();
                 $("#alert").html("فرمول محاسبه قیمت گروه کالای برحسب متر : درصد تخفیف با احتساب درصد با افرزش افزوده * وزن  می باشد ")
-            }else if(value =='numerical'){
+            }
+            else if(value =='numerical'){
 
                 $("#alert").fadeOut();
                 $("#weight").hide();
@@ -255,7 +253,8 @@
                 $("#alertnumberic").html("فرمول محاسبه قیمت گروه کالای برحسب عدد :لیست قیمت * درصد + لیست قیمت محاسبه خواهد شد ");
 
 
-            }else{
+            }
+            else{
                 $("#alert").fadeOut();
                 $("#alertnumberic").fadeOut();
                 $("#weight").hide();
@@ -263,6 +262,7 @@
             }
 
         });
+
     </script>
 @endsection
 

@@ -101,7 +101,8 @@
                                                 <i class="dripicons-lock"></i>
                                             </a>
                                         </div><!--end col-->
-                                    </div><!--end form-group-->
+                                    </div>
+
 
                                     <div class="form-group mb-0 row">
                                         <div class="col-12">

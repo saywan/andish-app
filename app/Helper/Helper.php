@@ -40,6 +40,7 @@ class Helper
 
     }
 
+
     public static function TotalUserCompany()
     {
         $userInfo = User::where('role_id', '!=', 1)->get();

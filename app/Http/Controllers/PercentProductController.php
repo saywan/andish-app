@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductGroup;
 use App\Models\ProductPercent;
+use App\Models\Products;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,7 @@ class PercentProductController extends Controller
      */
     public function index()
     {
-        $GProuct = ProductPercent::all();
+        $GProuct = ProductPercent::orderBy('created_at','DESC')->get();
         return view('portal.Percent.list', ['GProuct' => $GProuct]);
     }
 
@@ -137,32 +138,48 @@ class PercentProductController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
         $validator = Validator::make($request->all(), [
             'titlePercent' => 'required',
-            'percentGroup' => 'required',
+            'percentProduct' => 'required',
             'feeGroup' => 'required',
-            'unitGroup' => 'required',
+            'unitPercent' => 'required',
         ], [
             'titleGroup.required' => 'عنوان گروه کالای را وارد کنید',
-            'percentGroup.required' => 'درصد گروه کالای را وارد کنید',
+            'percentProduct.required' => 'درصد گروه کالای را وارد کنید',
             'feeGroup.required' => 'ارزش افزوده گروه کالای را وارد کنید',
-            'unitGroup.required' => 'واحد گروه کالای را وارد کنید',
+            'unitPercent.required' => 'واحد گروه کالای را وارد کنید',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-        $user = ProductGroup::findOrFail($request->id);
+        $user = ProductPercent::findOrFail($request->id);
          if($user) {
+
+             $percent = str_replace(",", "", $request->percentProduct);
+
+             $total = 0;
+
+             if ($request->unitPercent == 'kilo') {
+
+                 // $unit='کیلو';
+                 $total = $percent * ((int) $request->feeGroup  / 100) + $percent;
+
+             } else {
+                 //  $unit='عدد';
+                 $total = $percent +  $request->feeGroup;
+             }
+
 
              $user->update([
                  'title' => $request->titlePercent,
-                 'percent' => $request->percentGroup,
+                 'percent' => $request->percentProduct,
                  'fee' => $request->feeGroup,
-                 'unit' => $request->unitGroup,
+                 'unit' => $request->unitPercent,
+                 'total' => $total,
              ]);
 
              return response()->json(['status' => 200]);
@@ -179,8 +196,21 @@ class PercentProductController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $GProduct = ProductPercent::where('id', $request->Id)->first();
+        if ($GProduct) {
+
+            $Product=Products::where('percentId',$request->Id)->get();
+            if(count($Product) > 0)
+            {
+                return response()->json(['status' => 401]);
+            }else{
+                $GProduct->delete();
+                return response()->json(['status' => 200]);
+            }
+
+
+        }
     }
 }
