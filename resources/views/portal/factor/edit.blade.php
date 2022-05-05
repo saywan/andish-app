@@ -18,8 +18,8 @@
                     <div class="page-title-box">
 
                         <h4 class="page-title alert alert-success">
-                            ویرایش فاکتور جاری مشتری »
-                            <b >
+                            ویرایش پیش فاکتور آقای »
+                            <b>
                                 {{  \App\Helper\Helper::getInfoUser($factor->userId)['fullname']  }}
                             </b>
                         </h4>
@@ -28,12 +28,15 @@
                 </div>
                 <!--end col-->
             </div>
+            <br>
+            <br>
+
             <!-- end page title end breadcrumb -->
             <form action="#" method="post" id="custom-step">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab">
                         <a class="nav-link active" id="step1-tab" data-bs-toggle="tab" href="#step1">
-                            ویرایش فاکتور مشتری »
+                            ویرایش پیش فاکتور آقای »
                             <b class="text text-danger">
                                 {{ \App\Helper\Helper::getInfoUser($factor->userId)['fullname']  }}
                             </b>
@@ -43,6 +46,9 @@
                         </a>
                         <a class="nav-link " id="step3-tab" data-bs-toggle="tab" href="#step3">
                             ثبت اقلام جدید به فاکتور
+                        </a>
+                        <a class="nav-link " id="step4-tab" data-bs-toggle="tab" href="#step4">
+                            صدور پیش فاکتور
                         </a>
 
                     </div>
@@ -63,12 +69,46 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="txtLastNameBilling"
-                                       class="col-lg-3 col-form-label text-end">
+                                       class="col-lg-8 col-form-label text-end">
 
-                                    مبلغ فاکتور
+                                    مبلغ فاکتور بدونه احتساب ارزش افزوده
                                 </label>
 
-                                <input type="text" value="{{$factor->subtotal}}" class="form-control" id="totalfactor">
+                                <input type="text" value="{{$factor->final_total}}" class="form-control"
+                                       id="totalfactor">
+
+
+                            </div>
+                            <div class="col-md-3">
+                                <label for="txtLastNameBilling"
+                                       class="col-lg-12 col-form-label text-center">
+                                    درصد ارزش افزوده
+                                </label>
+
+                                <input type="text" value="{{$factor->extra_percent}}" class="form-control"
+                                       id="extra_percent" name="extra_percent">
+
+
+                            </div>
+                            <div class="col-md-3">
+                                <label for="txtLastNameBilling"
+                                       class="col-lg-8 col-form-label text-end">
+                                    مبلغ فاکتور با ارزش افزوده
+                                </label>
+
+                                <input type="text" value="{{$factor->final_total_extra}}" class="form-control"
+                                       id="final_total_extra" disabled>
+
+
+                            </div>
+                            <div class="col-md-3">
+                                <label for="txtLastNameBilling"
+                                       class="col-lg-12 col-form-label text-center">
+                                    مبلغ ارزش افزوده
+                                </label>
+
+                                <input type="text" value="{{$factor->extraValue}}" class="form-control" id="extraValue"
+                                       name="extraValue" disabled>
 
 
                             </div>
@@ -125,28 +165,8 @@
 
 
                             </div>
-                            <div class="col-md-3">
-                                <label for="txtLastNameBilling"
-                                       class="col-lg-12 col-form-label text-center">
-                                    مبلغ ارزش افزوده
-                                </label>
-
-                                <input type="text" value="{{$factor->extraValue}}" class="form-control" id="extraValue"
-                                       name="extraValue" disabled>
 
 
-                            </div>
-                            <div class="col-md-3">
-                                <label for="txtLastNameBilling"
-                                       class="col-lg-12 col-form-label text-center">
-                                    درصد ارزش افزوده
-                                </label>
-
-                                <input type="text" value="{{$factor->extra_percent}}" class="form-control"
-                                       id="extra_percent" name="extra_percent">
-
-
-                            </div>
                             {{--  <div class="col-md-3">
                                   <label for="txtLastNameBilling"
                                          class="col-lg-4 col-form-label text-end">
@@ -171,6 +191,7 @@
                                 </span>
                             </b>
 
+                            @php $total_price=0; @endphp
                             @foreach($FactorItem as $itemFact)
                                 <div class="form-group mb-3 row">
                                     <div class="col-md-3">
@@ -186,11 +207,11 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label for="txtLastNameBilling"
-                                               class="col-lg-3 col-form-label text-end">
+                                               class="col-lg-3 col-form-label text-center">
                                             قیمت واحد کالا
                                         </label>
 
-                                        <input type="text" value="{{$itemFact->prodPrice}}" class="form-control">
+                                        <input type="text" value="{{$itemFact->prodPrice}}" class="form-control" disabled>
 
 
                                     </div>
@@ -214,12 +235,33 @@
                                             قیمت با احتساب تعداد سفارش
                                         </label>
 
-                                        <input type="text" disabled value="{{$itemFact->productQty *  $itemFact->prodPrice}}" class="form-control" >
+                                        <input type="text" disabled
+                                               value="{{$itemFact->productQty *  $itemFact->prodPrice}}"
+                                               class="form-control">
 
                                     </div>
 
                                 </div>
+                                @php $total_price=$total_price +( $itemFact->productQty *  $itemFact->prodPrice ) @endphp
                             @endforeach
+
+                            <hr>
+
+
+                            <div class="card">
+                                <div class="card-header bg-danger text-center">
+                                    <h4 class="card-title text-white"> قیمت نهایی   تمام شده </h4>
+                                </div><!--end card-header-->
+                                <div class="card-body">
+                                    <p class="card-text text-muted text-center font-30">
+                                        {{number_format($factor->final_total_extra)}}
+                                    </p>
+                                </div><!--end card-body-->
+                                <p class="card-footer bg-light-alt m-0 text-center">
+                                    قیمت نهایی  تمام شده
+                                </p>
+                            </div>
+
 
                         </div>
 
@@ -231,6 +273,19 @@
                         </div>
                     </div>
                     <div class="tab-pane " id="step2">
+                        <div class="card">
+                            <div class="card-header bg-danger text-center">
+                                <h4 class="card-title text-white"> قیمت نهای فاکتور با اقلام</h4>
+                            </div><!--end card-header-->
+                            <div class="card-body">
+                                <p class="card-text text-muted text-center font-30">
+                                    {{number_format($total_price)}}
+                                </p>
+                            </div><!--end card-body-->
+                            <p class="card-footer bg-light-alt m-0 text-center">
+                                قیمت نهای فاکتور با اقلام
+                            </p>
+                        </div>
                         <div class="form-group mb-3 row">
                             <div class="card-body">
 
@@ -243,6 +298,7 @@
                                                 <th> کالا</th>
                                                 <th> قیمت کالا</th>
                                                 <th> تعداد درخواستی</th>
+                                                <th> قیمت کل</th>
                                                 <th> تاریخ رزرو</th>
                                                 <th class="text-end">بیشتر</th>
                                             </tr>
@@ -264,10 +320,13 @@
                                                         {{$itemCart->productQty}}
                                                     </td>
                                                     <td>
+                                                        {{number_format($itemCart->productQty * $itemCart->prodPrice)}}
+                                                    </td>
+                                                    <td>
                                                         {{$itemCart->datereg}}
                                                     </td>
                                                     <td class="text-end">
-                                                        <a href="#"  @click="DeleteCartItemFactor( {{$itemCart['id']}})">
+                                                        <a href="#" @click="DeleteCartItemFactor( {{$itemCart['id']}})">
 
                                                             <i data-feather="trash" class="text-danger font-16"></i>
                                                         </a>
@@ -352,10 +411,12 @@
                                                 </td>
 
                                                 <td>
-                                                    <input type="hidden" value="{{$factor->id}}" id="factorId" name="factorId">
+                                                    <input type="hidden" value="{{$factor->id}}" id="factorId"
+                                                           name="factorId">
                                                     <a href="#" title="ثبت سفارش "
                                                        @click="OrderProductToFactor({{$itemUser->PID}},{{$factor->userId}})">
-                                                        <i data-feather="shopping-cart"  class="text-success font-16"></i>
+                                                        <i data-feather="shopping-cart"
+                                                           class="text-success font-16"></i>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -369,6 +430,58 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane " id="step4">
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-xl-3">
+
+                                <div class="card">
+                                    <div class="card-header bg-primary">
+                                        <h4 class="card-title text-white">
+                                            وضعیت فاکتور : پیش فاکتور
+                                        </h4>
+                                    </div><!--end card-header-->
+                                    <div class="card-body">
+                                        <p class="card-text text-muted">
+                                            فاکتور فعلی در وضعیت پیش فاکتور قرار گرافته جهت اطمینان و صحت اقلام کالا از
+                                            سمت مشتری فاکتور مورد نظر را می توانید نهایی و صادر کنید
+                                        </p>
+                                    </div><!--end card-body-->
+                                    <p class="card-footer bg-light-alt m-0">
+                                        پیش فاکتور
+                                    </p>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-xl-3">
+
+                                <div class="card">
+                                    <div class="card-header bg-info">
+                                        <h4 class="card-title text-white">
+                                            دسترسی
+                                        </h4>
+                                    </div><!--end card-header-->
+                                    <div class="card-body">
+                                        <div class="button-items text-center">
+                                            <button type="button" class="btn btn-success"
+                                                    @click="ExportFactor({{$factor->factorId}})">
+                                                <i class="mdi mdi-check-all me-2"></i>
+                                                ثبت و صدور فاکتور رسمی
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <p class="card-footer bg-light-alt m-0">
+                                        پیش فاکتور
+                                    </p>
+                                </div>
+
+                            </div>
+
                         </div>
 
                     </div>

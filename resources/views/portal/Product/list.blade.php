@@ -83,11 +83,10 @@
                                     <th>ردیف</th>
                                     <th>کاربر ثبت کننده</th>
                                     <th> عنوان کالایی</th>
-                                    <th>گروه کالا</th>
+                                    <th>درصد کالا</th>
                                     <th> تعداد موجودی</th>
                                     <th> قیمت موجودی</th>
                                     <th> واحد کالا</th>
-                                    <th> وزن کالا</th>
                                     <th>تاریخ ثبت نام</th>
                                     <th>اطلاعات بیشتر</th>
                                 </tr>
@@ -102,22 +101,23 @@
 }}   </td>
                                             <td>  {{$itemUser->title}}   </td>
                                             <td>  {{
-    \App\Helper\Helper::GetGroupName($itemUser->groupId)
+    \App\Helper\Helper::getPercentName($itemUser->percentId)
 
     }}    </td>
                                             <td>  {{$itemUser->count}}   </td>
                                             <td>
                                                 @if(!empty($itemUser->price))
                                                    <span class="text-danger">
-                                                        {{  $itemUser->price }}
-                                                    تومان
+                                                      @if($itemUser->price !=0)
+                                                           {{number_format($itemUser->price)}}
+                                                          @endif
+                                                    ریال
                                                    </span>
                                                 @else
                                                    0
                                                 @endif
                                             </td>
                                             <td>  {{$itemUser->unit}}   </td>
-                                            <td>  {{$itemUser->weight}}   </td>
                                             <td>  {{$itemUser->datereg}}   </td>
 
 

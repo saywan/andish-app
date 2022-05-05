@@ -230,7 +230,7 @@
         e1.oninput = myHandler1;
         e1.onpropertychange = e1.oninput; // for IE8
         function myHandler1() {
-            document.getElementById('demo_out1').innerHTML = e1.value.toPersianLetter()+ "  تومان ";
+            document.getElementById('demo_out1').innerHTML = e1.value.toPersianLetter()+ "  ریال ";
         }
 
         var cleaveC = new Cleave('.currency1', {

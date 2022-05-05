@@ -1,6 +1,6 @@
 @extends('portal.layouts.adminMaster')
 @section('styles')
-
+    <link rel="stylesheet" href="{{asset("panel/plugins/select/selectr.min.css")}}">
 @endsection
 
 @section('main')
@@ -65,7 +65,28 @@
                                                         </span>
 
                                             </div>
+                                            <div class="col-md-3">
+                                                <label for="txtFirstNameBilling"
+                                                       class="col-lg-7 col-form-label text-end">
+                                                   دسته درصد کالای
+                                                </label>
 
+                                                <select id="default" name="percentgroup" class="percentgroup" >
+                                                    <option value="0">
+                                                       لطفا درصد کالای را وارد کنید
+                                                    </option>
+                                                    @foreach($percent as $itemPercent)
+                                                        <option value="{{$itemPercent->id}}">
+                                                            {{ $itemPercent->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                {{--  <input class="form-control" placeholder=" عنوان  کالا"
+                                                         type="text"
+                                                         id="titleGroup">--}}
+
+
+                                            </div>
                                             <div class="col-md-3">
 
                                                 <label for="email" class="col-lg-6 col-form-label text-end">
@@ -228,7 +249,14 @@
 @endsection
 
 @section('scripts')
+
+
+
     <script src="{{asset("panel/pages/form-wizard.js")}}"></script>
+    <script src="{{asset("panel/plugins/select/selectr.min.js")}}"></script>
+    <script src="{{asset("panel/pages/forms-advanced.js")}}"></script>
+
+
     <script>
         var cleaveC = new Cleave('.currency1', {
             numeral: true,

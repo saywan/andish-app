@@ -91,9 +91,6 @@ class RegisterController extends Controller
         $inputType = filter_var($data['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
 
 
-
-
-
         if($inputType=='email')
         {
             $token = Str::random(32);

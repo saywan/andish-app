@@ -19,7 +19,7 @@ class PercentProductController extends Controller
      */
     public function index()
     {
-        $GProuct = ProductPercent::orderBy('created_at','DESC')->get();
+        $GProuct = ProductPercent::orderBy('created_at', 'DESC')->get();
         return view('portal.Percent.list', ['GProuct' => $GProuct]);
     }
 
@@ -61,10 +61,9 @@ class PercentProductController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $getInfoPercent=ProductPercent::where('title', 'like', '%' . $request->titlePercent . '%')->first();
-        if($getInfoPercent)
-        {
-            return response()->json(['status' => 419,'message'=>'عنوان تخفیف یا درصد تکراری میباشد']);
+        $getInfoPercent = ProductPercent::where('title', 'like', '%' . $request->titlePercent . '%')->first();
+        if ($getInfoPercent) {
+            return response()->json(['status' => 419, 'message' => 'عنوان تخفیف یا درصد تکراری میباشد']);
         }
         // dd($request->all());
 
@@ -75,12 +74,12 @@ class PercentProductController extends Controller
 
         if ($request->unitPercent == 'kilo') {
 
-           // $unit='کیلو';
-            $total = $percent * ((int) $request->feeGroup  / 100) + $percent;
+            // $unit='کیلو';
+            $total = $percent * ((int)$request->feeGroup / 100) + $percent;
 
         } else {
-          //  $unit='عدد';
-            $total = $percent +  $request->feeGroup;
+            //  $unit='عدد';
+            $total = $percent + $request->feeGroup;
         }
 
         //dd($total);
@@ -141,6 +140,8 @@ class PercentProductController extends Controller
     public function update(Request $request)
     {
         //
+
+
         $validator = Validator::make($request->all(), [
             'titlePercent' => 'required',
             'percentProduct' => 'required',
@@ -156,37 +157,79 @@ class PercentProductController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-        $user = ProductPercent::findOrFail($request->id);
-         if($user) {
+        $percentProduct = ProductPercent::findOrFail($request->id);
+        if ($percentProduct) {
 
-             $percent = str_replace(",", "", $request->percentProduct);
+            $percent = str_replace(",", "", $request->percentProduct);
 
-             $total = 0;
+            $total = 0;
 
-             if ($request->unitPercent == 'kilo') {
+            // dd($user->unit);
+
+            /* if ($user->unit == 'kilo') {
 
                  // $unit='کیلو';
-                 $total = $percent * ((int) $request->feeGroup  / 100) + $percent;
-
+                 $total = $percent * ($request->feeGroup / 100) + $percent;
              } else {
                  //  $unit='عدد';
-                 $total = $percent +  $request->feeGroup;
-             }
+                 $total = $percent + $request->feeGroup;
+             }*/
 
 
-             $user->update([
-                 'title' => $request->titlePercent,
-                 'percent' => $request->percentProduct,
-                 'fee' => $request->feeGroup,
-                 'unit' => $request->unitPercent,
-                 'total' => $total,
-             ]);
+            $getProductGroup = ProductGroup::where('percent_id', $percentProduct->id)->get();
 
-             return response()->json(['status' => 200]);
-         }else
-             {
-             return response()->json(['status' => 100]);
-         }
+
+            $getInfoProduct = Products::where('percentId', $request->id)->get();
+
+            if ($percentProduct->unit == 'kilo') {
+                $total = $percent * ($request->feeGroup / 100) + $percent;
+            } else {
+                $total = $percent + $request->feeGroup;
+            }
+
+            $percentProduct->update([
+                'title' => $request->titlePercent,
+                'percent' => $request->percentProduct,
+                'fee' => $request->feeGroup,
+                /*  'unit' => $request->unitPercent,*/
+                'total' => $total,
+            ]);
+
+            foreach ($getProductGroup as $itemGroup) {
+
+                if ($itemGroup->unit_producte == 'meter') {
+
+                    $calc = (float)$itemGroup['weight'] * $percentProduct['total'];
+
+                } elseif ($itemGroup->unit_producte == 'numerical') {
+
+                    $calc = (float)$itemGroup['price'] * ($percentProduct['total'] / 100) + (float)$getProductGroup['price'];
+                }
+
+                foreach ($getInfoProduct as $itemProduct) {
+
+
+                    if($itemProduct->groupId==$itemGroup->id)
+                    {
+                        $itemProduct->update([
+                            'price' => $calc
+                        ]);
+                    }
+
+
+                }
+
+            }
+
+
+
+
+
+            return response()->json(['status' => 200]);
+
+        } else {
+            return response()->json(['status' => 100]);
+        }
 
     }
 
@@ -201,11 +244,10 @@ class PercentProductController extends Controller
         $GProduct = ProductPercent::where('id', $request->Id)->first();
         if ($GProduct) {
 
-            $Product=Products::where('percentId',$request->Id)->get();
-            if(count($Product) > 0)
-            {
+            $Product = Products::where('percentId', $request->Id)->get();
+            if (count($Product) > 0) {
                 return response()->json(['status' => 401]);
-            }else{
+            } else {
                 $GProduct->delete();
                 return response()->json(['status' => 200]);
             }

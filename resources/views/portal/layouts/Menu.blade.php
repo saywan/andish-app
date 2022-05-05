@@ -171,7 +171,12 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('portal.Factor')}}">
-                                   مدیریت فاکتور
+                                 مدیریت پیش فاکتور ها
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('portal.FinalFactor')}}">
+                                  مدیریت فاکتور صادر شده
                                 </a>
                             </li>
 

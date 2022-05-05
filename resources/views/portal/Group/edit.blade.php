@@ -1,6 +1,6 @@
 @extends('portal.layouts.adminMaster')
 @section('styles')
-
+    <link rel="stylesheet" href="{{asset("panel/plugins/select/selectr.min.css")}}">
     <link rel="stylesheet" href="{{asset("panel/plugins/datatables/datatables.min.css")}}">
     <link rel="stylesheet"
           href="{{asset("panel/plugins/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css")}}">
@@ -51,9 +51,32 @@
 
                             </div>
                             <div class="col-md-3">
+                                <label for="txtFirstNameBilling"
+                                       class="col-lg-7 col-form-label text-end">
+                                    دسته درصد کالای
+                                </label>
+
+                                <select id="default" name="percentgroup" class="percentgroup">
+                                    <option value="0">
+                                        لطفا درصد کالای را وارد کنید
+                                    </option>
+                                    @foreach($percent as $itemPercent)
+                                        <option
+                                            value="{{$itemPercent->id}}" {{(( $edit->percent_id ==$itemPercent->id)? 'selected' : '')}}>
+                                            {{ $itemPercent->title }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                {{--  <input class="form-control" placeholder=" عنوان  کالا"
+                                         type="text"
+                                         id="titleGroup">--}}
+
+
+                            </div>
+                            <div class="col-md-3">
                                 <label for="txtLastNameBilling"
                                        class="col-lg-3 col-form-label text-end">
-                                    درصد گروه کالا
+                                    واحد کالا
                                 </label>
 
                                 <select class="form-control" id="unitPercent" name="unitPercent">
@@ -89,11 +112,12 @@
                                 </label>
 
                                 <input class="form-control" placeholder="وزن کالا را وارد کنید"
-                                       type="text" id="weightProduct">
+                                       type="text" id="weightProduct" value="{{$edit->weight}}">
+
                                 <span v-if="allerros.weightProduct"
                                       class="badge badge-danger topM">
                                                 @{{ allerros.weightProduct[0] }}
-                                            </span>
+                                </span>
 
                             </div>
 
@@ -105,7 +129,8 @@
 
                                 <input class="form-control currency1" placeholder="قیمت کالا را وارد کنید"
                                        type="text"
-                                       id="priceproduct">
+                                       id="priceproduct" value="{{$edit->price}}">
+
                                 <span v-if="allerros.priceproduct"
                                       class="badge badge-danger topM">
                                                 @{{ allerros.priceproduct[0] }}
@@ -210,6 +235,9 @@
        <script src="{{asset("panel/plugins/tabulator/xlsx.full.min.js")}}"></script>
        <script src="{{asset("panel/plugins/tabulator/jspdf.plugin.autotable.js")}}"></script>
        <script src="{{asset("panel/pages/datatable.init.js")}}"></script>--}}
+    <script src="{{asset("panel/pages/form-wizard.js")}}"></script>
+    <script src="{{asset("panel/plugins/select/selectr.min.js")}}"></script>
+    <script src="{{asset("panel/pages/forms-advanced.js")}}"></script>
     <script>
         var cleaveC = new Cleave('.currency1', {
             numeral: true,
@@ -244,9 +272,9 @@
 
 
         $(function () {
-           /* setTimeout(function () {
+            /* setTimeout(function () {
 
-            }, 3000);*/
+             }, 3000);*/
 
             ChooseUnitProduct('{{$edit->unit_producte}}');
 

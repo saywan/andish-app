@@ -100,18 +100,24 @@
                                             <td>  {{$itemUser->title}}   </td>
                                             <td>
                                                 @if($itemUser->unit =='kilo')
-                                                    <span class="text-danger font-26">
-                                                        {{$itemUser->percent}}
+                                                    <span class="text-danger font-20">
+                                                              {{
+    empty($itemUser->percent) ? 0 :  number_format($itemUser->percent)
+}}
                                                     </span>
                                                 @elseif($itemUser->unit =='numberic')
-                                                    <span class="text-success font-11">
+                                                    <span class="text-success font-20">
 
                                                         {{$itemUser->percent}}
                                                         %
                                                     </span>
                                                 @endif
                                             </td>
-                                            <td>  {{$itemUser->fee}} %</td>
+                                            <td> %
+                                             <span class="font-22">
+                                                 {{$itemUser->fee}}
+                                             </span>
+                                            </td>
                                             <td>
 
                                                 @if($itemUser->unit =='kilo')
@@ -125,9 +131,28 @@
                                                     </span>
                                                 @endif
                                             </td>
-                                            <td>  {{
+                                            <td>
+
+                                                @if($itemUser->unit =='kilo')
+
+                                                <span class="font-25">
+                                                      {{
     empty($itemUser->total) ? 0 :  number_format($itemUser->total)
-}}   </td>
+}}
+                                                </span>
+                                                @elseif($itemUser->unit =='numberic')
+                                                    %
+                                                <span class="font-25">
+                                                      {{
+      empty($itemUser->total) ? 0 :  $itemUser->total
+}}
+                                                </span>
+
+
+
+                                                    @endif
+
+                                            </td>
                                             <td>  {{$itemUser->datereg}}   </td>
 
 

@@ -48,6 +48,7 @@
                                        id="titleProduct" value="{{$edit->title}}">
 
                             </div>
+
                             <div class="col-md-3">
                                 <label for="txtLastNameBilling"
                                        class="col-lg-3 col-form-label text-end">

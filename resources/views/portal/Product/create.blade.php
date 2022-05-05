@@ -41,13 +41,14 @@
                                     <div class="tab-pane active" id="step1">
 
                                         <div class="form-group mb-3 row">
+
                                             <div class="col-md-3">
                                                 <label for="txtFirstNameBilling"
                                                        class="col-lg-7 col-form-label text-end">
                                                     عنوان کالا
                                                 </label>
 
-                                                <select id="default" name="titleProduct" class="titleProduct">
+                                                <select id="default" name="groupProductId" class="groupProductId">
                                                     <option value="0">
                                                         لطفا کالا مورد نظر را انتخاب کنید
                                                     </option>
@@ -63,10 +64,11 @@
 
 
                                             </div>
+
                                             <div class="col-md-3">
                                                 <label for="txtLastNameBilling"
                                                        class="col-lg-7 col-form-label text-end">
-                                                    دسته تخفیف
+                                                    دسته تخفیف (درصد کالای)
                                                 </label>
 
                                                 <select name="PercentGroup" id="PercentGroup" class="form-control"
@@ -74,28 +76,19 @@
                                                     <option value="0">
                                                         لطفا دسته تخفیف را انتخاب کنید
                                                     </option>
-                                                    @if(count($ProdPercent) > 0)
-                                                        @foreach($ProdPercent as $itemGorup)
-                                                            <option value="{{$itemGorup->id}}">
-                                                                {{$itemGorup->title}}
-                                                            </option>
-                                                        @endforeach
-                                                    @endif
+                                                    {{--  @if(count($ProdPercent) > 0)
+                                                          @foreach($ProdPercent as $itemGorup)
+                                                              <option value="{{$itemGorup->id}}">
+                                                                  {{$itemGorup->title}}
+                                                              </option>
+                                                          @endforeach
+                                                      @endif--}}
                                                 </select>
 
 
                                             </div>
-                                            <div class="col-md-3">
-                                                <label for="txtCompanyBilling"
-                                                       class="col-lg-7 col-form-label text-end">
-                                                    تعداد موجودی در انبار
-                                                </label>
-
-                                                <input class="form-control" placeholder="تعداد موجودی در انبار"
-                                                       type="text" id="countProduct">
 
 
-                                            </div>
                                             <div class="col-md-3">
 
                                                 <label for="email" class="col-lg-7 col-form-label text-end">
@@ -120,6 +113,7 @@
 
 
                                             </div>--}}
+
                                             <div class="col-md-3">
 
                                                 <label for="email" class="col-lg-7 col-form-label text-end">
@@ -133,6 +127,17 @@
                                                 <span id="numberToWord">
 
                                                 </span>
+
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="txtCompanyBilling"
+                                                       class="col-lg-7 col-form-label text-end">
+                                                    تعداد موجودی در انبار
+                                                </label>
+
+                                                <input class="form-control" placeholder="تعداد موجودی در انبار"
+                                                       type="text" id="countProduct">
+
 
                                             </div>
                                             <div class="col-md-6">
@@ -281,15 +286,14 @@
               var text = option.text();*/
 
             var PercentGroupId = $("#PercentGroup option").filter(":selected").val();
-            var ProductId = $('select[name="titleProduct"]').find(":selected").val();
-            if(ProductId == 0)
-            {
+            var ProductId = $('select[name="groupProductId"]').find(":selected").val();
+            if (ProductId == 0) {
                 iziToast.error({
                     title: 'کالا',
                     message: 'لطفا کالا مورد نظر را انتخاب کنید',
                     position: 'topLeft'
                 });
-                return  false;
+                return false;
             }
 
             $.ajaxSetup({
@@ -308,36 +312,95 @@
                         /*   swal("وضعیت نمایش ", "وضعیت نمایش به روز رسانی شد", "success", {
                                button: "باشه"
                            });*/
-                      //  $("#priceProduct").val(data.result);
-                       // $("#priceProduct").val(PersianJs(data.result).digitsToWords());
+                        //  $("#priceProduct").val(data.result);
+                        // $("#priceProduct").val(PersianJs(data.result).digitsToWords());
 
-                      /*  let sign = prompt("Number ");
+                        /*  let sign = prompt("Number ");
 
-                        if (sign) {
-                            alert(PersianTools.numberToWords(sign));
-                        }*/
+                          if (sign) {
+                              alert(PersianTools.numberToWords(sign));
+                          }*/
 
-                       // console.log(PersianTools.numberToWords("3720497501"));
+                        // console.log(PersianTools.numberToWords("3720497501"));
 
-                        $("#priceProduct").val(data.result );
+                        $("#priceProduct").val(data.result);
 
-                        if(data.unit !='متر')
-                        {
-                            $("#numberToWord").append(PersianTools.numberToWords(data.result) + ' تومان ');
+                        if (data.unit != 'متر') {
+                            $("#numberToWord").append(PersianTools.numberToWords(data.result) + ' ریال ');
                         }
 
 
                         $("#unitProduct").val(data.unit);
-                       /* Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'وضعیت حساب کاربری با موفقیت به روز رسانی شد',
-                            showConfirmButton: true,
-                        })*/
+                        /* Swal.fire({
+                             position: 'top-end',
+                             icon: 'success',
+                             title: 'وضعیت حساب کاربری با موفقیت به روز رسانی شد',
+                             showConfirmButton: true,
+                         })*/
 
-                     /*   setTimeout(function () {
-                            window.location.reload();
-                        }, 3000);*/
+                        /*   setTimeout(function () {
+                               window.location.reload();
+                           }, 3000);*/
+                    } else {
+                        swal(" خطا ", "خطا مجددا سعی کنید", "error", {
+                            button: "باشه"
+                        });
+                    }
+                }
+            });
+
+
+        });
+
+
+        $('select[name="groupProductId"]').change(function () {
+
+            /*  var option = $(this).find('option:selected');
+              var value = option.val();
+              var text = option.text();*/
+
+
+            var groupId = $('select[name="groupProductId"]').find(":selected").val();
+
+
+            //   var ProductId = $('select[name="titleProduct"]').find(":selected").val();
+            if (groupId == 0) {
+
+                iziToast.error({
+                    title: 'کالا',
+                    message: 'لطفا کالا مورد نظر را انتخاب کنید',
+                    position: 'topLeft'
+                });
+                return false;
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/portal/chooseTypePercent',
+                data: {'action': 'chooseTypePercent', 'groupId': groupId},
+                success: function (data) {
+                    if (data.status == 200) {
+
+
+                        //$('select[name="PercentGroup"]').val(data.option);
+                        $("#numberToWord").html('');
+                        $("#PercentGroup").html(data.option);
+                        $("#priceProduct").val(data.price);
+                        $("#unitProduct").val(data.unit);
+                        $("#numberToWord").append(PersianTools.numberToWords(data.price) + ' ریال ');
+
+                        /* if (data.unit != 'متر') {
+                             $("#numberToWord").append(PersianTools.numberToWords(data.price) + ' ریال ');
+                         }*/
+
+
                     } else {
                         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
                             button: "باشه"

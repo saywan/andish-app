@@ -117,7 +117,8 @@
                                                         </div><!--end row-->
                                                     </div><!--end card-body-->
                                                     <div class="card-body">
-                                                        <a href="{{url('portal/Factor/PrintPreview/'.$id)}}" target="_blank"
+                                                        <a href="{{url('portal/Factor/PrintPreview/'.$id)}}"
+                                                           target="_blank"
                                                            class="btn btn-primary btn-lg">چاپ فاکتور</a>
                                                         <div class="row">
                                                             <div class="col-lg-12">
@@ -151,14 +152,14 @@
                                                                                 <td>  {{$itemCart->productQty }}</td>
                                                                                 <td>
                                                                                     {{ $itemCart->prodPrice }}
-                                                                                    <span>تومان</span>
+                                                                                    <span>ریال</span>
 
                                                                                 </td>
                                                                                 <td>
                                                                                     {{
    $itemCart->productQty * str_replace(',','',$itemCart->prodPrice)
     }}
-                                                                                    <span>تومان</span>
+                                                                                    <span>ریال</span>
                                                                                 </td>
 
                                                                             </tr>
@@ -172,7 +173,7 @@
                                                                                 </b>
                                                                             </td>
                                                                             <td class="border-0 font-14 text-dark"><b>
-                                                                                    {{   $Factor->grandTotal  }} تومان
+                                                                                    {{   number_format($Factor->final_total)  }} ریال
                                                                                 </b>
                                                                             </td>
                                                                         </tr><!--end tr-->
@@ -182,10 +183,24 @@
                                                                                     ارزش افزوده
                                                                                 </b></td>
                                                                             <td class="border-0 font-14 text-dark"><b>
-                                                                                    0
+                                                                                    @if( $Factor->extraValue)
+                                                                                        {{ $Factor->extraValue }}
+                                                                                    @endif
                                                                                 </b>
                                                                             </td>
-                                                                        </tr><!--end tr-->
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th colspan="2" class="border-0"></th>
+                                                                            <td class="border-0 font-14 text-dark"><b>
+                                                                                   جمع کل
+                                                                                </b></td>
+                                                                            <td class="border-0 font-14 text-dark"><b>
+
+                                                                         {{ number_format($Factor->final_total_extra) }}
+
+                                                                                </b>
+                                                                            </td>
+                                                                        </tr>
                                                                         <tr class="bg-black text-white">
                                                                             <th colspan="2" class="border-0"></th>
                                                                             <td class="border-0 font-14"><b>جمع کل
@@ -193,7 +208,9 @@
                                                                             </td>
                                                                             <td class="border-0 font-14">
                                                                                 <b>
-                                                                                    {{   $Factor->grandTotal  }} تومان
+
+                                                                                    {{ number_format($Factor->final_total_extra) }}
+                                                                                    ریال
 
                                                                                 </b>
                                                                             </td>
@@ -334,7 +351,8 @@
                                                                 <div class="float-end d-print-none mt-2 mt-md-0">
 
 
-                                                                    <a href="{{url('portal/Factor/PrintPreview/'.$id)}}" target="_blank"
+                                                                    <a href="{{url('portal/Factor/PrintPreview/'.$id)}}"
+                                                                       target="_blank"
                                                                        class="btn btn-primary btn-lg">چاپ فاکتور</a>
 
 

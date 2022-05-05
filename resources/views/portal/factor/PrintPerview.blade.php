@@ -139,8 +139,8 @@
             <th style="min-width: 300px;">شرح کالا یا خدمات</th>
             <th>تعداد</th>
             <th>واحد</th>
-            <th>قیمت واحد<br/>(تومان)</th>
-            <th>جمع کل<br/>(تومان)</th>
+            <th>قیمت واحد<br/>(ریال)</th>
+            <th>جمع کل<br/>(ریال)</th>
         </tr>
         @php $i=1; @endphp
         @foreach($ProductOrder as $itemOrder)
@@ -207,15 +207,32 @@
             </td>
         </tr>
         <tr>
+            <th colspan="3">ارزش افزوده  </th>
+            <th colspan="3"
+                class="centerp">
+                <span class="woocommerce-Price-amount amount">
+                    <bdi>
+                         @if( $Factor->extraValue)
+                            {{ $Factor->extraValue }}
+                        @endif
+                        &nbsp;
+                        &nbsp;&nbsp;<span class="woocommerce-Price-currencySymbol"></span>
+                    </bdi>
+                </span>
+                ریال
+            </th>
+        </tr>
+        <tr>
             <th colspan="3">مجموع مبلغ نهایی</th>
             <th colspan="3"
                 class="centerp">
                 <span class="woocommerce-Price-amount amount">
                     <bdi>
-                        {{ $Factor->grandTotal }}&nbsp;
+                        {{ number_format($Factor->final_total_extra) }}
+                        &nbsp;
                         &nbsp;<span class="woocommerce-Price-currencySymbol"></span>
                     </bdi>
-                </span>تومان
+                </span>ریال
             </th>
         </tr>
         <tr>

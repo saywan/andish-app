@@ -48,11 +48,11 @@ class UserController extends Controller
              //   'job' => 'required',
                // 'password' => 'required',
                 'mobile' => 'required|regex:/(09)[0-9]{9}/|digits:11|numeric|unique:users',
-                'email' => 'required|unique:users',
+              //  'email' => 'required|unique:users',
               //  'accountno' => 'required',
-                'cardno' => 'required',
+               /* 'cardno' => 'required',
                 'cardtitle' => 'required',
-                'shebacard' => 'required|digits:24',
+                'shebacard' => 'required|digits:24',*/
                 'typeuser' => 'required',
 
             ], [
@@ -68,13 +68,13 @@ class UserController extends Controller
                 'mobile.regex' => 'فرمت وارد شده صحیح نمی باشد',
                 'mobile.unique' => 'شماره موبایل تکراری هست',
               //  'telephone.required' => 'شماره موبایل مشتری را وارد کنید',
-                'email.required' => 'آدرس ایمیل مشتری را وارد کنید',
-                'email.unique' => 'آدرس ایمیل تکراری   می باشد',
+              //  'email.required' => 'آدرس ایمیل مشتری را وارد کنید',
+             //   'email.unique' => 'آدرس ایمیل تکراری   می باشد',
              //   'accountno.required' => 'شماره حساب مشتری را وارد کنید',
-                'cardno.required' => 'شماره کارت  مشتری را وارد کنید',
+               /* 'cardno.required' => 'شماره کارت  مشتری را وارد کنید',
                 'cardtitle.required' => 'عنوان کارت  مشتری را وارد کنید',
                 'shebacard.required' => ' شماره شبا  مشتری را وارد کنید',
-                'shebacard.digits' => 'شماره شبا  باید 24 عدد باشد',
+                'shebacard.digits' => 'شماره شبا  باید 24 عدد باشد',*/
                 'typeuser.required' => 'نوع حساب  مشتری را مشخص کنید',
             ]);
 
@@ -87,11 +87,11 @@ class UserController extends Controller
                 return response()->json(['status' => 100, 'textmessage' => 'شماره موبایل تکراری هست']);
             }
 
-            $checkEmailUser = User::where('email', $request->email)->exists();
+           /* $checkEmailUser = User::where('email', $request->email)->exists();
             if ($checkEmailUser) {
 
                 return response()->json(['status' => 100, 'textmessage' => 'آدرس ایمیل تکراری هست']);
-            }
+            }*/
 
             $checkCodeMeliCheck = User::where('codemeli', $request->codemeli)->exists();
             if ($checkCodeMeliCheck) {
@@ -106,22 +106,24 @@ class UserController extends Controller
             $user->job = $request->job;
             $user->phone = $request->telephone;
             $user->brithday = $request->datebirth;
-            $user->email = $request->email;
+           // $user->email = $request->email;
             $user->accountno = $request->cardtitle;
             $user->cardnumber = $request->cardno;
             $user->namecard = $request->cardtitle;
             $user->sheba = $request->shebacard;
             $user->address = $request->address;
-            $user->datereg = Jalalian::fromCarbon(Carbon::now())->format(' %A  %d %B %Y | H:i:s ');;
+            $user->datereg = Jalalian::fromCarbon(Carbon::now())->format(' %A  %d %B %Y | H:i:s ');
             $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
 
 
             if ($request->typeuser == 'buyer') {
                 $user->role_id = 3;
 
-            } elseif ($request->typeuser == 'seller') {
+            }
+            elseif ($request->typeuser == 'seller') {
                 $user->role_id = 2;
             }
+
             if ($user->save()) {
                 return response()->json(['status' => 200]);
             } else {
@@ -236,7 +238,7 @@ class UserController extends Controller
 
 
         $listUser = User::where('role_id', '!=', 1)
-            ->where('role_id','=',6)
+            ->where('role_id','=',2)->orWhere('role_id','=',3)
             ->orderBy('id', 'DESC')->get();
 
         return view('portal.user.list', ['listUser' => $listUser]);

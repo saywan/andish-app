@@ -6,6 +6,7 @@ namespace App\Helper;
 
 use App\Models\FactorUser;
 use App\Models\ProductGroup;
+use App\Models\ProductPercent;
 use App\Models\Products;
 use App\Models\UserRole;
 use App\User;
@@ -27,6 +28,16 @@ class Helper
 
         }
     }
+    public static function getPercentName($groupid)
+    {
+        $Group = ProductPercent::where('id', $groupid)->first();
+        if ($Group) {
+            return $Group->title;
+        } else {
+            return 'عنوان گروه بندی یافت نشد';
+
+        }
+    }
 
     public static function getInfoUser($userid)
     {
@@ -34,6 +45,28 @@ class Helper
 
         if ($user) {
             return $user->toArray();
+        } else {
+            return null;
+        }
+
+    }
+    public static function getInfoFactor($fid)
+    {
+        $user = FactorUser::where('id', $fid)->first();
+
+        if ($user) {
+            return $user;
+        } else {
+            return null;
+        }
+
+    }
+
+    public static function getInfoFactorByFID($factorId)
+    {
+        $factor = FactorUser::where('factorId', $factorId)->first();
+        if ($factor) {
+            return $factor->toArray();
         } else {
             return null;
         }
@@ -74,7 +107,7 @@ class Helper
     public static function getUserInfoRole($roleId)
     {
 
-        $role = UserRole::where('id',$roleId)->first();
+        $role = UserRole::where('id', $roleId)->first();
 
         if ($role) {
             if ($role->title == 'accountant') {

@@ -121,9 +121,9 @@
                                                     <a href="{{url('portal/Employee/edit/'.$itemUser->id)}}" title="ویرایش مشتری">
                                                         <i data-feather="edit"></i>
                                                     </a>
-                                                    <a @click="DeleteEmployee({{$itemUser->id}})" title="حذف مشتری">
+                                                  {{--  <a @click="DeleteEmployee({{$itemUser->id}})" title="حذف مشتری">
                                                         <i data-feather="trash"></i>
-                                                    </a>
+                                                    </a>--}}
                                                 </td>
                                             </tr>
                                         @endforeach

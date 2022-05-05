@@ -380,14 +380,14 @@
                                                                                 <td>  {{$itemCart['qty']}}</td>
                                                                                 <td>
                                                                                     {{ $itemCart['product']['price'] }}
-                                                                                    <span>تومان</span>
+                                                                                    <span>ریال</span>
 
                                                                                 </td>
                                                                                 <td>
                                                                                     {{
     str_replace(',','',$itemCart['product']['price']) * $itemCart['qty']
     }}
-                                                                                    <span>تومان</span>
+                                                                                    <span>ریال</span>
                                                                                 </td>
                                                                                 @php $total_price=$total_price +( str_replace(',','',$itemCart['product']['price']) * $itemCart['qty']) @endphp
                                                                             </tr>
@@ -402,11 +402,11 @@
                                                                             </td>
                                                                             <td class="border-0 font-14 text-dark"><b>
                                                                                     {{ (empty($userCartItems)) ? 0 :  number_format($total_price)}}
-                                                                                    تومان
+                                                                                    ریال
                                                                                 </b>
                                                                             </td>
                                                                         </tr><!--end tr-->
-                                                                        <tr>
+                                                                       {{-- <tr>
                                                                             <th colspan="2" class="border-0"></th>
                                                                             <td class="border-0 font-14 text-dark"><b>
                                                                                     ارزش افزوده
@@ -415,7 +415,7 @@
                                                                                     0
                                                                                 </b>
                                                                             </td>
-                                                                        </tr><!--end tr-->
+                                                                        </tr>--}}
                                                                         <tr class="bg-black text-white">
                                                                             <th colspan="2" class="border-0"></th>
                                                                             <td class="border-0 font-14"><b>جمع کل
@@ -429,7 +429,7 @@
                                                                                            name="totalPriceUser"
                                                                                            id="totalPriceUser"
                                                                                            value="{{ (empty($userCartItems)) ? 0 :  number_format($total_price)}}">
-                                                                                    <span>تومان</span>
+                                                                                    <span>ریال</span>
                                                                                 </b>
                                                                             </td>
                                                                         </tr><!--end tr-->

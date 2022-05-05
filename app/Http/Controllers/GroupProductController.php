@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductGroup;
+use App\Models\ProductPercent;
 use App\Models\Products;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,7 +31,8 @@ class GroupProductController extends Controller
      */
     public function create()
     {
-        return view('portal.Group.create');
+        $percent = ProductPercent::all();
+        return view('portal.Group.create', ['percent' => $percent]);
     }
 
     /**
@@ -41,12 +43,16 @@ class GroupProductController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $validator = Validator::make($request->all(), [
             'titleGroup' => 'required',
             'unitPercent' => 'required',
+            'percentgroupId' => 'required',
         ], [
             'titleGroup.required' => 'عنوان گروه کالای را وارد کنید',
             'unitPercent.required' => 'واحد کالا را وارد کنید',
+            'percentgroupId.required' => 'دسته درصد کالای را انتخاب کنید',
 
         ]);
 
@@ -57,21 +63,21 @@ class GroupProductController extends Controller
 
         if ($request->unitPercent == 'meter') {
 
-            $unitPercent ='meter';
+            $unitPercent = 'meter';
             $weight = $request->weightProduct;
-            $price=0;
+            $price = 0;
 
-        } else if ($request->unitPercent == 'numerical')
-        {
-            $weight=0;
-            $price= $priceproduct;
-            $unitPercent ='numerical';
+        } else if ($request->unitPercent == 'numerical') {
+            $weight = 0;
+            $price = $priceproduct;
+            $unitPercent = 'numerical';
 
         }
         $user = new ProductGroup();
         $user->userId = \Auth::user()->id;
+        $user->percent_id = $request->percentgroupId;
         $user->title = $request->titleGroup;
-        $user->unit_producte =$unitPercent;
+        $user->unit_producte = $unitPercent;
         $user->status = $request->statusProduct;
         $user->weight = $weight;
         $user->price = $price;
@@ -107,7 +113,8 @@ class GroupProductController extends Controller
 
         $infoGroupProduct = ProductGroup::find($id);
         if ($infoGroupProduct) {
-            return view('portal.Group.edit', ['edit' => $infoGroupProduct]);
+            $percent = ProductPercent::all();
+            return view('portal.Group.edit', ['edit' => $infoGroupProduct, 'percent' => $percent]);
         } else {
             return redirect('GroupProduct');
         }
@@ -125,11 +132,15 @@ class GroupProductController extends Controller
     {
 
         $article = ProductGroup::findOrFail($request->id);
+        // dd($request->all());
+
         $article->update([
             'title' => $request->titleGroup,
-            'percent' => $request->percentGroup,
-            'fee' => $request->feeGroup,
-            'unit' => $request->unitGroup,
+            'percent_id' => $request->percentgroupId,
+            'unit_producte' => $request->unitPercent,
+            'price' => str_replace(',', '', $request->priceproduct),
+            'weight' => $request->weightProduct,
+            'status' => 'active',
         ]);
 
         return response()->json(['status' => 200]);
@@ -143,16 +154,15 @@ class GroupProductController extends Controller
      */
     public function destroy(Request $request)
     {
-       // $GProduct = ProductGroup::find($id);
+        // $GProduct = ProductGroup::find($id);
         //dd($request->id)
-       $GProduct = ProductGroup::where('id', $request->Id)->first();
+        $GProduct = ProductGroup::where('id', $request->Id)->first();
         if ($GProduct) {
 
-            $Product=Products::where('groupId',$request->Id)->get();
-            if(count($Product) > 0)
-            {
+            $Product = Products::where('groupId', $request->Id)->get();
+            if (count($Product) > 0) {
                 return response()->json(['status' => 401]);
-            }else{
+            } else {
                 $GProduct->delete();
                 return response()->json(['status' => 200]);
             }

@@ -138,6 +138,7 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['auth']]
     Route::get('CreateProduct', 'ProductController@create')->name('CreateProduct');
     Route::post('storeProduct', 'ProductController@store')->name('storeProduct');
     Route::post('getPriceProduct', 'ProductController@getPriceProduct')->name('getPriceProduct');
+    Route::post('chooseTypePercent', 'ProductController@chooseTypePercent')->name('chooseTypePercent');
     Route::post('ChangeStatusProduct', 'ProductController@ChangeStatusProduct')->name('ChangeStatusProduct');
     Route::get('Product/edit/{id}', 'ProductController@edit')->name('portal.ShowEditProduct');
     Route::post('UpdateProduct', 'ProductController@update')->name('UpdateProduct');
@@ -181,6 +182,14 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['auth']]
     Route::post('UpdateFactor', 'FactorController@update')->name('UpdateFactor');
     Route::post('UpdateItemFactor', 'FactorController@UpdateItemFactor')->name('UpdateItemFactor');
     Route::post('DeleteFactor', 'FactorController@destroy')->name('DeleteFactor');
+
+    Route::get('FinalFactor', 'FactorController@showFinalFactor')->name('FinalFactor');
+    Route::get('FinalFactor/{id}', 'FactorController@detailsFinalFactor')->name('detailsFinalFactor');
+    Route::post('ExportFinalFactor', 'FactorController@ExportFinalFactor')->name('DeleteFaExportFinalFactorctor');
+
+    // ProcessExitProduct
+
+    Route::post('ProcessExitProduct', 'FactorController@ProcessExitProduct')->name('ProcessExitProduct');
 
 
     //Setting Part

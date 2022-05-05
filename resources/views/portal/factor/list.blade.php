@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header bg-info text-center text-white">
                             <h4>
                               فاکتور های شرکت اندیش گستر
                             </h4>
@@ -80,7 +80,8 @@
                                         <th> مشتری </th>
                                         <th> وضعیت سفارش </th>
                                         <th> شیوه پرداخت فاکتور </th>
-                                        <th> مبلغ فاکتور </th>
+                                        <th> مبلغ فاکتور بدونه ارزش افزوده </th>
+                                        <th> مبلغ فاکتور با ارزش  افزوده </th>
                                         <th> تاریخ صدور فاکتور </th>
                                         <th>اطلاعات بیشتر</th>
                                     </tr>
@@ -188,8 +189,12 @@
                                                     @endif
 
                                                 </td>
-                                                <td>
-                                                    {{$itemUser->grandTotal}}
+                                                <td class="text-center font-15 text-success">
+                                                    {{!empty($itemUser->final_total) || ($itemUser->final_total !=0) ? number_format($itemUser->final_total) : $itemUser->final_total }}
+                                                </td>
+                                                <td class="text-center font-15 text-danger">
+                                                    {{!empty($itemUser->final_total_extra) || ($itemUser->final_total_extra !=0) ? number_format($itemUser->final_total_extra) : $itemUser->final_total_extra }}
+
                                                 </td>
 
                                                 <td>  {{$itemUser->datereg}}   </td>

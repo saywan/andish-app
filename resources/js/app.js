@@ -6645,9 +6645,8 @@ const app = new Vue({
                     result.dismiss === Swal.DismissReason.cancel
                 ) {
                     swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Your imaginary file is safe :)',
-                        'error'
+                        'لغو شد',
+                        'خطا'
                     )
                 }
 
@@ -8446,7 +8445,7 @@ const app = new Vue({
                 });
                 return false;
             }*/
-            else if (cardno == '') {
+            /*else if (cardno == '') {
                 Swal.fire({
                     type: "info",
                     icon: 'warning',
@@ -8479,7 +8478,7 @@ const app = new Vue({
                     confirmButtonText: 'متوجه شدم',
                 });
                 return false;
-            } else if (typeuser == '') {
+            } */else if (typeuser == '') {
                 Swal.fire({
                     type: "info",
                     icon: 'warning',
@@ -9356,6 +9355,7 @@ const app = new Vue({
 
             var titleGroup = $('#titleGroup').val();
             var unitPercent = $('#unitPercent :selected').val();
+            var percentgroupId = $('select[name="percentgroup"]').find(":selected").val();
             var weightProduct = $('#weightProduct').val();
             var priceproduct = $('#priceproduct').val();
             var statusProduct = $("#statususer").prop('checked') == true ? 'active' : 'inactive';
@@ -9373,7 +9373,20 @@ const app = new Vue({
                 });
                 return false;
 
-            } else if (unitPercent == 0) {
+            }
+            else if (percentgroupId == 0) {
+
+                Swal.fire({
+                    type: "info",
+                    icon: 'warning',
+                    title: 'دسته درصد کالای الزامسیت',
+                    text: 'دسته درصد کالای را انتخاب کنید ',
+                    position: "top-right",
+                    confirmButtonClass: 'btn btn-success',
+                    confirmButtonText: 'متوجه شدم',
+                });
+
+            }else if (unitPercent == 0) {
 
                 Swal.fire({
                     type: "info",
@@ -9419,6 +9432,7 @@ const app = new Vue({
 
             let dataform = new FormData();
             dataform.append('titleGroup', titleGroup);
+            dataform.append('percentgroupId', percentgroupId);
             dataform.append('unitPercent', unitPercent);
             dataform.append('weightProduct', weightProduct);
             dataform.append('priceproduct', priceproduct);
@@ -9477,9 +9491,11 @@ const app = new Vue({
 
 
             var titleGroup = $('#titleGroup').val();
-            var percentGroup = $('#percentGroup').val();
-            var feeGroup = $('#feeGroup').val();
-            var unitGroup = $('#unitGroup').val();
+            var percentgroupId = $('select[name="percentgroup"]').find(":selected").val();
+            var unitPercent = $('#unitPercent :selected').val();
+            var priceproduct = $('#priceproduct').val();
+            var statusProduct = $("#statususer").prop('checked') == true ? 'active' : 'inactive';
+            var weightProduct = $('#weightProduct').val();
 
 
             if (titleGroup == '') {
@@ -9493,49 +9509,72 @@ const app = new Vue({
                     confirmButtonText: 'متوجه شدم',
                 });
                 return false;
-            } else if (percentGroup == '') {
+            }
+           else if (percentgroupId == 0) {
                 Swal.fire({
                     type: "info",
                     icon: 'warning',
-                    title: 'درصد گروه کالای الزامیست ',
-                    text: 'درصد گروه کالای را وارد کنید ',
-                    position: "top-right",
-                    confirmButtonClass: 'btn btn-success',
-                    confirmButtonText: 'متوجه شدم',
-                });
-                return false;
-            } else if (feeGroup == '') {
-                Swal.fire({
-                    type: "info",
-                    icon: 'warning',
-                    title: 'ارزش افزوده گروه کالای الزامیست ',
-                    text: 'ارزش افزوده گروه کالای  را وارد کنید ',
-                    position: "top-right",
-                    confirmButtonClass: 'btn btn-success',
-                    confirmButtonText: 'متوجه شدم',
-                });
-                return false;
-            } else if (unitGroup == '') {
-                Swal.fire({
-                    type: "info",
-                    icon: 'warning',
-                    title: 'واحد گروه کالا الزامیست ',
-                    text: 'واحد گروه کالا را وارد کنید ',
+                    title: 'دسته درصد کالای الزامسیت ',
+                    text: 'درسته درصد کالای را انتخاب کنید ',
                     position: "top-right",
                     confirmButtonClass: 'btn btn-success',
                     confirmButtonText: 'متوجه شدم',
                 });
                 return false;
             }
+           else if (unitPercent == 0) {
 
+                Swal.fire({
+                    type: "info",
+                    icon: 'warning',
+                    title: 'واحد کالا الزامیست ',
+                    text: 'واحد کالا را مشخص کنید ',
+                    position: "top-right",
+                    confirmButtonClass: 'btn btn-success',
+                    confirmButtonText: 'متوجه شدم',
+                });
+
+                return false;
+            }
+
+
+            if (unitPercent == 'meter') {
+                if (weightProduct == '') {
+                    Swal.fire({
+                        type: "info",
+                        icon: 'warning',
+                        title: 'وزن کالا الزامسیت',
+                        text: 'وزن کالا را وارد  کنید ',
+                        position: "top-right",
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'متوجه شدم',
+                    });
+                    return false;
+                }
+            } else if (unitPercent == 'numerical') {
+
+                if (priceproduct == '') {
+                    Swal.fire({
+                        type: "info",
+                        icon: 'warning',
+                        title: 'قیمت کالا الزامسیت',
+                        text: 'قیمت کالا را وارد  کنید ',
+                        position: "top-right",
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'متوجه شدم',
+                    });
+                    return false;
+                }
+            }
 
             let dataform = new FormData();
-            dataform.append('titleGroup', titleGroup);
-            dataform.append('percentGroup', percentGroup);
-            dataform.append('feeGroup', feeGroup);
-            dataform.append('unitGroup', unitGroup);
             dataform.append('id', id);
-
+            dataform.append('titleGroup', titleGroup);
+            dataform.append('percentgroupId', percentgroupId);
+            dataform.append('unitPercent', unitPercent);
+            dataform.append('priceproduct', priceproduct);
+            dataform.append('weightProduct', weightProduct);
+            dataform.append('statusProduct', statusProduct);
 
             axios.post('/portal/UpdateProductGroup',
                 dataform,
@@ -10029,13 +10068,142 @@ const app = new Vue({
 
         },
 
+        addProcessExit: function (id) {
+
+            var fullnameDelivery = $('#fullnameDelivery').val();
+            var mobileDelivery = $('#mobileDelivery').val();
+            var productExitId = $('#productExitId option:selected').val();
+            var currentQtyItem = $('#currentQtyItem').val();
+            var finalFactor = $('#finalFactor').val();
+            var requestCountItem = $('#requestCountItem').val();
+
+
+
+            if (fullnameDelivery == '') {
+                Swal.fire({
+                    type: "info",
+                    title: 'نام تحویل گیرنده',
+                    text: 'نام تحویل گیرنده را وارد کنید',
+                    position: "top-right",
+                    icon: 'warning',
+                    confirmButtonClass: 'btn btn-success',
+                    confirmButtonText: 'متوجه شدم',
+                });
+                return false;
+            }
+            if (requestCountItem == '') {
+                Swal.fire({
+                    type: "info",
+                    title: 'تعداد خروج',
+                    text: 'تعداد خروج را وارد کنید',
+                    position: "top-right",
+                    icon: 'warning',
+                    confirmButtonClass: 'btn btn-success',
+                    confirmButtonText: 'متوجه شدم',
+                });
+                return false;
+            }
+
+
+            let dataform = new FormData();
+            dataform.append('fullnameDelivery', fullnameDelivery);
+            dataform.append('mobileDelivery', mobileDelivery);
+            dataform.append('productExitId', productExitId);
+            dataform.append('currentQtyItem', currentQtyItem);
+            dataform.append('finalFactor', finalFactor);
+            dataform.append('requestCountItem', requestCountItem);
+
+
+            axios.post('/portal/ProcessExitProduct',
+                dataform,
+                {
+                    headers: {
+
+                        'Content-Type': 'multipart/form-data'
+                    }
+
+                }).then(response => {
+
+
+                if (response.data.status == 200) {
+
+                    //window.location.assign('/User/Confirm');
+                    Swal.fire({
+                        type: "success",
+                        title: 'خروج کالا',
+                        text: 'خروج کالا با موفقیت ثبت شد',
+                        position: "top-right",
+                        icon: 'success',
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 3000);
+                }else if (response.data.status == 302) {
+
+                    //window.location.assign('/User/Confirm');
+                    Swal.fire({
+                        type: "success",
+                        title: 'تعداد درخواست خروج',
+                        text: response.data.message,
+                        position: "top-right",
+                        icon: 'info',
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+
+                  /*  setTimeout(function () {
+                        window.location.reload();
+                    }, 3000);*/
+
+                }else if (response.data.status == 422) {
+
+                    //window.location.assign('/User/Confirm');
+                    Swal.fire({
+                        type: "success",
+                        title: 'خروج غیرمجاز',
+                        text: response.data.message,
+                        position: "top-right",
+                        icon: 'warning',
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+
+                  /*  setTimeout(function () {
+                        window.location.reload();
+                    }, 3000);*/
+
+                } else {
+
+                    Swal.fire({
+                        type: "warning",
+                        title: 'خطا ',
+                        text: 'مجددا تلاش کنید',
+                        position: "top-left",
+                        confirmButtonClass: 'btn btn-success',
+                        confirmButtonText: 'باشه',
+                    });
+                }
+
+
+            }).catch((error) => {
+
+
+                this.allerros = error.response.data.errors;
+
+            });
+
+
+        },
+
 
         NewProduct: function () {
 
 
             //var title = $('#titleProduct').val();
 
-            var titleProduct = $('select[name="titleProduct"]').find(":selected").val();
+            var groupProductId = $('select[name="groupProductId"]').find(":selected").val();
             var PercentGroup = $('#PercentGroup').find(':selected').val();
             var countProduct = $('#countProduct').val();
             var unitProduct = $('#unitProduct').val();
@@ -10045,7 +10213,7 @@ const app = new Vue({
             var statusProduct = $("#statususer").prop('checked') == true ? 'active' : 'inactive';
 
 
-            if (titleProduct == '') {
+            if (groupProductId == '') {
                 Swal.fire({
                     type: "info",
                     title: 'عنوان  کالای الزامیست ',
@@ -10115,7 +10283,7 @@ const app = new Vue({
 
 
             let dataform = new FormData();
-            dataform.append('titleProduct', titleProduct);
+            dataform.append('groupProductId', groupProductId);
             dataform.append('PercentGroup', PercentGroup);
             dataform.append('count', countProduct);
             dataform.append('unit', unitProduct);
@@ -10428,7 +10596,7 @@ const app = new Vue({
                 });
                 return false;
 
-            } else if (Address == 0) {
+            }/* else if (Address == 0) {
                 iziToast.error({
                     title: 'آدرس  ',
                     message: 'لطفا آدرس را وارد کنید',
@@ -10436,7 +10604,7 @@ const app = new Vue({
                 });
                 return false;
 
-            }
+            }*/
 
 
             let dataform = new FormData();
@@ -10812,6 +10980,67 @@ const app = new Vue({
                 }
             });
         },
+        ExportFactor(FactorId) {
+
+
+            Swal.fire({
+                title: 'آیا قصد دارید فاکتور بصورت رسمی و نهایی صادر شود؟ ',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: `بله`,
+                denyButtonText: `خیر`,
+                cancelButtonText: `لغو`,
+            }).then(function (result) {
+
+                if (result.isConfirmed) {
+                    axios.post('/portal/ExportFinalFactor', {
+                        FactorId: FactorId
+
+                    }).then(response => {
+
+                        if (response.data.status == 200) {
+
+                            iziToast.success({
+                                title: 'صدور موفق آمیز',
+                                message: 'فاکتور به حالت رسمی و نهایی صادر شد',
+                                position: 'topLeft'
+                            });
+
+
+
+                            setTimeout(function () {
+                                window.location.assign('CreateFactor');
+                            }, 2000);
+
+                        } else if (response.data.status == 100) {
+                            swal("حذف ناموفق مجددا تلاش کنید", {
+                                icon: "warning",
+                                button: "باشه"
+                            });
+                            setTimeout(function () {
+                                window.location.assign('Category');
+                            }, 2000);
+                        }
+
+
+                    }, response => {
+                        this.error = 1;
+                        console.log("error");
+                    });
+
+
+                } else if (result.isDenied) {
+
+                    iziToast.info({
+                        title: 'حذف ناموفق',
+                        message: 'مجددا تلاش کنید',
+                        position: 'topLeft'
+                    });
+
+
+                }
+            });
+        },
         ChangeStatusOrder(type, id) {
 
             Swal.fire({
@@ -10933,6 +11162,7 @@ const app = new Vue({
                 }
             });
         },
+
         OrderProduct: function (PID) {
 
 
@@ -11120,7 +11350,6 @@ const app = new Vue({
             dataform.append('qtyProduct', qtyProduct);
             dataform.append('userId', userId);
             dataform.append('factorId', $("#factorId").val());
-
 
             axios.post('/portal/AddItemFactor',
                 dataform,

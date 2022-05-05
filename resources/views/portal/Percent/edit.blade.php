@@ -73,7 +73,7 @@
 
 
                             </div>
-                            <div class="col-md-3">
+                            {{--<div class="col-md-3">
 
                                 <label for="email" class="col-lg-3 col-form-label text-end">
                                     واحد درصد
@@ -93,7 +93,7 @@
 
 
 
-                            </div>
+                            </div>--}}
                         </div>
 
                         <div class="text-center">
