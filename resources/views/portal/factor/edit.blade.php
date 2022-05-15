@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="txtLastNameBilling"
-                                       class="col-lg-8 col-form-label text-end">
+                                       class="col-lg-12 col-form-label text-center">
 
                                     مبلغ فاکتور بدونه احتساب ارزش افزوده
                                 </label>
@@ -125,7 +125,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="txtLastNameBilling"
-                                       class="col-lg-3 col-form-label text-end">
+                                       class="col-lg-9 col-form-label text-center">
                                     عنوان پروژه
                                 </label>
 
@@ -136,7 +136,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="txtLastNameBilling"
-                                       class="col-lg-3 col-form-label text-end">
+                                       class="col-lg-9 col-form-label text-center">
                                     کد اقتصادی
                                 </label>
 
@@ -196,7 +196,7 @@
                                 <div class="form-group mb-3 row">
                                     <div class="col-md-3">
                                         <label for="txtFirstNameBilling"
-                                               class="col-lg-3 col-form-label text-end">
+                                               class="col-lg-6 col-form-label text-end">
                                             عنوان کالا
                                         </label>
 
@@ -207,7 +207,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label for="txtLastNameBilling"
-                                               class="col-lg-3 col-form-label text-center">
+                                               class="col-lg-6 col-form-label text-center">
                                             قیمت واحد کالا
                                         </label>
 
@@ -218,20 +218,21 @@
 
                                     <div class="col-md-3">
                                         <label for="txtLastNameBilling"
-                                               class="col-lg-3 col-form-label text-end">
+                                               class="col-lg-6 col-form-label text-center">
                                             تعداد سفارش
+
                                         </label>
 
                                         <input type="text" value="{{$itemFact->productQty}}" class="form-control"
                                                id="QtyOrder{{$itemFact->id}}">
-                                        <button type="button" class="btn btn-primary float-end"
+                                        <button type="button" class="btn btn-primary float-end mt-2"
                                                 @click="EditCountItemFactor({{$itemFact->id}})">
                                             ویرایش تعداد کالا
                                         </button>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label for="txtLastNameBilling"
-                                               class="col-lg-10 col-form-label text-end">
+                                               class="col-lg-12 col-form-label text-center">
                                             قیمت با احتساب تعداد سفارش
                                         </label>
 

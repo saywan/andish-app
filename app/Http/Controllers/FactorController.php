@@ -145,26 +145,43 @@ class FactorController extends Controller
 
                 }
 
-                $FinalFactor = new  FinalFactor();
-                $FinalFactor->factor_id = $request->FactorId;
-                $FinalFactor->user_id = $getInfoFactor->userId;
-                $FinalFactor->user_id_export = Auth::user()->id;
-                $FinalFactor->factor_items_id = $listItemFactorId;
-                $FinalFactor->total_item_count = $totalQty;
-                $FinalFactor->status = 'wait';
-                $FinalFactor->datereg = Jalalian::fromCarbon(Carbon::now())->format('H:i:s |  %A  %d %B %y ');
-                if ($FinalFactor->save()) {
 
-                    // Send SMS
-                    Smsirlaravel::ultraFastSend([
-                        'factor_id' => $request->FactorId,
-                        'username' => Helper::getInfoUser($getInfoFactor->userId)['fullname'],
-                        'datetime' => Jalalian::fromCarbon(Carbon::now())->format('H:i:s |  %A  %d %B %Y ')
-                    ], 64326, "09183732103");
+                $checkFinalFactor = FinalFactor::where('factor_id', $request->FactorId)->first();
+                if ($checkFinalFactor) {
 
-
+                    $checkFinalFactor->update([
+                        'factor_items_id' => $listItemFactorId,
+                        'total_item_count' => $totalQty,
+                    ]);
                     return response()->json(['status' => 200, 'message' => 'فاکتور رسمی با موفقیت صادر و ثبت شده']);
+                } else {
+
+                    $FinalFactor = new  FinalFactor();
+                    $FinalFactor->factor_id = $request->FactorId;
+                    $FinalFactor->user_id = $getInfoFactor->userId;
+                    $FinalFactor->user_id_export = Auth::user()->id;
+                    $FinalFactor->factor_items_id = $listItemFactorId;
+                    $FinalFactor->total_item_count = $totalQty;
+                    $FinalFactor->status = 'wait';
+                    $FinalFactor->datereg = Jalalian::fromCarbon(Carbon::now())->format('H:i:s |  %A  %d %B %y ');
+
+                    if ($FinalFactor->save()) {
+
+                        // Send SMS
+                        Smsirlaravel::ultraFastSend([
+                            'factor_id' => $request->FactorId,
+                            'username' => Helper::getInfoUser($getInfoFactor->userId)['fullname'],
+                            'datetime' => Jalalian::fromCarbon(Carbon::now())->format('H:i:s |  %A  %d %B %Y ')
+                        ], 64326, "09183732103");
+                        
+
+                        //09183732103
+
+                        return response()->json(['status' => 200, 'message' => 'فاکتور رسمی با موفقیت صادر و ثبت شده']);
+                    }
                 }
+
+
             }
 
 
@@ -183,18 +200,25 @@ class FactorController extends Controller
     {
 
         $factor = FinalFactor::where('id', $id)->first();
+
+        //dd($factor);
+
+
         if ($factor) {
             $getInfoItemFactor = $factor->factor_items_id;
+
+
             if (count($getInfoItemFactor) > 0) {
                 $getItemSubFactor = FactorOrderUser::whereIn('id', $getInfoItemFactor)->get();
+               // dd($getItemSubFactor);
 
-                $getInfoProcessProduct = ProcessExitProduct::where('factor_id', $getInfoItemFactor)->get();
+                $getInfoProcessProduct = ProcessExitProduct::where('final_factor_id', $id)->get();
+            //    dd($getInfoProcessProduct);
+
                 /*foreach ($getInfoItemFactor as $itemSubFactor)
                 {
-
                 }*/
             }
-
 
             return view('portal.factor.detailsFactorFinal', compact('factor', 'getItemSubFactor', 'id', 'getInfoProcessProduct'));
         } else {
@@ -462,6 +486,130 @@ class FactorController extends Controller
 
     }
 
+    public function checkCoupon(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            $id = $data['id'];
+            $percentNumber = $data['percentOff'];
+
+            if ($percentNumber < 0) {
+                $message = "مقدار وارد شده درصد تخفیف نامعتبر است";
+                return response()->json(['status' => 302, 'message' => $message]);
+            }
+            if ($percentNumber > 100) {
+                $message = "مقدار وارد شده درصد تخفیف بین 1 الی 100 درصد وارد کنید";
+                return response()->json(['status' => 302, 'message' => $message]);
+            }
+
+            $getInfo = FactorUser::where('id', $id)->first();
+            //  percent_off
+
+            $newPriceWithPercentTotal = $getInfo->final_total * ($percentNumber / 100);
+            $newPriceWithPercentFinalExtraTotal = $getInfo->final_total_extra * ($percentNumber / 100);
+
+
+            $getInfo->update([
+                'final_total' => $newPriceWithPercentTotal,
+                'final_total_extra' => $newPriceWithPercentFinalExtraTotal,
+                'percent_off' => $percentNumber,
+            ]);
+
+
+            return response()->json(['status' => 200,]);
+
+        }
+    }
+
+    public function moreDetailsItemProduct(Request $request)
+    {
+
+
+        // dd($request->all());
+
+        $getInfoFactor = FactorUser::where('factorId', $request->factorId)->first();
+
+
+        if ($getInfoFactor) {
+            $getItemFactorProd = FactorOrderUser::where('id', $request->itemProductFinalFactor)->first();
+            // dd( $request->itemProductFinalFactor);
+
+            $variable_name = ' <div class="col-lg-12 col-md-12">
+                                                        <h5 class="text-danger">
+                                                            ' . $getItemFactorProd->prodname . '
+
+                                                        </h5>
+                                                        <br>
+
+                                                        <form class="form-horizontal auth-form my-4" action="#">
+
+                                                            <div class="row g-3">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="fullnameDelivery">نام تحویل گیرنده</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="fullnameDelivery" id="fullnameDelivery"
+                                                                               placeholder="نام تحویل گیرنده "
+                                                                               value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="mobileDelivery">شماره موبایل گیرنده
+                                                                        (اختیاری)</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="mobileDelivery" id="mobileDelivery"
+                                                                               placeholder=" شماره موبایل گیرنده (اختیاری)"
+                                                                               value="">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="requestCountItem">
+                                                                        تعداد خروج کالا
+                                                                        (تعداد مجاز خروج <b class="text-danger">
+                                                                            (  ' . $getItemFactorProd->productQty . ')
+                                                                        </b>)
+                                                                    </label>
+
+                                                                    <input type="hidden" name="productOrderId"
+                                                                           id="productOrderId"
+                                                                           value="' . $getItemFactorProd->id . '">
+
+
+                                                                  <input type="hidden" name="prodId"
+                                                                           id="prodId"
+                                                                           value="' . $getItemFactorProd->prodId . '">
+
+                                                                    <input type="hidden" name="currentQtyItem"
+                                                                           id="currentQtyItem"
+                                                                           value="' . $getItemFactorProd->productQty . '">
+
+                                                                    <input type="hidden" name="finalFactor" id="finalFactor"
+                                                                           value="' . $getInfoFactor->id . '">
+
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control"
+                                                                               name="requestCountItem" id="requestCountItem"
+                                                                               placeholder="تعداد حواله خروج کالا  را وارد کنید">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                        </form>
+                                                    </div>';
+
+        }
+
+
+        return response()->json([
+            'status' => 200,
+            'html' => $variable_name,
+
+        ])->setStatusCode(200);
+    }
 
     public function ProcessExitProduct(Request $request)
     {
@@ -471,12 +619,15 @@ class FactorController extends Controller
             $data = $request->all();
 
 
-            $getInfoProduct = Products::where('id', $data['productExitId'])->first()->toArray();
+            $getInfoProduct = Products::where('id', $data['prodId'])->first()->toArray();
 
-            $getInfoOrderItemUser = FactorOrderUser::where('id', $data['productExitId'])->where('FactorId', $data['finalFactor'])->first();
+            $getInfoOrderItemUser = FactorOrderUser::where('id', $data['productOrderId'])->where('FactorId', $data['finalFactor'])->first();
+
+
+            //  dd($getInfoOrderItemUser);
+
+
             if ($getInfoOrderItemUser) {
-
-
 
 
                 if ($getInfoOrderItemUser['productQty'] < $data['requestCountItem']) {
@@ -485,22 +636,56 @@ class FactorController extends Controller
                     return response()->json(['status' => 302, 'message' => $message]);
                 }
 
-                $ProcessExitProduct = ProcessExitProduct::where('product_order_id', $data['productExitId'])->where('factor_id', $data['finalFactor'])->first();
+                $ProcessExitProduct = ProcessExitProduct::where('product_order_id', $data['productOrderId'])->where('final_factor_id', $data['finalFactor'])->orderBy('id', 'desc')->first();
 
-                if ($ProcessExitProduct['current_count'] > $request->requestCountItem) {
-                    $message = "ظرفیت خروج تمام شده است ";
-                    return response()->json(['status' => 422, 'message' => $message]);
+                //  dd($data);
+
+
+                if ($ProcessExitProduct) {
+                    if ($ProcessExitProduct['remin_count'] < $request->requestCountItem) {
+
+                        $message = "ظرفیت خروج تمام شده است ";
+                        return response()->json(['status' => 422, 'message' => $message]);
+                    } else {
+
+                        //   dd($ProcessExitProduct);
+
+                        $processExitProduct = new ProcessExitProduct();
+                        $processExitProduct->user_id = Auth::user()->id;
+                        $processExitProduct->user_id_order = Helper::getInfoFactor($data['finalFactor'])->userId;
+                        $processExitProduct->fullname_delivery = $request->fullnameDelivery;
+                        $processExitProduct->mobile = $request->mobileDelivery;
+                        $processExitProduct->final_factor_id = $data['finalFactor'];
+                        $processExitProduct->product_order_id = $data['productOrderId'];
+                        $processExitProduct->current_count = $ProcessExitProduct['current_count'];
+                        $processExitProduct->exit_count = $request->requestCountItem;
+                        $processExitProduct->remin_count = $ProcessExitProduct['remin_count'] - $request->requestCountItem;
+                        $processExitProduct->datereg = Jalalian::fromCarbon(Carbon::now())->format('%A  %d %B %Y | H:i:s ');
+
+                        if ($processExitProduct->save()) {
+                            return response()->json(['status' => 200]);
+                        } else {
+                            return response()->json(['status' => 422]);
+                        }
+                    }
+
+
                 } else {
+
+                    // dd($data);
+
                     $processExitProduct = new ProcessExitProduct();
                     $processExitProduct->user_id = Auth::user()->id;
                     $processExitProduct->user_id_order = Helper::getInfoFactor($data['finalFactor'])->userId;
                     $processExitProduct->fullname_delivery = $request->fullnameDelivery;
                     $processExitProduct->mobile = $request->mobileDelivery;
-                    $processExitProduct->factor_id = $data['finalFactor'];
-                    $processExitProduct->product_order_id = $getInfoOrderItemUser['id'];
+                    $processExitProduct->final_factor_id = $data['finalFactor'];
+                    $processExitProduct->product_order_id = $data['productOrderId'];
                     $processExitProduct->current_count = $request->currentQtyItem;
                     $processExitProduct->exit_count = $request->requestCountItem;
+                    $processExitProduct->remin_count = $request->currentQtyItem - $request->requestCountItem;
                     $processExitProduct->datereg = Jalalian::fromCarbon(Carbon::now())->format('%A  %d %B %Y | H:i:s ');
+
 
                     if ($processExitProduct->save()) {
                         return response()->json(['status' => 200]);
@@ -518,6 +703,78 @@ class FactorController extends Controller
         }
 
 
+    }
+
+    public function ProcessExitAllProduct(Request $request)
+    {
+
+        if ($request->isMethod('post')) {
+
+            $data = $request->all();
+
+
+            $FactorOrderUser = FactorOrderUser::where('FactorId', $data['Id'])->get();
+            $getInfoProccessExit = ProcessExitProduct::where('final_factor_id', $data['Id'])->get();
+
+            if (count($getInfoProccessExit) == 0) {
+                if (count($FactorOrderUser) > 0) {
+                    foreach ($FactorOrderUser as $itemFactor) {
+                        //dd( $itemFactor);
+                        $getInfoUser = Helper::getInfoUser($itemFactor->userId);
+
+                        $processExitProduct = new ProcessExitProduct();
+                        $processExitProduct->user_id = Auth::user()->id;
+                        $processExitProduct->user_id_order = $itemFactor->userId;
+                        $processExitProduct->fullname_delivery = $getInfoUser['fullname'];
+                        $processExitProduct->mobile = $getInfoUser['mobile'];
+                        $processExitProduct->final_factor_id = $data['Id'];
+                        $processExitProduct->product_order_id = $itemFactor->id;
+                        $processExitProduct->current_count = $itemFactor->productQty;
+                        $processExitProduct->exit_count = $itemFactor->productQty;
+                        $processExitProduct->remin_count = 0;
+                        $processExitProduct->datereg = Jalalian::fromCarbon(Carbon::now())->format('%A  %d %B %Y | H:i:s ');
+
+                        $processExitProduct->save();
+
+                    }
+                    if ($processExitProduct) {
+                        return response()->json(['status' => 200]);
+                    } else {
+                        return response()->json(['status' => 422]);
+                    }
+
+                }
+            } else {
+                return response()->json(['status' => 419, 'msg' => 'قبلا همه کالا خارج شده است']);
+            }
+
+
+        }
+
+
+    }
+
+    public function PrintPreviewExit($id)
+    {
+        $FinalFactor = FinalFactor::where('id', $id)->first();
+        // dd($FinalFactor);
+
+        $FactorOrderUser = FactorUser::where('factorId', $FinalFactor->factor_id)->first();
+        // dd($FactorOrderUser->toArray());
+
+        if ($FactorOrderUser) {
+
+            $admin = AdminSettings::find(1);
+
+            $ProcessExit=ProcessExitProduct::where('final_factor_id',$id)->get();
+
+            return view('portal.factor.PrintPerviewExit', [
+                'FinalFactor' => $FinalFactor,
+                'ProcessExit' => $ProcessExit,
+                'FactorOrderUser' => $FactorOrderUser,
+                'id' => $id, 'admin' => $admin
+            ]);
+        }
     }
 
     /**
@@ -562,7 +819,7 @@ class FactorController extends Controller
 
         } else {
 
-            return redirect()->back();
+            return redirect()->route('portal.Factor');
 
         }
 
@@ -596,11 +853,11 @@ class FactorController extends Controller
             $final_total_extra = str_replace(',', '', $data['totalPriceUser']) + $totalValueExtra;
 
             DB::beginTransaction();
-            $factorId = $data['userIdOrder'] . Helper::GenerateTrackingCode(5);
+
             $order = new FactorUser();
             $order->userId = $data['userIdOrder'];
             $order->userIdOrdered = Auth::user()->id;
-            $order->factorId = $factorId;
+
             $order->factor_status = 'waitapprove';
             $order->pay_status = $data['Paymethod'];
             $order->NoteOrder = $data['messageNote'];
@@ -619,6 +876,14 @@ class FactorController extends Controller
             $order->save();
 
             $order_id = DB::getPdo()->lastInsertId();
+
+            // Generate FactorID
+            $factorId = $data['userIdOrder'] . Helper::GenerateTrackingCode(5);
+            $factorId = $order_id . $factorId;
+            $order->update([
+                'factorId' => $factorId
+            ]);
+
             $cartItems = CartShop::where('user_id', $data['userIdOrder'])->get()->toArray();
             foreach ($cartItems as $key => $item) {
 

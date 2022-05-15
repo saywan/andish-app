@@ -58685,8 +58685,71 @@ var app = new Vue({
         _this153.allerros = error.response.data.errors;
       });
     },
-    EditCountItemFactor: function EditCountItemFactor(id) {
+    checkCoupon: function checkCoupon(id) {
       var _this154 = this;
+
+      var percentOff = $('#percentOff').val();
+
+      if (percentOff == '') {
+        Swal.fire({
+          type: "info",
+          title: 'درصد تخفیف',
+          text: 'درصد تخفیف را وارد کنید',
+          position: "top-right",
+          icon: 'warning',
+          confirmButtonClass: 'btn btn-success',
+          confirmButtonText: 'متوجه شدم'
+        });
+        return false;
+      }
+
+      var dataform = new FormData();
+      dataform.append('percentOff', percentOff);
+      dataform.append('id', id);
+      axios.post('/portal/checkCoupon', dataform, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          //window.location.assign('/User/Confirm');
+          Swal.fire({
+            type: "success",
+            title: 'تخفیف',
+            text: ' تخفیف با موفقیت اعمال شد',
+            position: "top-right",
+            icon: 'success',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+          setTimeout(function () {
+            window.location.reload();
+          }, 3000);
+        } else if (response.data.status == 302) {
+          Swal.fire({
+            type: "warning",
+            title: 'هشدار',
+            text: response.data.message,
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        } else {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: 'مجددا تلاش کنید',
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        }
+      })["catch"](function (error) {
+        _this154.allerros = error.response.data.errors;
+      });
+    },
+    EditCountItemFactor: function EditCountItemFactor(id) {
+      var _this155 = this;
 
       var QtyOrder = $("#QtyOrder".concat(id)).val();
 
@@ -58736,17 +58799,20 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this154.allerros = error.response.data.errors;
+        _this155.allerros = error.response.data.errors;
       });
     },
-    addProcessExit: function addProcessExit(id) {
-      var _this155 = this;
+    addProcessExit: function addProcessExit() {
+      var _this156 = this;
 
       var fullnameDelivery = $('#fullnameDelivery').val();
       var mobileDelivery = $('#mobileDelivery').val();
-      var productExitId = $('#productExitId option:selected').val();
+      var prodId = $('#prodId').val();
+      var productOrderId = $('#productOrderId').val(); // var productExitId = $('#productExitId option:selected').val();
+
       var currentQtyItem = $('#currentQtyItem').val();
-      var finalFactor = $('#finalFactor').val();
+      var finalFactor = $('#finalFactor').val(); // var factor_id = $('#factor_id').val();
+
       var requestCountItem = $('#requestCountItem').val();
 
       if (fullnameDelivery == '') {
@@ -58778,9 +58844,11 @@ var app = new Vue({
       var dataform = new FormData();
       dataform.append('fullnameDelivery', fullnameDelivery);
       dataform.append('mobileDelivery', mobileDelivery);
-      dataform.append('productExitId', productExitId);
+      dataform.append('prodId', prodId);
+      dataform.append('productOrderId', productOrderId);
       dataform.append('currentQtyItem', currentQtyItem);
-      dataform.append('finalFactor', finalFactor);
+      dataform.append('finalFactor', finalFactor); //    dataform.append('factor_id', factor_id);
+
       dataform.append('requestCountItem', requestCountItem);
       axios.post('/portal/ProcessExitProduct', dataform, {
         headers: {
@@ -58840,11 +58908,91 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this155.allerros = error.response.data.errors;
+        _this156.allerros = error.response.data.errors;
+      });
+    },
+    ExportAllProcess: function ExportAllProcess(Id) {
+      var _this157 = this;
+
+      var dataform = new FormData();
+      dataform.append('Id', Id);
+      axios.post('/portal/ProcessExitAllProduct', dataform, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (response.data.status == 200) {
+          //window.location.assign('/User/Confirm');
+          Swal.fire({
+            type: "success",
+            title: 'خروج کالا',
+            text: 'خروج کالا با موفقیت ثبت شد',
+            position: "top-right",
+            icon: 'success',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+          setTimeout(function () {
+            window.location.reload();
+          }, 3000);
+        } else if (response.data.status == 302) {
+          //window.location.assign('/User/Confirm');
+          Swal.fire({
+            type: "success",
+            title: 'تعداد درخواست خروج',
+            text: response.data.message,
+            position: "top-right",
+            icon: 'info',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+          /*  setTimeout(function () {
+                window.location.reload();
+            }, 3000);*/
+        } else if (response.data.status == 419) {
+          //window.location.assign('/User/Confirm');
+          Swal.fire({
+            type: "success",
+            title: 'حواله خروج غیرمجاز',
+            text: 'همه کالای های این فاکتور از انبار خارج و تحویل داده شده است',
+            position: "top-right",
+            icon: 'info',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+          /*  setTimeout(function () {
+                window.location.reload();
+            }, 3000);*/
+        } else if (response.data.status == 422) {
+          //window.location.assign('/User/Confirm');
+          Swal.fire({
+            type: "success",
+            title: 'خروج غیرمجاز',
+            text: response.data.message,
+            position: "top-right",
+            icon: 'warning',
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+          /*  setTimeout(function () {
+                window.location.reload();
+            }, 3000);*/
+        } else {
+          Swal.fire({
+            type: "warning",
+            title: 'خطا ',
+            text: 'مجددا تلاش کنید',
+            position: "top-left",
+            confirmButtonClass: 'btn btn-success',
+            confirmButtonText: 'باشه'
+          });
+        }
+      })["catch"](function (error) {
+        _this157.allerros = error.response.data.errors;
       });
     },
     NewProduct: function NewProduct() {
-      var _this156 = this;
+      var _this158 = this;
 
       //var title = $('#titleProduct').val();
       var groupProductId = $('select[name="groupProductId"]').find(":selected").val();
@@ -58955,7 +59103,7 @@ var app = new Vue({
         }
       }).then(function (response) {
         if (response.data.status == 200) {
-          _this156.$loading(false); //window.location.assign('/User/Confirm');
+          _this158.$loading(false); //window.location.assign('/User/Confirm');
 
 
           Swal.fire({
@@ -58971,7 +59119,7 @@ var app = new Vue({
             window.location.assign('Product');
           }, 3000);
         } else if (response.data.status == 419) {
-          _this156.$loading(false); //window.location.assign('/User/Confirm');
+          _this158.$loading(false); //window.location.assign('/User/Confirm');
 
 
           Swal.fire({
@@ -58987,7 +59135,7 @@ var app = new Vue({
             window.location.assign('CreateProduct');
           }, 3000);
         } else {
-          _this156.$loading(false);
+          _this158.$loading(false);
 
           Swal.fire({
             type: "warning",
@@ -58999,13 +59147,13 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this156.$loading(false);
+        _this158.$loading(false);
 
-        _this156.allerros = error.response.data.errors;
+        _this158.allerros = error.response.data.errors;
       });
     },
     AddBasket: function AddBasket(ProdId) {
-      var _this157 = this;
+      var _this159 = this;
 
       var price = $('#price').val();
       var quantity = $('#quantity').find(':selected').val();
@@ -59106,13 +59254,13 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this157.$loading(false);
+        _this159.$loading(false);
 
-        _this157.allerros = error.response.data.errors;
+        _this159.allerros = error.response.data.errors;
       });
     },
     SendVerifyEmail: function SendVerifyEmail(userId) {
-      var _this158 = this;
+      var _this160 = this;
 
       //  var title = $('#titleGroup').val();
       var dataform = new FormData();
@@ -59144,13 +59292,13 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this158.$loading(false);
+        _this160.$loading(false);
 
-        _this158.allerros = error.response.data.errors;
+        _this160.allerros = error.response.data.errors;
       });
     },
     NewFactor: function NewFactor() {
-      var _this159 = this;
+      var _this161 = this;
 
       var userIdOrder = $('#userIdOrder').attr('data-id'); // var OrderStatus = $('#OrderStatus').find(':selected').val();
 
@@ -59235,11 +59383,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this159.allerros = error.response.data.errors;
+        _this161.allerros = error.response.data.errors;
       });
     },
     updateAboutPage: function updateAboutPage() {
-      var _this160 = this;
+      var _this162 = this;
 
       // var desc = $('#basic-conf').val();
       var titlePageAbout = $('#titlePageAbout').val();
@@ -59308,11 +59456,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this160.allerros = error.response.data.errors;
+        _this162.allerros = error.response.data.errors;
       });
     },
     updateContactPage: function updateContactPage() {
-      var _this161 = this;
+      var _this163 = this;
 
       // var desc = $('#basic-conf').val();
       var titlePageContact = $('#titlePageContact').val();
@@ -59380,7 +59528,7 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this161.allerros = error.response.data.errors;
+        _this163.allerros = error.response.data.errors;
       });
     },
     DeleteCartItem: function DeleteCartItem(cartId) {
@@ -59392,7 +59540,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this162 = this;
+        var _this164 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/DeleteCartItem', {
@@ -59422,7 +59570,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this162.error = 1;
+            _this164.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -59443,7 +59591,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this163 = this;
+        var _this165 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/DeleteCartItemFactor', {
@@ -59468,7 +59616,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this163.error = 1;
+            _this165.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -59489,7 +59637,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this164 = this;
+        var _this166 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/ExportFinalFactor', {
@@ -59514,7 +59662,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this164.error = 1;
+            _this166.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -59535,7 +59683,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this165 = this;
+        var _this167 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/ChangeStatusOrder', {
@@ -59561,7 +59709,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this165.error = 1;
+            _this167.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -59582,7 +59730,7 @@ var app = new Vue({
         denyButtonText: "\u062E\u06CC\u0631",
         cancelButtonText: "\u0644\u063A\u0648"
       }).then(function (result) {
-        var _this166 = this;
+        var _this168 = this;
 
         if (result.isConfirmed) {
           axios.post('/portal/DeleteFactor', {
@@ -59607,7 +59755,7 @@ var app = new Vue({
               }, 2000);
             }
           }, function (response) {
-            _this166.error = 1;
+            _this168.error = 1;
             console.log("error");
           });
         } else if (result.isDenied) {
@@ -59620,7 +59768,7 @@ var app = new Vue({
       });
     },
     OrderProduct: function OrderProduct(PID) {
-      var _this167 = this;
+      var _this169 = this;
 
       // var userId = $('select[name="userId"]').find(":selected").val();
       var userId = $('select[name="userId"]').find(":selected").val(); //var userId=$("#orderUserId").val();
@@ -59726,11 +59874,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this167.allerros = error.response.data.errors;
+        _this169.allerros = error.response.data.errors;
       });
     },
     OrderProductToFactor: function OrderProductToFactor(PID, UID) {
-      var _this168 = this;
+      var _this170 = this;
 
       // var userId = $('select[name="userId"]').find(":selected").val();
       var userId = UID; //var userId=$("#orderUserId").val();
@@ -59837,11 +59985,11 @@ var app = new Vue({
           });
         }
       })["catch"](function (error) {
-        _this168.allerros = error.response.data.errors;
+        _this170.allerros = error.response.data.errors;
       });
     },
     VerifySMSCode: function VerifySMSCode() {
-      var _this169 = this;
+      var _this171 = this;
 
       //alert($("#mobile_code").val());
       if (this.verify_code == '') {
@@ -59865,13 +60013,13 @@ var app = new Vue({
           swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
             button: "باشه"
           });
-          _this169.error = 1;
+          _this171.error = 1;
           console.log("error");
         });
       }
     },
     ForgotPassword: function ForgotPassword() {
-      var _this170 = this;
+      var _this172 = this;
 
       if (this.mobile_forgot == '') {
         swal("خطا", "شماره موبایل خود را وارد کنید", "info", {
@@ -59897,13 +60045,13 @@ var app = new Vue({
           swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
             button: "باشه"
           });
-          _this170.error = 1;
+          _this172.error = 1;
           console.log("error");
         });
       }
     },
     UpdatePasswordNew: function UpdatePasswordNew() {
-      var _this171 = this;
+      var _this173 = this;
 
       if (this.code_temp == '') {
         swal("خطا", "رمز عبور موقت را وارد کنید", "info", {
@@ -59934,13 +60082,13 @@ var app = new Vue({
           swal(" خطا ", "خطا کد تایید اشتباه هست ", "error", {
             button: "باشه"
           });
-          _this171.error = 1;
+          _this173.error = 1;
           console.log("error");
         });
       }
     },
     EditRequest: function EditRequest(Id) {
-      var _this172 = this;
+      var _this174 = this;
 
       var Posselected = $("#Posselected").val();
       var estateSelected = $("#estateSelected").val();
@@ -60006,21 +60154,21 @@ var app = new Vue({
             toastr.info('مشتری گرامی قبلا درخواست شما ثبت شده در حال بررسی هستیم');
           }
         }, function (response) {
-          _this172.error = 1;
+          _this174.error = 1;
           console.log("error");
         });
       }
     },
     onImageChange: function onImageChange(e) {
-      var _this173 = this;
+      var _this175 = this;
 
       var files = e.target.files;
       Array.from(files).forEach(function (file) {
-        return _this173.addImage(file);
+        return _this175.addImage(file);
       });
     },
     addImage: function addImage(file) {
-      var _this174 = this;
+      var _this176 = this;
 
       if (!file.type.match('image.*')) {
         console.log("".concat(file.name, " is not an image"));
@@ -60032,13 +60180,13 @@ var app = new Vue({
           reader = new FileReader();
 
       reader.onload = function (e) {
-        return _this174.images.push(e.target.result);
+        return _this176.images.push(e.target.result);
       };
 
       reader.readAsDataURL(file);
     },
     CalculateRent: function CalculateRent() {
-      var _this175 = this;
+      var _this177 = this;
 
       var RentPrice = $("#RentPrice").val();
       var rahanPrice = $("#rahanPrice").val();
@@ -60058,12 +60206,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this175.error = 1;
+        _this177.error = 1;
         console.log("error");
       });
     },
     CalculateSale: function CalculateSale() {
-      var _this176 = this;
+      var _this178 = this;
 
       var number_under = $("#number_under").val();
       axios.post('CalculateSale', {
@@ -60087,7 +60235,7 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this176.error = 1;
+        _this178.error = 1;
         console.log("error");
       });
     },
@@ -60099,7 +60247,7 @@ var app = new Vue({
       return val;
     },
     UpdateinfoSite: function UpdateinfoSite() {
-      var _this177 = this;
+      var _this179 = this;
 
       var email = $('input[name="email_site"]').val();
       var phone_Sellerone = $('input[name="phone_Sellerone"]').val();
@@ -60127,12 +60275,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this177.error = 1;
+        _this179.error = 1;
         console.log("error");
       });
     },
     AddReport: function AddReport() {
-      var _this178 = this;
+      var _this180 = this;
 
       var descreport = $('textarea[name="descreport"]').val();
       var descresultreport = $('textarea[name="descresultreport"]').val();
@@ -60169,12 +60317,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this178.error = 1;
+        _this180.error = 1;
         console.log("error");
       });
     },
     SendVisitSMS: function SendVisitSMS(Id) {
-      var _this179 = this;
+      var _this181 = this;
 
       axios.post('/admin/SendVisitSMS', {
         Id: Id
@@ -60200,12 +60348,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this179.error = 1;
+        _this181.error = 1;
         console.log("error");
       });
     },
     AddReportOperator: function AddReportOperator() {
-      var _this180 = this;
+      var _this182 = this;
 
       var descreport = $('textarea[name="descreport"]').val();
       var descresultreport = $('textarea[name="descresultreport"]').val();
@@ -60238,12 +60386,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this180.error = 1;
+        _this182.error = 1;
         console.log("error");
       });
     },
     AddFavorite: function AddFavorite(estateId) {
-      var _this181 = this;
+      var _this183 = this;
 
       axios.post('/AddFavoriteEstate', {
         estateId: estateId
@@ -60264,12 +60412,12 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this181.error = 1;
+        _this183.error = 1;
         console.log("error");
       });
     },
     PublishTextAbout: function PublishTextAbout() {
-      var _this182 = this;
+      var _this184 = this;
 
       var titleAbout = CKEDITOR.instances['editor-demo3'].getData();
       var planAbout = CKEDITOR.instances['editor-demo2'].getData();
@@ -60293,7 +60441,7 @@ var app = new Vue({
         swal(" خطا ", "خطا مجددا سعی کنید", "error", {
           button: "باشه"
         });
-        _this182.error = 1;
+        _this184.error = 1;
         console.log("error");
       });
     },

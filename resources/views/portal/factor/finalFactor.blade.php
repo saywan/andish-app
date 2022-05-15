@@ -98,7 +98,7 @@
                                             <td>  {{$itemUser->id}}   </td>
                                             <td>
                                                 <a href="{{url('portal/Factor/edit/'.\App\Helper\Helper::getInfoFactorByFID($itemUser->factor_id)['id']) }}"
-                                                   class="btn btn-de-dashed-danger" target="_blank">
+                                                   class="btn btn-info" target="_blank">
                                                     {{ $itemUser->factor_id }}
                                                 </a>
                                             </td>
@@ -181,7 +181,7 @@
                                             <td>
                                                 <a href="{{url('portal/FinalFactor/'.$itemUser->id)}}"
                                                    title=" اطلاعات بیشتر">
-                                                    <i data-feather="alert-circle"></i>
+                                                    <i data-feather="book-open"></i>
                                                 </a>
 
                                             </td>

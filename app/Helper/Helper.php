@@ -4,6 +4,7 @@
 namespace App\Helper;
 
 
+use App\Models\FactorOrderUser;
 use App\Models\FactorUser;
 use App\Models\ProductGroup;
 use App\Models\ProductPercent;
@@ -28,6 +29,7 @@ class Helper
 
         }
     }
+
     public static function getPercentName($groupid)
     {
         $Group = ProductPercent::where('id', $groupid)->first();
@@ -50,6 +52,7 @@ class Helper
         }
 
     }
+
     public static function getInfoFactor($fid)
     {
         $user = FactorUser::where('id', $fid)->first();
@@ -61,6 +64,29 @@ class Helper
         }
 
     }
+    public static function getInfoProducOrder($fid)
+    {
+        $user = FactorOrderUser::where('id', $fid)->first();
+
+        if ($user) {
+            return $user;
+        } else {
+            return null;
+        }
+
+    }
+    public static function getInfoFactorByFactorId($fid)
+    {
+        $user = FactorUser::where('id', $fid)->first();
+
+        if ($user) {
+            return $user;
+        } else {
+            return null;
+        }
+
+    }
+
 
     public static function getInfoFactorByFID($factorId)
     {
@@ -487,6 +513,23 @@ class Helper
         } else {
             return null;
         }
+
+    }
+
+    public static function getInfoProductOrder($prodId)
+    {
+        $FactorOrderUser = FactorOrderUser::where('id', $prodId)->first();
+        if ($FactorOrderUser) {
+            $product = Products::where('id', $FactorOrderUser->prodId)->first();
+            if ($product) {
+                return $product->toArray();
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+
 
     }
 

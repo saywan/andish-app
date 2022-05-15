@@ -186,10 +186,15 @@ Route::group(['prefix' => 'portal', 'as' => 'portal.', 'middleware' => ['auth']]
     Route::get('FinalFactor', 'FactorController@showFinalFactor')->name('FinalFactor');
     Route::get('FinalFactor/{id}', 'FactorController@detailsFinalFactor')->name('detailsFinalFactor');
     Route::post('ExportFinalFactor', 'FactorController@ExportFinalFactor')->name('DeleteFaExportFinalFactorctor');
+    Route::post('checkCoupon', 'FactorController@checkCoupon')->name('checkCoupon');
+    Route::post('moreDetailsItemProduct', 'FactorController@moreDetailsItemProduct')->name('moreDetailsItemProduct');
 
     // ProcessExitProduct
 
     Route::post('ProcessExitProduct', 'FactorController@ProcessExitProduct')->name('ProcessExitProduct');
+    Route::post('ProcessExitAllProduct', 'FactorController@ProcessExitAllProduct')->name('ProcessExitAllProduct');
+
+    Route::get('Factor/PrintPreviewExit/{id}', 'FactorController@PrintPreviewExit')->name('PrintPreviewExit');
 
 
     //Setting Part
